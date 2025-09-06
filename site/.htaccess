@@ -1,0 +1,33 @@
+RewriteEngine On
+
+#Stop crawlers/spiders/robots from indexing the platform/site
+# Header set X-Robots-Tag "noindex, nofollow"
+# RewriteCond %{HTTP_USER_AGENT} ^.*(Googlebot|Bingbot|Baiduspider).*$ [NC]
+# RewriteRule .* - [F,L]
+
+AddCharset UTF-8 .html .css .php .txt .js
+
+#Pas d'accès aux pages sans extension
+Options -MultiViews
+
+#Pas d'affichage de la liste des fichiers
+Options -Indexes
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+#Eviter les injections pour faire des include distants
+RewriteCond %{QUERY_STRING} =http://
+RewriteRule .* - [F,L]
+RewriteCond %{QUERY_STRING} =https://
+RewriteRule .* - [F,L]
+
+#Faille de debugging TRACE ET TRACK du rapport nessus
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+RewriteRule .* - [F]
+
+ErrorDocument 404 /site/index.php
+
+DirectoryIndex index.php
+
+RewriteRule ^index.html$ index.php

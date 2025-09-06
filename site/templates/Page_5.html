@@ -1,0 +1,68 @@
+<div class="section-block replicable-content bkg-grey-ultralight">
+  <div class="row">
+    <!-- BEGIN PART1 -->
+    <div class="column width-6 offset-3 center">
+      <h2 class="mb-50">{PART1.TITLE}</h2>
+    </div>
+    <div class="column width-6 offset-3 left">
+      <p>{PART1.DESCRIPTION}</p>
+    </div>
+    <!-- END PART1 -->
+    <!-- BEGIN PART2 -->
+    <div class="column width-6 offset-3 center">
+      <h2 class="mb-50">{PART2.TITLE}</h2>
+    </div>
+    <div class="column width-6 offset-3 left">
+      <p>{PART2.DESCRIPTION}</p>
+    </div>
+    <!-- END PART2 -->
+  </div>
+</div>
+<section id="about" class="section-block hero-5 hero-5-13 window-height right bkg-white">
+  <!-- BEGIN TABHEADER -->
+  <div class="media-column width-6" style="background-image: url('{TABHEADER.IMAGE}');" alt="{TABHEADER.IMAGE_ALT}" role="img"></div>
+  <div class="row">
+    <div class="column width-5">
+      <div class="hero-content split-hero-content">
+        <div class="hero-content-inner left horizon" data-animate-in="preset:slideInRightShort;duration:1000ms;"
+          data-threshold="0.5">
+          <div class="color-charcoal">
+            <h2 class="mb-50">{TABHEADER.TITLE}</h2>
+            <p>{TABHEADER.DESCRIPTION}</p>
+          </div>
+          <!-- END TABHEADER -->
+          <div class="tabs style-1">
+            <ul class="tab-nav">
+              <!-- BEGIN TAB1 -->
+              <li class="active">
+                <a href="#tabs-1-pane-1">{TAB1.TITLE}</a>
+              </li>
+              <!-- END TAB1 -->
+              <!-- BEGIN TAB2 -->
+              <li>
+                <a href="#tabs-1-pane-2">{TAB2.TITLE}</a>
+              </li>
+              <!-- END TAB2 -->
+            </ul>
+            <div class="tab-panes">
+              <!-- BEGIN TAB1 -->
+              <div id="tabs-1-pane-1" class="active animate">
+                <div class="tab-content">
+                  {TAB1.DESCRIPTION}
+                </div>
+              </div>
+              <!-- END TAB1 -->
+              <!-- BEGIN TAB2 -->
+              <div id="tabs-1-pane-2">
+                <div class="tab-content">
+                  {TAB2.DESCRIPTION}
+                </div>
+              </div>
+              <!-- END TAB2 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

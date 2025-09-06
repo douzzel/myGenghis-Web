@@ -1,0 +1,114 @@
+<footer class="footer">
+    <div class="footer-top">
+        <div class="row flex">
+            <div class="column width-6">
+                <div class="widget">
+                    <h4 class="widget-title color-black" style="font-size: 2em;">{SITENAME}</h4>
+                    <ul>
+                        <!-- BEGIN DISPLAY_WEB_MENU -->
+                        <!-- BEGIN IF_IS_MENU -->
+                        <li>
+                            <a href="/{DISPLAY_WEB_MENU.IF_IS_MENU.URL}" title="{DISPLAY_WEB_MENU.IF_IS_MENU.TITLE}">{DISPLAY_WEB_MENU.IF_IS_MENU.TITLE}</a>
+                        </li>
+                        <!-- END IF_IS_MENU -->
+                        <!-- BEGIN IF_ARTICLES -->
+                        <li>
+                            <a href="/Articles" title="Articles">Articles</a>
+                        </li>
+                        <!-- END IF_ARTICLES -->
+                        <!-- BEGIN IF_VIDEOS -->
+                        <li>
+                            <a href="/Videos" title="Vidéos">Vidéos</a>
+                        </li>
+                        <!-- END IF_VIDEOS -->
+                        <!-- BEGIN IF_STORE -->
+                        <li>
+                            <a href="/Store" title="Store">Store</a>
+                        </li>
+                        <!-- END IF_STORE -->
+                        <!-- BEGIN IF_CONNEXION -->
+                        <li>
+                          <a href="/Connexion" title="Connexion">Connexion</a>
+                        </li>
+                        <!-- END IF_CONNEXION -->
+                        <!-- END DISPLAY_WEB_MENU -->
+                    </ul>
+                </div>
+            </div>
+            <div class="column width-6">
+                <!-- BEGIN IF_DISPLAY_TEXT_CONTACT -->
+                <div class="widget">
+                    <h4 class="widget-title color-black" style="font-size: 2em;">Contactez-nous</h4>
+                    <address>
+                        <!-- END IF_DISPLAY_TEXT_CONTACT -->
+                        <!-- BEGIN IF_CONTACT_FORM -->
+                        <a href="/Contact" title="Formulaire de contact"><span class="icon-keyboard mr-2 mt-2"></span> Formulaire de contact</a><br />
+                        <!-- END IF_CONTACT_FORM -->
+                        <!-- BEGIN IF_DISPLAY_EMAIL -->
+                        <a href="mailto:{EMAIL}" title="Email"><span class="icon-mail mr-2 mt-2"></span> {EMAIL}</a><br/>
+                        <!-- END IF_DISPLAY_EMAIL -->
+                        <!-- BEGIN IF_PHONE -->
+                        <a href="tel:{PHONE}" title="Téléphone"><span class="icon-phone mr-2 mt-2"></span> <b>{PHONE}</b></a> <br />
+                        <!-- END IF_PHONE --> {ADDRESS}
+                        <!-- BEGIN IF_DISPLAY_ADDRESS -->
+                        <a href="https://www.openstreetmap.org/search?query={ADDRESS}" title="Adresse" target="_blank"><span class="icon-location mr-2 mt-2"></span> {ADDRESS}</a>
+                        <!-- END IF_DISPLAY_ADDRESS -->
+                        <!-- BEGIN IF_DISPLAY_TEXT_CONTACT -->
+                    </address>
+                </div>
+                <!-- END IF_DISPLAY_TEXT_CONTACT -->
+                <!-- BEGIN IF_DISPLAY_TEXT_SOCIAL_NETWORK -->
+                <div class="widget">
+                    <h4 class="widget-title color-black" style="font-size: 2em;">Réseaux sociaux</h4>
+                    <div class="brands-link">
+                    <!-- END IF_DISPLAY_TEXT_SOCIAL_NETWORK -->
+                        <!-- BEGIN IF_FACEBOOK -->
+                        <a href="{FACEBOOK}" title="Facebook" target="_blank">
+                            <img src="/site/images/icons/facebook.svg" alt="Facebook">
+                        </a>
+                        <!-- END IF_FACEBOOK -->
+                        <!-- BEGIN IF_TWITTER -->
+                        <a href="{TWITTER}" title="Twitter" target="_blank">
+                            <img src="/site/images/icons/twitter.svg" alt="Twitter">
+                        </a>
+                        <!-- END IF_TWITTER -->
+                        <!-- BEGIN IF_LINKEDIN -->
+                        <a href="{LINKEDIN}" title="LinkedIn" target="_blank">
+                            <img src="/site/images/icons/linkedin.svg" alt="LinkedIn">
+                        </a>
+                        <!-- END IF_LINKEDIN -->
+                        <!-- BEGIN IF_YOUTUBE -->
+                        <a href="{YOUTUBE}" title="Youtube" target="_blank">
+                            <img src="/site/images/icons/youtube.svg" alt="Youtube">
+                        </a>
+                        <!-- END IF_YOUTUBE -->
+                        <!-- BEGIN IF_INSTAGRAM -->
+                        <a href="{INSTAGRAM}" title="Instagram" target="_blank">
+                            <img src="/site/images/icons/instagram.svg" alt="Instagram">
+                        </a>
+                        <!-- END IF_INSTAGRAM -->
+                    <!-- BEGIN IF_DISPLAY_TEXT_SOCIAL_NETWORK -->
+                    </div>
+                </div>
+                <!-- END IF_DISPLAY_TEXT_SOCIAL_NETWORK -->
+            </div>
+        </div>
+    </div>
+    <hr class="mt-0" />
+    <div class="footer-bottom">
+        <div class="row">
+            <div class="column width-6">
+                &copy; Copyright {YEAR} {SITENAME}. Tous droits réservés.
+            </div>
+            <div class="column width-6">
+                <a href="/ConditionsUtilisation" title="Cookies & Conditions d’utilisations">Cookies & Conditions d’utilisations</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+<script type="text/javascript" src="/site/js/vanilla-tilt.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<div class="p-container">
+<!-- BEGIN VIDEO -->
+<form method="POST" action="{URL}" enctype="multipart/form-data" class="drop-shadow">
+  <div class="btn-arianne my-0">
+    <div class="graph-sub-button btn-right bg-none">
+      <button type="submit" name="edit" title="Sauvegarder la vidéo" value="true" class="btn cursor-pointer btn-outline-success">
+        <i class="material-icons">save</i>
+      </button>
+    </div>
+  </div>
+  {FIL_ARIANNE}
+  <div class="card card-default mb-4">
+    <div class="card-body row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input class="w-100" data-role="checkbox" type="checkbox" name="hidden" id="hidden" {VIDEO.HIDDEN} title="Affiche la vidéo sur votre site" data-caption="Publier dans la vidéothèque du site"/>
+          <input class="w-100" data-role="checkbox" type="checkbox" name="profil_news" id="profil_news" {VIDEO.PROFIL_NEWS} title="Affiche l'article sur la page profil des membres" data-caption="Publier pour les membres"/>
+          <input class="w-100" data-role="checkbox" type="checkbox" name="facebook" id="facebook" {FACEBOOK} title="Publie l'article sur votre page facebook" data-caption="Publier sur facebook"/>
+        </div>
+        <div class="form-group">
+          <label for="title">Titre *</label>
+          <input type="text" name="title" value="{VIDEO.TITLE}" data-role="input" id="title" required />
+        </div>
+        <div class="form-group">
+          <label for="summary">Résumé *</label>
+          <textarea name="summary" rows="2" required class="tinymceSimple">{VIDEO.SUMMARY}</textarea>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <!-- BEGIN IF_VIDEO_LINK -->
+        <div class="col-12 text-right">
+          <a class="btn btn-link mb-2 opacity-hover" href="/Videos/{VIDEO.ID}" target="_blank">Voir dans la vidéothèque</a>
+        </div>
+        <!-- END IF_VIDEO_LINK -->
+        <!-- BEGIN IF_FACEBOOK_LINK -->
+        <div class="col-12 text-right">
+          <a class="btn btn-link mb-2" style="color: #4267B2" href="https://www.facebook.com/{VIDEO.FACEBOOK_LINK}" target="_blank">
+            Voir sur Facebook <img src="/site/images/icons/facebook.svg" class="ml-2" width="20">
+          </a>
+        </div>
+        <!-- END IF_FACEBOOK_LINK -->
+        <div class="col-12 text-right">
+          <i>Rédigé le : {VIDEO.DATE}</i>
+        </div>
+        <label for="image">Image * <br/><i>Dimensions recommandées : 1000 x 650</i>{VIDEO.MINIATURE} </label>
+        <input type="file" name="image" id="image" data-role="file" onchange="previewImage(event, 'image_new')" accept="image/*">
+      </div>
+      <div class="form-group col-md-5">
+        <video id="article-video" height="300" autoplay muted controls class="hidden"></video>
+        <label for="video">Upload une vidéo (mp4, 25Mo Max)</video></label>
+        <input type="file" name="video" id="video" data-role="file" accept="video/*" onchange="previewImage(event, 'none', 'article-video')">
+      </div>
+      <div class="form-group col-md-2 d-flex flex-column justify-content-center text-center">
+        <b>OU</b>
+      </div>
+      <div class="form-group col-md-5">
+        <label for="content" class="iframe-label w-100">Intégrer un Iframe</label>
+        <input type="text" name="videoLink" id="videoLink" data-role="input" placeholder="<iframe src=''></iframe>" value="{VIDEO.VIDEOLINK}">
+      </div>
+      <div class="form-group col-12">
+        {VIDEO.VIDEO_PLAYER}
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <a href="javascript:history.back()" class="btn btn-link">Annuler</a>
+      <input type="submit" class="btn btn-theme ml-4" name="edit" value="Sauvegarder la vidéo" />
+    </div>
+  </div>
+</form>
+<!-- END VIDEO -->
+
+<!-- BEGIN NEW -->
+<form method="POST" action="{URL}" enctype="multipart/form-data">
+  <div class="btn-arianne my-0">
+    <div class="graph-sub-button btn-right bg-none">
+      <button type="submit" name="new" title="Sauvegarder la vidéo" value="true" class="btn cursor-pointer btn-outline-success">
+        <i class="material-icons">save</i>
+      </button>
+    </div>
+  </div>
+  {FIL_ARIANNE}
+  <div class="card card-default">
+    <div class="card-body row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input class="w-100" data-role="checkbox" type="checkbox" name="hidden" id="hidden" title="Affiche l'article sur votre site" data-caption="Publier dans la vidéothèque du site"/>
+          <input class="w-100" data-role="checkbox" type="checkbox" name="profil_news" id="profil_news" title="Affiche l'article sur la page profil des membres" data-caption="Publier pour les membres"/>
+          <input class="w-100" data-role="checkbox" type="checkbox" name="newfacebook" id="newfacebook" {FACEBOOK} title="Publie l'article sur votre page facebook" data-caption="Publier sur facebook"/>
+        </div>
+        <div class="form-group">
+          <label for="title">Titre *</label>
+          <input type="text" name="title" data-role="input" id="title" required />
+        </div>
+        <div class="form-group">
+          <label for="summary">Résumé *</label>
+          <textarea data-role="textarea" name="summary" rows="2" required style="min-height: 200px"></textarea>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="image">Image * <br/><i>Dimensions recommandées : 1000 x 650</i><img id="image_new"> </label>
+          <input type="file" name="image" id="image" data-role="file" onchange="previewImage(event, 'image_new', 'article-video')" accept="image/*">
+        </div>
+      </div>
+      <div id="video_iframe" class="w-100 row">
+        <div class="form-group col-md-5">
+          <video id="article-video" height="300" autoplay muted controls class="hidden"></video>
+          <label for="video">Upload une vidéo</label>
+          <input type="file" name="video" id="video" data-role="file" onchange="previewImage(event, 'none', 'article-video')" accept="video/*">
+        </div>
+        <div class="form-group col-md-2 d-flex flex-column justify-content-center text-center">
+          OU
+        </div>
+        <div class="form-group col-md-5">
+          <label for="content">Intégrer un Iframe</label>
+          <input type="text" name="videoLink" id="videoLink" data-role="input" placeholder="<iframe src=''></iframe>">
+        </div>
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <a href="javascript:history.back()" class="btn btn-link">Annuler</a>
+      <input type="submit" class="btn btn-theme ml-4" name="new" value="Sauvegarder la vidéo" />
+    </div>
+  </div>
+</form>
+<!-- END NEW -->
+</div>

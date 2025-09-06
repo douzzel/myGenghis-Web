@@ -1,0 +1,120 @@
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="container-inner">
+							<a href="/">Accueil</a>
+							<span class="separator">/</span>
+							<span>Contact</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="about-page-area">
+			<div class="container">
+        <!-- BEGIN CONTACT -->
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<div class="about-content contact-content">
+							<h2>{CONTACT.TITLE}</h2>
+							<p>{CONTACT.DESCRIPTION}</p>
+						</div>
+					</div>
+        </div>
+        <!-- END CONTACT -->
+				<div class="row">
+					<div class="col-md-8 col-sm-8 col-xs-12">
+						<span class="form-response"></span>
+						<form action="/site/index.php" data-url="/site/index.php" method="post" class="contact-input" id="contactForm">
+							<input type="text" name="honeypot" class="form-honeypot form-element large" />
+							<div class="col-md-6 col-sm-6 nopadding">
+								<span><input type="text" name="fname" class="ext-form" placeholder="Prénom *" size="40" required></span>
+							</div>
+							<div class="col-md-6 col-sm-6 nopadding-right">
+								<span><input type="text" name="lname" class="ext-form" placeholder="Nom *" size="40" required></span>
+							</div>
+							<div class="col-md-6 col-sm-6 nopadding">
+								<span><input type="email" name="email" class="ext-form" placeholder="Email *" size="40" required></span>
+							</div>
+							<div class="col-md-6 col-sm-6 nopadding-right">
+								<span><input type="text" name="telfixe" class="ext-form" placeholder="Téléphone *" size="40" required></span>
+							</div>
+							<div class="col-md-6 col-sm-6 nopadding">
+								<span><input type="text" name="adr" class="ext-form" placeholder="Adresse *" size="40" required></span>
+							</div>
+							<div class="col-md-6 col-sm-6 nopadding-right">
+								<span><input type="text" name="ville" class="ext-form" placeholder="Ville *" size="40" required></span>
+							</div>
+							<div class="col-md-12 nopadding">
+								<span class="text-form-area"><textarea name="message" class="ext-form" placeholder="Message" required></textarea></span>
+							</div>
+							<div class="col-md-12">
+								<img id="captcha" src="/classes/securimage/securimage_show.php" alt="CAPTCHA Image" />
+								<a href="#" onclick="document.getElementById('captcha').src = '/classes/securimage/securimage_show.php?' + Math.random(); return false">[ Nouvelle image ]</a>
+								<span><input type="text" name="captcha_code" placeholder="Captcha (Recopier les caractères) *" class="ext-form" size="10" maxlength="6" required /></span>
+							</div>
+							<div class="contact-submit">
+								<input type="submit" value="Envoyer" class="button" id="contactSubmit">
+							</div>
+						</form>
+						<script>
+						document.addEventListener("DOMContentLoaded", () => {
+							$(document).on("submit", "#contactForm", function (e) {
+								document.getElementById("contactSubmit").disabled = true;
+								$(".addItemsProcess").html("");
+								e.preventDefault();
+								$.ajax({
+									url: $(this).attr("data-url"),
+									type: "POST",
+									data: new FormData(this),
+									dataType: "html",
+									contentType: false,
+									cache: false,
+									processData: false,
+									dataType: 'json',
+									success: function (data) {
+									  console.log(data);
+									  if (data.response == true) {
+										$(".addItemsProcess").html("Message envoyé avec succès. Nous vous répondrons dès que possible");
+										document.getElementById("contactForm").reset();
+									  } else {
+										$(".addItemsProcess").html("<span class='text-danger'>"+data.json.error_message+"</span>");
+									  }
+									  document.getElementById("contactSubmit").disabled = false;
+									},
+								  });
+							  });
+							});
+						</script>
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-12">
+						<div class="contact-info-all">
+						<!--
+							<div class="des-info add-info">
+								<h4>Add</h4>
+								<h2>resse</h2>
+								<p>{ADDRESS}</p>
+							</div>
+							 -->
+              <!-- BEGIN IF_PHONE -->
+							<div class="des-info phn-info">
+								<h4>Téléphone</h2>
+								<p><a href="tel:{PHONE}">{PHONE}</a></p>
+							</div>
+              <!-- END IF_PHONE -->
+							<div class="des-info mail-info">
+								<h4>E-Mail</h2>
+								<p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<style>
+			.form-honeypot {
+			  display: none
+			}
+		</style>

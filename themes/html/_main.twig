@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<!-- <meta name=”robots” content=”noindex,nofollow”> -->
+<meta charset="utf-8">
+<meta name="language" content="fr-FR"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{{CUSTOM_MENU|raw}} - {{TITRE|raw}}</title>
+<meta name="description" content="{{DESCRIPTION|raw}}"/>
+<meta property="og:title" content="{{TITRE|raw}}"/>
+<meta property="og:description" content="{{DESCRIPTION|raw}}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="{{URL}}{{URL_DYNAMIQUE}}"/>
+<meta property="og:site_name" content="{{SITE_NAME|raw}}"/>
+<meta property="og:image" content="{{URL}}/themes/assets/images/logo.png"/>
+<meta name="revisit-after" content="15 days"/>
+<meta name="reply-to" content="{{'WebmasterEmail'|getFunction}}"/>
+<meta name="author" content="{{SITE_NAME|raw}}"/>
+<meta name="Copyright" content="PUBLISHED BY ⓒ {{SITE_NAME|raw}}. ALL RIGHTS RESERVED."/>
+<link rel="canonical" href="{{URL}}{{URL_DYNAMIQUE}}"/>
+<link type="text/css" rel="stylesheet" href="{{THEMES}}/assets/css/_main.css?{{CACHE_MAINCSS}}"/>
+<link type="text/css" rel="stylesheet" href="{{THEMES}}/assets/css/Chart.min.css"/>
+<link type="text/css" rel="stylesheet" href="{{THEMES}}/assets/css/jquery-ui.min.css"/>
+<link type="text/css" rel="stylesheet" href="{{THEMES}}/assets/css/shepherd.css"/>
+<link type="text/css" rel="stylesheet" href="/themes/assets/css/metro-components.min.css">
+<link rel="preload" href="/themes/assets/fonts/Material-Icons.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/themes/assets/fonts/Roboto-Regular.ttf.woff" as="font" type="font/woff" crossorigin>
+<script src="/themes/assets/js/tinymce/tinymce.min.js" defer></script>
+<script src="{{THEMES}}/assets/js/vendor.js"></script>
+<script src="/themes/assets/js/jquery-ui.min.js"></script>
+<script src="/themes/assets/js/jquery.ui.autocomplete.scroll.min.js"></script>
+<script src="{{THEMES}}/assets/js/mouse.js" defer></script>
+<script src="{{THEMES}}/assets/js/_main.js?{{CACHE_MAINJS}}" defer></script>
+<script src="/themes/assets/js/shepherd.min.js" defer></script>
+<script src="/themes/assets/js/quests.js" defer></script>
+<script src="/themes/assets/js/metro.min.js?1"></script>
+</head>
+<style>
+:root {
+{% if IF_IS_CONNECTE and IF_IS_CONNECTE['colors'] %}
+--theme-color: {{IF_IS_CONNECTE.colors.getTheme()}};
+--color1: {{IF_IS_CONNECTE.colors.getColor1()}};
+--color2: {{IF_IS_CONNECTE.colors.getColor2()}};
+--color3: {{IF_IS_CONNECTE.colors.getColor3()}};
+--color4: {{IF_IS_CONNECTE.colors.getColor4()}};
+--bgcolor: {{IF_IS_CONNECTE.colors.getBgcolor()}};
+--dark: {{IF_IS_CONNECTE.colors.getDarkcolor()}};
+{% endif %}
+{{DEFAULT_FONTS|raw}}
+}
+{{FONTS|raw}}
+</style>
+<script>
+const customFonts = [{{FONTS_LIST|raw}}];
+const customFontsCss = `{{FONTS|raw}}`;
+const defaultFonts = `{{DEFAULT_FONTS|raw}}`;
+</script>
+<body class="fixed-navbar">
+
+    <style>
+        .loader-wrapper {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: var(--dark);
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 100;
+        }
+        .loader {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          position: relative;
+          border: 4px solid #Fff;
+          animation: loader 2s infinite ease;
+        }
+        .loader-inner {
+          vertical-align: top;
+          display: inline-block;
+          width: 100%;
+          background-color: #fff;
+          animation: loader-inner 2s infinite ease-in;
+        }
+        @keyframes loader {
+          0% { transform: rotate(0deg);}
+          25% { transform: rotate(180deg);}
+          50% { transform: rotate(180deg);}
+          75% { transform: rotate(360deg);}
+          100% { transform: rotate(360deg);}
+        }
+        @keyframes loader-inner {
+          0% { height: 0%;}
+          25% { height: 0%;}
+          50% { height: 100%;}
+          75% { height: 100%;}
+          100% { height: 0%;}
+        }
+    </style>
+    <div class="loader-wrapper">
+      <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    
+<div class="site-content position-relative" role="main">
+<div class="addItemsProcess"></div>
+{{NOTIFICATIONS|raw}}
+{{PAGE|raw}}
+</div>
+{% if IF_PAS_CONNECTE %}
+<div id="site-top-footer">
+<div class="login-content">
+<img src="{{'loginImage'|getFunction}}">
+<p>
+{{'loginText'|getFunction|unescape|raw}}
+</p>
+</div>
+<div class="graphene-version">
+<a href="https://mygenghis.com" target="_blank">myGenghis. Version Ada Lovelace <i>(1022-1)</i></a>
+</div>
+</div>
+<footer class="site-footer bg-dark">
+<div class="footer-bottom">
+<div class="container d-flex flex-column flex-md-row">
+<div class="order-2 order-md-1">
+<div class="footer-links d-inline-block text-center text-md-right">
+<a href="/ConditionsUtilisation">Cookies & Conditions d’utilisations</a>
+</div>
+<p class="footer-copyright">
+&copy; Copyright {{YEAR}}
+<a href="{{URL}}" target="_blank">{{SITE_NAME|raw}}</a>. Tous droits réservés.
+</p>
+</div>
+</div>
+</div>
+</footer>
+<div class="modal fade" id="Login" role="dialog" aria-labelledby="Connexion" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header bg-dark rounded-0">
+<h5 class="modal-title color-white" id="Connexion">
+Connectez-vous à votre compte ou inscrivez-vous
+</h5>
+<a href="#" data-dismiss="modal" aria-label="Close">
+<i class="fas fa-times"></i>
+</a>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+<div class="card mb-0 border-0">
+<div class="card-body p-3">
+<form action="/Connexion" method="POST">
+<div class="form-group">
+<label for="login">Identifiant</label>
+<input type="text" data-role="input" name="login" id="login" placeholder="Identifiant *" data-prepend="<i class='ya ya-user'></i>" required>
+</div>
+<div class="form-group">
+<label for="password">Mot de passe</label>
+<input type="password" data-role="input" name="password" id="password" placeholder="Mot de passe *" data-prepend="<i class='ya ya-lock'></i>" required>
+</div>
+<input type="submit" class="btn btn-dark btn-block" value="Connexion" id="connexion-button">
+</form>
+<div class="mt-3">
+<a href="/Pass" class="btn btn-link btn-block btn-sm">Mot de passe perdu ?</a>
+</div>
+{% if 'INSCRIPTION'|isModuleActive %}
+<div class="separator mt-6 mb-2">
+<span>Vous n'êtes pas inscrit ?</span>
+</div>
+<a class="btn btn-success btn-block" href="/Inscription" role="button">Créer mon compte</a>
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+// * Keyboard shortcuts
+document.addEventListener('keydown', (event) => {
+if (event.key == "Enter") {
+$('#connexion-button').click();
+}
+});
+</script>
+{% endif %}
+{% if IF_IS_CONNECTE %}
+<div class="modal" id="blocnotes" role="dialog">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<iframe id="iframeBlocNotes" data-src="/classes/writty/index.html" width="100%" height="670px"></iframe>
+</div>
+</div>
+</div>
+</div>
+<div class="modal" id="calculator" role="dialog">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<iframe id="iframeCalculator" data-src="/classes/calculator/index.html" width="100%" height="450px"></iframe>
+</div>
+</div>
+</div>
+</div>
+<div class="modal" id="urlshortener" role="dialog">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<iframe id="iframeUrlShortener" data-src="/Administration/UrlShortener" width="100%" height="450px"></iframe>
+</div>
+</div>
+</div>
+</div>
+{% endif %}
+{# {% if DRAGGABLE and 'Admin Forum'|verifyRights %}
+<script type="text/javascript">
+$(function () {
+$("#sortable").sortable({
+revert: true,
+update: function (event, ui) {
+var data = $(this).sortable("serialize");
+$.ajax({ data: data, type: "POST", url: "{{ URL_DYNAMIQUE }}" });
+}
+});
+$(".draggable").draggable({
+connectToSortable: "#sortable",
+revert: "invalid"
+});
+$(document).ajaxStop(() => window.location.reload());
+});
+</script>
+{% endif %} #}
+{% if IF_IS_ADMIN %}
+<script type="text/javascript">
+$(document).ready(() => {
+if ($(".table-responsive")) {
+$(".table-responsive").mousewheel((event, delta) => {
+this.scrollLeft -= delta * 30;
+event.preventDefault();
+});
+}
+});
+</script>
+{% endif %}
+<style>
+.cc-window{opacity:1;transition:opacity 1s}.cc-window.cc-invisible{opacity:0}.cc-animate.cc-revoke{transition:transform 1s}.cc-animate.cc-revoke.cc-top{transform:translateY(-2em)}.cc-animate.cc-revoke.cc-bottom{transform:translateY(2em)}.cc-animate.cc-revoke.cc-active.cc-bottom,.cc-animate.cc-revoke.cc-active.cc-top,.cc-revoke:hover{transform:translateY(0)}.cc-grower{max-height:0;overflow:hidden;transition:max-height 1s}.cc-link,.cc-revoke:hover{text-decoration:underline}.cc-revoke,.cc-window{position:fixed;overflow:hidden;box-sizing:border-box;font-family:Helvetica,Calibri,Arial,sans-serif;font-size:16px;line-height:1.5em;display:flex;flex-wrap:nowrap;z-index:9999}.cc-window.cc-static{position:static}.cc-window.cc-floating{padding:2em;max-width:24em;flex-direction:column;border:1px solid #000!important}.cc-window.cc-banner{padding:1em 1.8em;width:100%;flex-direction:row}.cc-revoke{padding:.5em}.cc-header{font-size:18px;font-weight:700}.cc-btn,.cc-close,.cc-link,.cc-revoke{cursor:pointer}.cc-link{opacity:.8;display:inline-block;padding:.2em}.cc-close:focus,.cc-close:hover,.cc-link:hover{opacity:1}.cc-link:active,.cc-link:visited{color:initial}.cc-btn{display:block;padding:.4em .8em;font-size:.9em;font-weight:700;border-width:2px;border-style:solid;text-align:center;white-space:nowrap}.cc-highlight .cc-btn:first-child{background-color:transparent;border-color:transparent}.cc-highlight .cc-btn:first-child:focus,.cc-highlight .cc-btn:first-child:hover{background-color:transparent;text-decoration:underline}.cc-close{display:block;position:absolute;top:.5em;right:.5em;font-size:1.6em;opacity:.9;line-height:.75}.cc-revoke.cc-top{top:0;left:3em;border-bottom-left-radius:.5em;border-bottom-right-radius:.5em}.cc-revoke.cc-bottom{bottom:0;left:3em;border-top-left-radius:.5em;border-top-right-radius:.5em}.cc-revoke.cc-left{left:3em;right:unset}.cc-revoke.cc-right{right:3em;left:unset}.cc-top{top:1em}.cc-left{left:1em}.cc-right{right:1em}.cc-bottom{bottom:1em}.cc-floating>.cc-link{margin-bottom:1em}.cc-floating .cc-message{display:block;margin-bottom:1em}.cc-window.cc-floating .cc-compliance{flex:1 0 auto}.cc-window.cc-banner{align-items:center}.cc-banner .cc-message{display:block;flex:1 1 auto;max-width:100%;margin-right:1em}.cc-compliance{display:flex;align-items:center;align-content:space-between}.cc-floating .cc-compliance>.cc-btn{flex:1}.cc-btn+.cc-btn{margin-left:.5em}.cc-floating.cc-theme-classic{padding:1.2em;border-radius:5px}.cc-floating.cc-type-info.cc-theme-classic .cc-compliance{text-align:center;display:inline;flex:none}.cc-theme-classic .cc-btn{border-radius:5px}.cc-theme-classic .cc-btn:last-child{min-width:140px}.cc-floating.cc-type-info.cc-theme-classic .cc-btn{display:inline-block}.cc-theme-edgeless.cc-window{padding:0}.cc-floating.cc-theme-edgeless .cc-message{margin:2em 2em 1.5em}.cc-banner.cc-theme-edgeless .cc-btn{margin:0;padding:.8em 1.8em;height:100%}.cc-banner.cc-theme-edgeless .cc-message{margin-left:1em}.cc-floating.cc-theme-edgeless .cc-btn+.cc-btn{margin-left:0}
+</style>
+<script src="/assets/js/cookieconsent.min.js"></script>
+<script type="text/javascript">
+window.addEventListener("load", () => {
+if (window.cookieconsent)
+window.cookieconsent.initialise({
+palette: {
+popup: { background: "#1a1b1d" },
+button: { background: "#14a7d0" }
+},
+position: "top-left",
+content: {
+message: "{{ SITE_NAME|raw }} utilise uniquement des cookies première-partie et technologies similaires nécessaires à son bon fonctionnement, aucun cookies tierce-partie ou à des fins publicitaires. En continuant votre navigation, vous acceptez tacitement cette utilisation.",
+dismiss: "Ne plus afficher ce message",
+link: "En savoir plus",
+href: "/ConditionsUtilisation"
+}
+});
+});
+</script>
+<script>
+if (window.location.pathname != "/Store/Payment" && window.location.pathname != "/Store/Cart") {
+$('form').submit(() => { window.onbeforeunload = () => {; } });
+$('.site input').on('input', (e) => {
+window.onbeforeunload = (event) => {
+if (typeof tinymce !== 'undefined') {
+tinymce.triggerSave();
+}
+event.preventDefault();
+return true;
+};
+});
+}
+</script>
+
+    <script>
+        $(window).on("load",function(){
+          $(".loader-wrapper").fadeOut("slow");
+        });
+    </script>
+
+</body>
+</html>

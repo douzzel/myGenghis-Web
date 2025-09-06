@@ -1,0 +1,13 @@
+{
+    "require": {
+		"php-imap/php-imap": "^4.5",
+        "phpoffice/phpspreadsheet": "^1.11",
+        "phpmailer/phpmailer": "^6.5",
+        "twig/twig": "^3.0",
+        "stripe/stripe-php": "^7.114",
+        "mikehaertl/phpwkhtmltopdf": "^2.4"
+	},
+    "require-dev": {
+        "phpstan/phpstan": "^1.0"
+    }
+}

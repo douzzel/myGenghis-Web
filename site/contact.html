@@ -1,0 +1,151 @@
+<section class="section-block replicable-content contact-2">
+	<div class="row">
+		<div class="column width-4">
+			<h2 class="mb-30">
+				Contactez-nous directement avec le bouton <span onclick="livezilla_wm.click()"><u><i>Live-Chat</i></u></span> (en bas à droite de l'écran)
+				<br />
+				ou
+				<br />
+			    Laissez-nous un message via le formulaire ci-contre.
+			</h2>
+			<div class="row">
+				<div class="column width-10">
+					<p></p>
+				</div>
+			</div>
+		</div>
+		<div class="column width-8 left">
+			<div class="contact-form-container">
+				<span class="form-response"></span>
+				<form class="contact-form" action="/site/index.php" method="post">
+					<div class="row">
+
+						<!-- BEGIN IF_CONTACT_PRO -->
+						<div class="column width-12">
+							<label for="denomination">
+							<!-- BEGIN IF_REQUIRED_CONTACT_PRO -->
+							*
+							<!-- END IF_REQUIRED_CONTACT_PRO -->
+							Dénomination</label>
+							<input type="text" name="denomination" class="form-element large"
+							<!-- BEGIN IF_REQUIRED_CONTACT_PRO -->
+							placeholder="* Dénomination" required
+							<!-- END IF_REQUIRED_CONTACT_PRO -->
+							<!-- BEGIN IF_NOT_REQUIRED_CONTACT_PRO -->
+							placeholder="Dénomination"
+							<!-- END IF_NOT_REQUIRED_CONTACT_PRO -->
+								tabindex="1" />
+						</div>
+						<div class="column width-6">
+							<label for="siret">Siret </label>
+							<input type="text" name="siret" class="form-element large" placeholder="Siret"
+								tabindex="2" />
+						</div>
+						<div class="column width-6">
+							<label for="tva">Numéro TVA</label>
+							<input type="text" name="tva" class="form-element large" placeholder="Numéro TVA"
+								tabindex="3" />
+						</div>
+						<!-- END IF_CONTACT_PRO -->
+
+						<div class="column width-6">
+							<label for="name">* Prénom
+							<!-- BEGIN IF_CONTACT_PRO -->
+							<!-- BEGIN IF_REQUIRED_CONTACT_PRO -->
+							du contact de l'entreprise
+							<!-- END IF_REQUIRED_CONTACT_PRO -->
+							<!-- END IF_CONTACT_PRO -->
+							</label>
+							<input type="text" name="fname" class="form-fname form-element large"
+							placeholder="* Prénom" required
+								tabindex="4" />
+						</div>
+						<div class="column width-6">
+							<label for="name">* Nom
+							<!-- BEGIN IF_CONTACT_PRO -->
+							<!-- BEGIN IF_REQUIRED_CONTACT_PRO -->
+							du contact de l'entreprise
+							<!-- END IF_REQUIRED_CONTACT_PRO -->
+							<!-- END IF_CONTACT_PRO -->
+							</label>
+							<input type="text" name="lname" class="form-lname form-element large"
+							placeholder="* Nom" required
+								tabindex="5" />
+						</div>
+
+						<div class="column width-12">
+							<label for="adr">* Adresse</label>
+							<input type="text" name="adr" class="form-element large" placeholder="* Adresse"
+								tabindex="6" required />
+						</div>
+						<!-- BEGIN IF_CONTACT_PRO -->
+						<div class="column width-6">
+						<!-- END IF_CONTACT_PRO -->
+						<!-- BEGIN IF_NOT_CONTACT_PRO -->
+						<div class="column width-12">
+						<!-- END IF_NOT_CONTACT_PRO -->
+							<label for="ville">* Ville</label>
+							<input type="text" name="ville" class="form-element large" placeholder="* Ville"
+								tabindex="7" required />
+						</div>
+
+						<!-- BEGIN IF_CONTACT_PRO -->
+						<div class="column width-6">
+							<label for="bp">BP / CS <i>(optionnel)</i></label>
+							<input type="text" name="bp" class="form-element large" placeholder="Boite postale"
+							tabindex="8" />
+						</div>
+						<!-- END IF_CONTACT_PRO -->
+
+						<div class="column width-6">
+							<label for="telfixe">Téléphone fixe <i>(optionnel)</i></label>
+							<input type="tel" name="telfixe" class="form-element large"
+								placeholder="Téléphone fixe" tabindex="9" />
+						</div>
+						<div class="column width-6">
+							<label for="telportable">Téléphone portable <i>(optionnel)</i></label>
+							<input type="tel" name="telportable" class="form-element large"
+								placeholder="Téléphone portable" tabindex="10" />
+						</div>
+						<div class="column width-12">
+							<label for="email">* Adresse mail</label>
+							<input type="email" name="email" class="form-email form-element large"
+								placeholder="* Adresse mail" tabindex="11" required />
+						</div>
+						<div class="column width-6">
+							<input type="text" name="honeypot" class="form-honeypot form-element large" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="column width-12">
+							<label for="message">* Message (<span id="counter">0</span>/200 caractères)</label>
+							<textarea name="message" class="form-message form-element large" placeholder="* Message"
+								tabindex="12" maxlength="200" id="message" required></textarea>
+							<script>
+								var textarea = document.querySelector("textarea");
+                                var wordcount = document.getElementById("counter");
+                                textarea.addEventListener("input", function() {
+                                	var maxlength = this.getAttribute("maxlength");
+                                	var currentLength = this.value.length;
+                                	if (!(currentLength > maxlength)) {
+                                		wordcount.innerHTML = currentLength;
+                                	}
+                                });
+							</script>
+						</div>
+						<div class="column width-12">
+							<img id="captcha" src="/classes/securimage/securimage_show.php" alt="CAPTCHA Image" />
+							<a href="#" onclick="document.getElementById('captcha').src = '/classes/securimage/securimage_show.php?' + Math.random(); return false">[ Nouvelle image ]</a>
+							<input type="text" name="captcha_code" placeholder="* Captcha (Recopier les caractères)" class="form-captcha form-element large" size="10" maxlength="6" tabindex="13" required />
+						</div>
+						<div class="column width-12">
+							<input type="submit" value="Envoyer"
+								class="form-submit button medium bkg-theme bkg-hover-theme color-white color-hover-white"
+								tabindex="14" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

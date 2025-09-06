@@ -1,0 +1,126 @@
+{% macro directory(folders, files, url, hide_empty_msg = false) %}
+	{% for folder in folders %}
+		<div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
+			<div class="folder-block" data-type="folder" data-id="{{folder.getId()}}">
+				<a href="/Administration/Documents/Folders/{{ folder.getId() }}" class="row text-secondary">
+					<i class="material-icons folder-icon">folder</i>
+					<h5>{{ folder.getName()|raw }}</h5>
+				</a>
+				<div class="folder-footer">
+					<a href="#" data-toggle="dropdown">
+						<i class="material-icons">more_vert</i>
+					</a>
+					<ul class="dropdown-menu">
+						<li style="line-height: initial;">
+							<form method="POST" action="{{url}}">
+								<button type="submit" name="deleteFolder" value="{{folder.getId()}}" class="btn text-hover-theme">
+									<i class="material-icons vertical-align pr-1">delete</i>
+									Supprimer
+								</button>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	{% for file in files %}
+		{% if file|get_class == 'EntityDocumentsLinks' %}
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
+				<div class="folder-block" data-type="link" data-id="{{file.getId()}}">
+					<a href="{{ file.getHref() }}" class="row text-secondary">
+						<i class="material-icons folder-icon">{{file.getIcon()}}</i>
+						<h5>{{ file.getName()|raw }}</h5>
+					</a>
+					<div class="folder-footer">
+						<a href="#" data-toggle="dropdown">
+							<i class="material-icons">more_vert</i>
+						</a>
+						<ul class="dropdown-menu">
+							{% if file.getAddLink() %}
+							<li style="line-height: initial;">
+								<a href="{{file.getAddLink()}}" class='btn text-hover-theme'><i class='material-icons vertical-align pr-1'>add</i> Nouveau</a>
+							</li>
+							{% endif %}
+							<li style="line-height: initial;">
+								<form method="POST" action="{{url}}">
+									<button type="submit" name="deleteLink" value="{{file.getId()}}" class="btn text-hover-theme">
+										<i class="material-icons vertical-align pr-1">delete</i>
+										Supprimer
+									</button>
+								</form>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		{% if file|get_class == 'EntityDocuments' %}
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
+				<div class="folder-block" data-type="document" data-id="{{file.getId()}}">
+					<a href="/Administration/Documents/View/{{ file.getId() }}" class="row text-secondary">
+						<i class="material-icons folder-icon">text_snippet</i>
+						<h5>{{ file.getTitle()|raw }}</h5>
+					</a>
+					<div class="folder-footer">
+						<a href="#" data-toggle="dropdown">
+							<i class="material-icons">more_vert</i>
+						</a>
+						<ul class="dropdown-menu">
+							<li style="line-height: initial;">
+								<a href="/Administration/Documents/Edit/{{file.getId()}}" class="btn text-hover-theme">
+									<i class="material-icons vertical-align pr-1">edit</i>
+									Modifier
+								</a>
+							</li>
+							<li style="line-height: initial;">
+								<form method="POST" action="{{url}}">
+									<button type="submit" name="duplicateDocument" value="{{file.getId()}}" class="btn text-hover-theme">
+										<i class="material-icons vertical-align pr-1">content_copy</i>
+										Dupliquer
+									</button>
+								</form>
+							</li>
+							<li style="line-height: initial;">
+								<form method="POST" action="{{url}}">
+									<button type="submit" name="deleteDocument" value="{{file.getId()}}" class="btn text-hover-theme">
+										<i class="material-icons vertical-align pr-1">delete</i>
+										Supprimer
+									</button>
+								</form>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		{% if file|get_class == 'EntityDocumentsFiles' %}
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
+				<div class="folder-block" data-type="file" data-id="{{file.getId()}}">
+					<a class="cursor-pointer" data-toggle="modal" data-target="#viewFile" onclick="loadFile('{{ file.getHref() }}', '{{file.getType()}}', '{{file.getName()}}')" class="row text-secondary">
+						<i class="material-icons folder-icon">{{file.getIcon()}}</i>
+						<h5>{{ file.getName()|raw }}</h5>
+					</a>
+					<div class="folder-footer">
+						<a href="#" data-toggle="dropdown">
+							<i class="material-icons">more_vert</i>
+						</a>
+						<ul class="dropdown-menu">
+							<li style="line-height: initial;">
+								<form method="POST" action="{{url}}">
+									<button type="submit" name="deleteFile" value="{{file.getId()}}" class="btn text-hover-theme">
+										<i class="material-icons vertical-align pr-1">delete</i>
+										Supprimer
+									</button>
+								</form>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+	{% if hide_empty_msg != true and not folders and not files %}
+		<h5 class="text-secondary my-3 text-center">Aucun fichier</h5>
+	{% endif %}
+{% endmacro %}

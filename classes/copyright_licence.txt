@@ -1,0 +1,30 @@
+-----------
+Copyright :
+-----------
+
+Copyright © 2020- Jonathan von Teichmeister, Graphene-BSM LTD
+
+    All rights reserved.
+    Any unauthorized reproduction, copying, licencing or distribution, be it full or partial, will constitute an infringement of copyright.
+    (This also extends to the underlying database that is the 'backbone' of this software)
+
+    This work is registered with the "UK" Copyright Service and further protected by the Copyright law of the European Union.
+
+Software libraries, third-party code and all other external works are subject to their own specific copyright and licencing declarations.
+
+
+-----------
+Licencing :
+-----------
+
+The Graphene-BSM product (as provided by Graphene-BSM LTD and its authorized distributors) is subject to the licencing agreement (EULA and usage contract) that has been signed (physically or digitally) by both representative parties stated in the agreement/contract.
+Graphene-BSM LTD does however allow itself the right to revoke and withdraw licencing issued through a distributor if any infringement is observed that is in direct opposition of Graphene-BSM LTD's morals and/or principals.
+
+
+
+
+--- 3s# ---
+165EE3741C0CB9C93BB0F2BC409524DC2DD9C1D408B1F5F984ACFA6C5BEF8FEE
+692CDB907043AEA2D9BA018074D6C52D5488D13576C8CA2F154EFA7AD8CEEB22
+2E12D98587D870B413851D527997F295EEFFC9BCDDF24C89007D190D878666C0
+--- 2^8 ---

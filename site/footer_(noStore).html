@@ -1,0 +1,73 @@
+<footer class="footer">
+    <div class="footer-top">
+        <div class="row flex">
+            <div class="column width-4">
+                <div class="widget">
+                    <h4 class="widget-title color-black">{SITENAME}</h4>
+                </div>
+                <form class="signup-form" action="php/subscribe.php" method="post" novalidate>
+                    <div class="row">
+                        <div class="column width-8">
+                            <div class="field-wrapper">
+                                <input type="email" name="email" class="form-email form-element large" placeholder="adresse mail" tabindex="2" required />
+                            </div>
+                        </div>
+                        <div class="column width-4">
+                            <input type="submit" value="Envoyer" class="form-submit button large bkg-theme bkg-hover-theme color-white color-hover-white" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="column width-3 offset-2">
+                <div class="widget">
+                    <h4 class="widget-title color-black">Autres Liens</h4>
+                    <ul>
+                        <!-- BEGIN IF_IS_MENU -->
+                        <li>
+                            <a href="{IF_IS_MENU.URL}">{IF_IS_MENU.TITLE}</a>
+                        </li>
+                        <!-- END IF_IS_MENU -->
+                        <li>
+                            <a href="/Contact">Store</a>
+                            <!-- <a href="Store">Store</a> -->
+                        </li>
+                        <li>
+                            <a href="/ConditionsUtilisation"> Cookies & Conditions d’utilisations </a>
+                        </li>
+                        <li>
+                            <a href="/ConditionsVente">Conditions de vente</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column width-3">
+                <div class="widget">
+                    <h4 class="widget-title color-black">Contactez nous</h4>
+                      <a href="tel:{PHONE}"><b>{PHONE}</b></a>
+                    <address>
+                      {ADDRESS}
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="row">
+            <hr />
+
+            <div class="column width-12">
+                <p class="copyright">
+                    &copy; {SITENAME}, Tous droits réservés.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+<script type="text/javascript" src="/site/js/vanilla-tilt.js"></script>
+
+</body>
+
+</html>

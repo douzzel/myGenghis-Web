@@ -1,0 +1,258 @@
+<div class="col-12 bg-white drop-shadow">
+    <section>
+        <form action="{URL_ACT}" method="POST" class="w-100" enctype="multipart/form-data">
+            <h5 class="font-weight-bold font-size-md text-uppercase mb-4 pb-1"> Mes informations </h5>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="avatar" class="cursor-pointer w-100">
+                        Avatar
+                    </label>
+                    <label for="avatar" class="cursor-pointer">
+                        <img src="{AVATAR}" alt="avatar" height="100" id="avatar_new">
+                    </label>
+                    <input type="file" name="avatar" data-role="input" id="avatar" onchange="previewImage(event, 'avatar_new')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="civilite">Civilité</label>
+                    <input type="text" data-role="input" name="civilite" id="civilite" value="{CIVILITE}"
+                        placeholder="Entrez votre civilité">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastname">Nom</label>
+                    <input type="text" data-role="input" name="lastname" id="lastname" value="{NOM}"
+                        placeholder="Entrez votre nom">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" data-role="input" name="firstname" id="firstname" value="{PRENOM}"
+                        placeholder="Entrez votre prénom">
+                </div>
+            </div>
+            <div class="row">
+                <label for="birthday" class="col-12">Date de naissance</label>
+                <div class="col-md-2 mb-4">
+                    <select name="days" class="custom-select" id="birthday">
+                        <option>- Jour -</option>
+                        <!-- BEGIN SELECT_DAY_LISTE -->
+                        <option value="{SELECT_DAY_LISTE.VALUES}"
+                            <!-- BEGIN SELECTED -->
+                            selected
+                            <!-- END SELECTED -->
+                            >{SELECT_DAY_LISTE.VALUES}
+                        </option>
+                        <!-- END SELECT_DAY_LISTE -->
+                    </select>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <select name="month" class="custom-select" id="month" required>
+                        <option>- Mois -</option>
+                        <!-- BEGIN SELECT_MONTH_LISTE -->
+                        <option value="{SELECT_MONTH_LISTE.NUMBER}"
+                            <!-- BEGIN SELECTED -->
+                            selected
+                            <!-- END SELECTED -->
+                        >{SELECT_MONTH_LISTE.VALUES}
+                        </option>
+                        <!-- END SELECT_MONTH_LISTE -->
+                    </select>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <select name="year" class="custom-select" id="year" required>
+                        <option>- Année -</option>
+                        <!-- BEGIN SELECT_YEAR_LISTE -->
+                        <option value="{SELECT_YEAR_LISTE.VALUES}"
+                            <!-- BEGIN SELECTED -->
+                            selected
+                            <!-- END SELECTED -->
+                        >{SELECT_YEAR_LISTE.VALUES}
+                        </option>
+                        <!-- END SELECT_YEAR_LISTE -->
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <input type="email" data-role="input" name="email" id="email" value="{EMAIL}"
+                            placeholder="Entrez votre adresse email" required>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <h5 class="font-weight-bold font-size-md text-uppercase mb-4 pb-1"> Numéro de téléphone </h5>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="domicile">Domicile</label>
+                    <input data-role="input" name="phone_home" value="{PHONE_HOME}" maxlength="10" minlength="10"
+                        type="tel" value="{DOMICILE}" id="domicile" placeholder="02XXXXXXXX">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="cellulaire">Cellulaire</label>
+                    <input data-role="input" name="phone_cell" value="{PHONE_CELL}" maxlength="10" minlength="10"
+                        type="tel" value="{CELLULAIRE}" id="cellulaire" placeholder="06XXXXXXXX">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="travail">Travail</label>
+                    <input data-role="input" name="phone_job" value="{PHONE_JOB}" maxlength="10" minlength="10"
+                        type="tel" value="{TRAVAIL}" id="travail" placeholder="09XXXXXXXX">
+                </div>
+            </div>
+            <hr />
+            <h5 class="font-weight-bold font-size-md text-uppercase mb-4 pb-1"> Localité </h5>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="address">Adresse</label>
+                    <input value="{ADRESSE}" data-role="input" name="address" id="address" type="text"
+                        placeholder="Votre adresse" class="address-autocomplete">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="postal_code">Code postal</label>
+                    <input data-role="input" type="text" value="{CP}" name="postal_code" id="postal_code"
+                        class="cp-autocomplete" data-clear-button="false">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="locality">Ville</label>
+                    <input data-role="input" type="text" value="{VILLE}" name="locality" id="locality"
+                        class="city-autocomplete">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="country">Pays</label>
+                    <input data-role="input" type="text" name="country" value="{PAYS}" id="country">
+                </div>
+            </div>
+            <!-- BEGIN IF_PERM_MENU -->
+            <hr />
+            <h5 class="font-weight-bold font-size-md text-uppercase mb-4 pb-1"> Thèmes </h5>
+            <div class="row col-12 mb-4">
+                <div class="form-group col-md-3">
+                    <label for="theme">Couleur des textes</label>
+                    <div class="row">
+                        <input type="color" id="theme" name="theme" value="{THEME}">
+                    </div>
+                </div>
+                <div class="form-group col-md-4 hidden">
+                    <label for="" class="hidden">Couleurs des menus</label>
+                    <div class="row hidden">
+                        <input type="color" id="color1" name="color1" value="{COLOR1}">
+                        <input type="color" id="color2" name="color2" value="{COLOR2}">
+                        <input type="color" id="color3" name="color3" value="{COLOR3}">
+                        <input type="color" id="color4" name="color4" value="{COLOR4}">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">Couleur du fond</label>
+                    <div class="row">
+                        <input type="color" id="bgcolor" name="bgcolor" value="{BGCOLOR}">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">Couleur des barres</label>
+                    <div class="row">
+                        <input type="color" id="darkcolor" name="darkcolor" value="{DARKCOLOR}">
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-theme mt-3" id="resetColors" type="button">Réinitialiser les
+                        couleurs</button>
+                </div>
+            </div>
+            <!-- END IF_PERM_MENU -->
+            <!--
+                <div class="form-group mb-0">
+                    <label for="about-me">À propos de moi</label>
+                    <textarea name="description" class="form-control" id="about-me" rows="5">{ABOUT}</textarea>
+                    <small class="form-text text-muted">
+					Une brève description de vous et de votre devoir.
+				</small>
+                </div>
+
+                <hr/>
+
+                <div class="form-group mb-0">
+                    <label for="sign-me">Signature</label>
+                    <textarea name="signature" class="form-control" id="sign-me" rows="5">{SIGNATURE}</textarea>
+                    <small class="form-text text-muted">
+					Votre signature visible sur l'aspect communautaire du site.
+				</small>
+                </div>
+                -->
+            <button type="submit" value="update" name="update" class="btn btn-theme mt-4 mb-4">Mettre à jour mon
+                compte</button>
+        </form>
+    </section>
+    <!-- BEGIN PASSWORD -->
+    <section class="border-top-dashed py-5" id="Password">
+        <form action="/Account/Settings" method="POST">
+            <h6 class="card-header bg-dark color-white">Modification du mot de passe</h6>
+            <div class="card-body bg-white drop-shadow">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="passwordAct">Mot de passe actuel</label>
+                            <input type="password" data-role="input" name="password" id="passwordAct"
+                                placeholder="Entrer le mot de passe">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-md-2">
+                            <label for="new-password">Nouveau mot de passe</label>
+                            <input type="password" data-role="input" name="newPassword" id="new-password" minlength="10"
+                                placeholder="Entrez un nouveau mot de passe">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label for="confirm-password">Confirmer le nouveau mot de passe</label>
+                            <input type="password" data-role="input" name="newPasswordConfirm" id="confirm-password"
+                                minlength="10" placeholder="Confirmer le nouveau mot de passe">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-theme mt-4">Changer mon mot de passe</button>
+            </div>
+        </form>
+    </section>
+    <!-- END PASSWORD -->
+    <section class="border-top-dashed py-5">
+        <form action="/Account/Settings" method="POST">
+            <h5 class="font-weight-bold font-size-md text-uppercase mb-4 pb-1">Suppression du compte</h5>
+            <button type="submit" class="btn btn-outline-danger border-2 rounded-0" name="deleteAccount"
+                value="true">Supprimer mon compte</button>
+        </form>
+    </section>
+</div>
+<script>
+
+    $('#color1').on('propertychange input', e => document.body.style.setProperty("--color1", e.target.value));
+    $('#color2').on('propertychange input', e => document.body.style.setProperty("--color2", e.target.value));
+    $('#color3').on('propertychange input', e => document.body.style.setProperty("--color3", e.target.value));
+    $('#color4').on('propertychange input', e => document.body.style.setProperty("--color4", e.target.value));
+    $('#bgcolor').on('propertychange input', e => document.body.style.setProperty("--bgcolor", e.target.value));
+    $('#darkcolor').on('propertychange input', e => document.body.style.setProperty("--dark", e.target.value));
+    $('#theme').on('propertychange input', e => document.body.style.setProperty("--theme-color", e.target.value));
+
+    if (document.getElementById("resetColors"))
+        document.getElementById("resetColors").addEventListener("click", function () {
+            console.log('test');
+            $('#color1').val('#aba57b');
+            document.body.style.setProperty("--color1", '#aba57b');
+            $('#color2').val('#ecd765');
+            document.body.style.setProperty("--color2", '#ecd765');
+            $('#color3').val('#a28478');
+            document.body.style.setProperty("--color3", '#a28478');
+            $('#color4').val('#568ea3');
+            document.body.style.setProperty("--color4", '#568ea3');
+            $('#bgcolor').val('#f6fbf7');
+            document.body.style.setProperty("--bgcolor", '#f6fbf7');
+            $('#darkcolor').val('#2a2b2d');
+            document.body.style.setProperty("--dark", '#2a2b2d');
+            $('#theme').val('#ffb20a');
+            document.body.style.setProperty("--theme-color", '#ffb20a');
+        });
+
+</script>

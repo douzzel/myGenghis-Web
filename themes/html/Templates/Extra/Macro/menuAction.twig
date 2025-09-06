@@ -1,0 +1,111 @@
+{% macro menu(options = []) %}
+<nav class="menu-wrapper">
+	{% if options|length > 1 %}
+	<button class="menu-btn" has-ripple="true" type="button">
+		<i></i>
+		<i></i>
+		<i></i>
+		<span class="ripple"></span>
+	</button>
+	<ul class="menu">
+    {% for option in options %}
+		<li class="menuitem-wrapper">
+			{% if option.submit %}
+				<form class="icon-holder" method="POST">
+			{% else %}
+				<div class="icon-holder">
+			{% endif %}
+				{% if option.print %}
+					<a id="{{option.id}}" onclick="printout('print')" title="{{option.title ?? 'Imprimer'}}">
+						<i class="material-icons">{{option.icon ?? 'print'}}</i>
+					</a>
+				{% elseif option.modal %}
+					<a id="{{option.id}}" href="#" data-toggle="modal" data-target="#{{option.modal}}" title="{{option.title}}">
+						<i class="material-icons">{{option.icon}}</i>
+					</a>
+				{% elseif option.submit %}
+					<button id="{{option.id}}" type="submit" name="{{option.submit}}" value="{{option.value ?? true}}" title="{{option.title}}">
+						<i class="material-icons">{{option.icon}}</i>
+					</button>
+				{% elseif option.btnSubmit %}
+					<button id="{{option.id}}" type="submit" name="{{option.btnSubmit}}" value="{{option.value ?? true}}" title="{{option.title}}">
+						<i class="material-icons">{{option.icon}}</i>
+					</button>
+				{% elseif option.onclick %}
+					<button tid="{{option.id}}" ype="button" onclick="{{option.onclick}}" title="{{option.title}}">
+						<i class="material-icons">{{option.icon}}</i>
+					</button>
+				{% else %}
+					<a id="{{option.id}}" href="{{option.href}}" class="menu-item" title="{{option.title}}" 
+					{% if option.target %} target="{{option.target}}" {% endif %}
+					>
+						<i class="material-icons">{{option.icon}}</i>
+					</a>
+				{% endif %}
+			{% if option.submit %}
+				</form>
+			{% else %}
+				</div>
+			{% endif %}
+			<svg class="circle-holder">
+				<circle r="88" cx="50%" cy="50%" fill="none"></circle>
+			</svg>
+		</li>
+    {% endfor %}
+	</ul>
+	{% else %}
+		{% for option in options %}
+			{% if option.print %}
+				<a id="{{option.id}}" class="menu-btn" onclick="printout('print')" title="{{option.title ?? 'Imprimer'}}">
+					<i class="material-icons">{{option.icon ?? 'print'}}</i>
+				</a>
+			{% elseif option.modal %}
+				<a id="{{option.id}}" class="menu-btn" href="#" data-toggle="modal" data-target="#{{option.modal}}" title="{{option.title}}">
+					<i class="material-icons">{{option.icon}}</i>
+				</a>
+			{% elseif option.submit %}
+				<button id="{{option.id}}" class="menu-btn" type="submit" name="{{option.submit}}" value="{{option.value ?? true}}" title="{{option.title}}">
+					<i class="material-icons">{{option.icon}}</i>
+				</button>
+			{% elseif option.btnSubmit %}
+				<button id="{{option.id}}" class="menu-btn" type="submit" name="{{option.btnSubmit}}" value="{{option.value ?? true}}" title="{{option.title}}">
+					<i class="material-icons">{{option.icon}}</i>
+				</button>
+			{% elseif option.onclick %}
+				<button id="{{option.id}}" class="menu-btn" type="button" onclick="{{option.onclick}}" title="{{option.title}}">
+					<i class="material-icons">{{option.icon}}</i>
+				</button>
+			{% else %}
+				<a id="{{option.id}}" href="{{option.href}}" class="menu-btn" title="{{option.title}}" 
+				{% if option.target %} target="{{option.target}}" {% endif %}
+				>
+					<i class="material-icons">{{option.icon}}</i>
+				</a>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+</nav>
+
+<script>
+$('[has-ripple="true"]').click(function () {
+  $(this).toggleClass('clicked');
+  $('.menu').toggleClass('open');
+});
+
+$('.menu a').each(function (index) {
+  var thismenuItem        = $(this);
+  
+  thismenuItem.click(function (event) {
+    
+    $('.menuitem-wrapper').eq(index).addClass('spin');
+    
+    var timer = setTimeout(function () {
+      $('body').removeAttr('class').addClass('bg-'+index);
+      $('.menuitem-wrapper').eq(index).removeClass('spin');
+      $('.menu').removeClass('open');
+      $('.menu-btn').removeClass('clicked');
+    }, 800);
+  });
+});
+</script>
+{% endmacro %}

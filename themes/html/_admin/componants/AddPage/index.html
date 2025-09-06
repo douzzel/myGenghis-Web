@@ -1,0 +1,147 @@
+<div class="p-container">
+<div class="graph-sub communication mt-0" id="listWebPages">
+  <div>
+  </div>
+  <h1>Pages du Site</h1>
+  <div>
+    <div class="graph-sub-button btn-right">
+        <a class="btn" href="/" target="_blank" title="Voir le site">
+          <i class='material-icons'>visibility</i>
+        </a>
+        <a class="btn" href=" /Administration/Site/New" title="Ajouter une page" id="btn_add_web_page">
+          <i class="material-icons">add_circle_outline</i>
+        </a>
+      </div>
+  </div>
+</div>
+<form method="POST" action="{URL}" class="bg-white drop-shadow" data-interactive-check="true" data-role="validator">
+  <!-- BEGIN IF_IS_PAGE -->
+  <div class="row overflow-auto flex-nowrap drop-shadow">
+    <!-- BEGIN LISTE -->
+    <div class="col-md-4 col-lg-3 mb-2" style="max-width: 235px">
+      <div class="bloc-page mt-4" style="background-color: #aaa;">
+        <a href="/{IF_IS_PAGE.LISTE.URL}" target="_blank" title="Voir la page">
+          <img {IF_IS_PAGE.LISTE.IMAGE} class="page-image">
+        </a>
+      </div>
+      <div class="bloc-page-template-text" title="Numéro du template">{IF_IS_PAGE.LISTE.TEMPLATE_ID}</div>
+      <div class="title-page row flex-nowrap justify-content-between text-nowrap">
+        <a href="/Administration/Page/{IF_IS_PAGE.LISTE.URL}" class="btn text-hover-theme"><i class='material-icons'>edit</i></a>
+        <a href="/{IF_IS_PAGE.LISTE.URL}" target="_blank" class="btn w-100 overflow-hidden" title="{IF_IS_PAGE.LISTE.PAGE_NAME}">{IF_IS_PAGE.LISTE.PAGE_NAME}</a>
+        <button type="submit" name="delete" value="{IF_IS_PAGE.LISTE.ID}" class="btn text-hover-theme"><i class='material-icons'>delete</i></button>
+      </div>
+    </div>
+    <!-- END LISTE -->
+  </div>
+  <!-- END IF_IS_PAGE -->
+    <!-- BEGIN NEW -->
+    <div class="d-flex justify-content-between card-header align-items-center bg-dark">
+        <h6 class="m-0 text-white">Nouvelle page</h6>
+    </div>
+    <div class="card-body bg-white px-6">
+        <label for="PageName">Nom <br/> <small>Nom de la page, il est affiché dans le menu de navigation</small></label>
+        <input type="text" name="PageName" data-role="input" id="pagename" required data-validate="required">
+        <br/>
+
+        <label for="url">Adresse Web (URL) <br/><small>Utilisez uniquement des lettres, des chiffres et les 2 types de tirets : _-</small></label>
+        <input type="text" name="url" data-role="input" id="url" pattern="^[a-zA-Z0-9_-]*$" title="Utilisez uniquement des lettres, des chiffres et les 2 types de tirets : _-" data-validate="required pattern=^[a-zA-Z0-9_-]*$" required>
+        <br/>
+
+        <div class="col-6 pl-0">
+          <label for="template" title="Selon quel modèle est créée la page">Modèle * <br/><small>Choississez parmis nos modèles disponible pour créer votre page</small></label>
+          <select name="template" data-role="select" data-filter="false" id="template" required>
+            <!-- BEGIN TEMPLATE -->
+              <optgroup label="{NEW.TEMPLATE.NAME}">
+                <!-- BEGIN VALUE -->
+                <option>{NEW.TEMPLATE.VALUE.ID}</option>
+                <!-- END VALUE -->
+              </optgroup>
+            <!-- END TEMPLATE -->
+          </select>
+          <button onclick="window.open('/site/template.php?page='+$('#template')[0].value, 'Modèles', 'width=1200,height=1000');
+          window.close();" class="btn btn-link m-2 bg-white drop-shadow" title="Visionner les différents modèles de page pour votre site internet grâce aux flèches rouges ou allez directement au modèle voulu avec les numéros se trouvant en bas de page" id="btn_display_templates" type="button">Aperçu des modèles <i class="fas fa-info-circle"></i></button>
+        </div>
+        <br/>
+
+        <input type="radio" data-role="radio" name="visibility" value="visible" data-caption="Visible sur le site internet" class="w-100">
+        <input type="radio" data-role="radio" name="visibility" value="hidden" checked data-caption="Invisible sur le site internet">
+      </div>
+          <div class="card-footer justify-content-end">
+              <a href="/Administration/Site" class="btn btn-link">Annuler</a>
+              <input type="submit" class="btn btn-theme ml-4" value="Créer la page" />
+          </div>
+    <!-- END NEW -->
+</form>
+
+<div class="graph-sub communication mt-6" id="listArticles">
+  <div>
+  </div>
+  <h1>Articles de Blog</h1>
+  <div>
+    <div class="graph-sub-button btn-right">
+        <a class="btn" href="/Articles" target="_blank" title="Voir les articles">
+          <i class='material-icons'>visibility</i>
+        </a>
+        <a class="btn" href="/Administration/Article" title="Ajouter un article" id="btn_add_articles">
+          <i class="material-icons">add_circle_outline</i>
+        </a>
+      </div>
+  </div>
+</div>
+<div class="bg-white drop-shadow">
+<div class="col-12 row overflow-auto flex-nowrap drop-shadow" id="articles">
+  <!-- BEGIN ARTICLES -->
+  <div class="col-md-4 col-lg-3 mb-2" style="max-width: 235px">
+    <div class="bloc-page mt-4" style="background-color: #aaa;">
+      <a href="/Articles/{ARTICLES.ID}" target="_blank" title="Voir l'article">
+        <img {ARTICLES.IMAGE} class="page-image">
+      </a>
+    </div>
+    <div class="title-page row flex-nowrap justify-content-between text-nowrap">
+      <a href="/Administration/Article/{ARTICLES.ID}" class="btn text-hover-theme" title="Modifier"><i class='material-icons'>edit</i></a>
+      <a href="/Articles/{ARTICLES.ID}" target="_blank" class="btn w-100 overflow-hidden" title="{ARTICLES.TITLE}">{ARTICLES.TITLE}</a>
+      <form method="POST" action="{URL}">
+        <button type="submit" name="deleteArticle" value="{ARTICLES.ID}" class="btn text-hover-theme" title="Supprimer"><i class='material-icons'>delete</i></a>
+      </form>
+    </div>
+  </div>
+  <!-- END ARTICLES -->
+</div>
+</div>
+
+<div class="graph-sub communication mt-6">
+  <div>
+  </div>
+  <h1>Vidéothèque</h1>
+  <div>
+    <div class="graph-sub-button btn-right">
+        <a class="btn" href="/Videos" target="_blank" title="Voir les vidéos">
+          <i class='material-icons'>visibility</i>
+        </a>
+        <a class="btn" href="/Administration/Video" title="Ajouter une vidéo">
+          <i class="material-icons">add_circle_outline</i>
+        </a>
+      </div>
+  </div>
+</div>
+<div class="bg-white drop-shadow">
+<div class="col-12 row overflow-auto flex-nowrap drop-shadow" id="videos">
+  <!-- BEGIN VIDEOS -->
+  <div class="col-md-4 col-lg-3 mb-2" style="max-width: 235px">
+    <div class="bloc-page mt-4" style="background-color: #aaa;">
+      <a href="/Videos/{VIDEOS.ID}" target="_blank" title="Voir la vidéo">
+        {VIDEOS.MINIATURE}
+      </a>
+    </div>
+    <div class="title-page row flex-nowrap justify-content-between text-nowrap">
+      <a href="/Administration/Video/{VIDEOS.ID}" class="btn text-hover-theme" title="Modifier"><i class='material-icons'>edit</i></a>
+      <a href="/Videos/{VIDEOS.ID}" target="_blank" class="btn w-100 overflow-hidden" title="{VIDEOS.TITLE}">{VIDEOS.TITLE}</a>
+      <form method="POST" action="{URL}">
+        <button type="submit" name="deleteVideo" value="{VIDEOS.ID}" class="btn text-hover-theme" title="Supprimer"><i class='material-icons'>delete</i></a>
+      </form>
+    </div>
+  </div>
+  <!-- END VIDEOS -->
+</div>
+</div>
+</div>

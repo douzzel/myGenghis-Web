@@ -1,0 +1,174 @@
+{% extends "Templates/adminbase.html.twig" %}
+{% import "Templates/Extra/Macro/form.twig" as formPart %}
+{% import "Templates/Extra/Macro/boutonActions.html.twig" as btn %}
+{% import "Templates/Extra/Macro/foncyBox.twig" as foncyBox %}
+{% import "Templates/Extra/Macro/menuAction.twig" as menuAction %}
+
+{% block title %} Gérer les droits et permissions {% endblock %}
+{% block content %}
+{{ FIL_ARIANNE|raw }}
+{{ menuAction.menu([{icon: 'group_add', onclick: 'addGroup()', title: 'Ajouter un groupe'}, {icon: 'folder_shared', href: '/Administration/Personnel#modalAddPersonnel', title: 'Ajouter un membre du personnel'}, {icon: 'contacts', href: '/Administration/Membres#modalAddMember', title: 'Ajouter un membre'}]) }}
+<div class="pb-6 drop-shadow">
+    <div class="bg-white p-3">
+        <div class="row mt-3">
+            <div class="col-6">
+                {{ formPart.select("user_perm", users, "user", "", "Voir les droits d'un utilisateur") }}
+            </div>
+            <div class="col-6">
+                {{ formPart.select("group_perm", groups, "groupe_user", "", "Voir les droits d'un groupe") }}
+            </div>
+        </div>
+    </div>
+	<table class="table bg-white" id="table-rights">
+		<thead class="thead-dark">
+			<tr id="thead-module">
+				<th>Module</th>
+			</tr>
+		</thead>
+		<thead class="thead-dark">
+			<tr id="thead-rights">
+				<th>Permissions</th>
+			</tr>
+		</thead>
+		<tbody id="tbody-module">
+			{% for m in modules %}
+				<tr>
+					<th>{{ m.getNameModule() }}</th>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{{ foncyBox.formGenerique({id: "groupe_foncy", idClose: "groupe_close", url: url, inputs: inputs, idSubmit: 'groupe_submit', title: 'Nouveau groupe'}) }}
+
+
+<script>
+    function addGroup() {
+        modifyStyle("groupe_foncy", "1000", '1', "groupe_close");
+    }
+    
+    function modifyStyle(id, index, opacity, idClose) {
+        let foncyBox = document.getElementById(id);
+        foncyBox.style.zIndex = index;
+        foncyBox.style.opacity = opacity;
+        if(idClose){
+            document.getElementById(idClose).addEventListener("click", function(){
+                modifyStyle(id, "-100", '0');
+            }, false);
+        }
+    }
+
+    function makeRequest(url, callback, value = "", id) {
+        const request = new XMLHttpRequest();
+        request.onload = () =>{
+            let responseObject = null;
+            try{
+                responseObject = JSON.parse(request.responseText);
+            } catch(e){
+                console.log(e);
+            }
+            if(responseObject){
+                callback(responseObject, value, id);
+            }
+
+        };
+
+        request.open('GET', url);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send();
+    }
+
+    $('#user_perm').change((e) => {
+        const userId = e.target.value;
+        if (userId) {
+            makeRequest('/Administration/DataModules/perm_user/'+userId, handleResponsePermUser, $(e.target).find('option:selected').text(), userId);
+        }
+        $(e.target).val('');
+    });
+
+    $('#group_perm').change((e) => {
+        const groupId = e.target.value;
+        if (groupId) {
+            makeRequest('/Administration/DataModules/perm_group/'+e.target.value, handleResponsePermGroup, $(e.target).find('option:selected').text(), groupId);
+        }
+        $(e.target).val('');
+    });
+    $(document).ready(() => {
+        makeRequest('/Administration/DataModules/perm_group/2', handleResponsePermGroup, 'Admins', 2);
+        setTimeout(() => {
+            makeRequest('/Administration/DataModules/perm_group/3', handleResponsePermGroup, 'Employés', 3);
+        }, 500);
+    });
+
+    function generateRadio(module, id, data, type) {
+        let html = "";
+        const title = ['Aucun', 'Lecture seule', 'Écriture', 'Lecture et Écriture']; 
+        for (let i = 0; i < 4; i++) {
+            if (i == data || (i == 0 && !data)) {
+                html += `<label><input type='radio' name='${module}_${id}' data-value="${i}" onclick="updatePerm(event, '${type}')" title="${title[i]}" checked></label>`;
+            } else {
+                html += `<label><input type='radio' name='${module}_${id}' data-value="${i}" onclick="updatePerm(event, '${type}')" title="${title[i]}"></label>`;
+            }
+        }
+        return html;
+    }
+
+    function updatePerm(event, type) {
+        const data = event.target.name.split('_', 2);
+        let form_data = {};
+        if (type == 'group') {
+            form_data = {is_group:1, module_id: data['0'], right_id: event.target.dataset.value, group_id: data['1']};
+        } else {
+            form_data = {is_group:0, module_id: data['0'], right_id: event.target.dataset.value, user_id: data['1']};
+        }
+
+        $.ajax({
+            url : '/Administration/ManageRights',
+            type: 'POST',
+            data : form_data
+        });
+    }
+
+    function removePerm(event) {
+        const pos = $(event.target).parent().parent().children().index($(event.target).parent());
+        $("#thead-module").children()[pos].remove();
+        $("#thead-rights").children()[pos].remove();
+        for (let i = 0; i < $("#tbody-module").children().length; i++) {
+            $($("#tbody-module").children()[i]).children()[pos].remove();
+        }
+    }
+
+    function reloadUser(event, name, id) {
+        removePerm(event);
+        makeRequest('/Administration/DataModules/perm_user/'+id, handleResponsePermUser, name, id);
+    }
+
+    function reloadGroup(event, name, id) {
+        removePerm(event);
+        makeRequest('/Administration/DataModules/perm_group/'+id, handleResponsePermGroup, name, id);
+    }
+
+    var icons_perm = '<th><label title="Aucun"><i class="material-icons vertical-align text-danger">dangerous</i></label><label title="Lecture seule"><i class="material-icons vertical-align">visibility</i></label><label title="Écriture"><i class="material-icons vertical-align">create</i></label><label title="Lecture et Écriture"><i class="material-icons vertical-align text-success">check_circle</i></label></th>';
+
+    function handleResponsePermGroup(res, name, id) {
+      if (res.state == true) {
+        $('#thead-module').append(`<th>${name}<i class="material-icons vertical-align cursor-pointer ml-4" onclick="reloadGroup(event, '${name}', '${id}')" title="Recharger">refresh</i><i class="material-icons ml-2 vertical-align cursor-pointer" onclick="removePerm(event)" title="Enlever">delete</i></th>`);
+        $('#thead-rights').append(icons_perm);
+        for (var i = 0; i < Object.keys(res.data).length; i++) {
+          $($('#tbody-module')[0].children[i]).append('<td>'+generateRadio(i + 1, id, res.data[i + 1], 'group')+'</td>');
+        }
+      }
+    }
+
+    function handleResponsePermUser(res, name, id) {
+      if (res.state == true) {
+        $('#thead-module').append(`<th>${name}<i class="material-icons vertical-align cursor-pointer ml-4" onclick="reloadUser(event, '${name}', '${id}')" title="Recharger">refresh</i><i class="material-icons ml-2 vertical-align cursor-pointer" onclick="removePerm(event)" title="Enlever">delete</i></th>`);
+        $('#thead-rights').append(icons_perm);
+        for (var i = 0; i < Object.keys(res.data).length; i++) {
+          $($('#tbody-module')[0].children[i]).append('<td>'+generateRadio(i + 1, id, res.data[i + 1], 'user')+'</td>');
+        }
+      }
+    }
+
+</script>
+{% endblock %}

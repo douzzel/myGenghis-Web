@@ -1,0 +1,99 @@
+<div class="p-container">
+    <div class="col-sm-12 align-middle">
+        <select data-role="select" name="web_search" id="web_search"
+            data-filter-placeholder="Rechercher une page du site web, un article de blog, une vidéo de la vidéothèque…"
+            onchange="webSelection()" autocomplete="off" data-add-empty-value="true">
+            <optgroup label="────── Pages du site ──────">
+                <!-- BEGIN WEBPAGE_LIST -->
+                <option value="Page/|{WEBPAGE_LIST.ID}">[{WEBPAGE_LIST.ID}] {WEBPAGE_LIST.NAME}</option>
+                <!-- END WEBPAGE_LIST -->
+            </optgroup>
+            <optgroup label="───── Articles de blog ─────">
+                <!-- BEGIN BLOG_LIST -->
+                <option value="Article/|{BLOG_LIST.ID}">[{BLOG_LIST.ID}] {BLOG_LIST.NAME}</option>
+                <!-- END BLOG_LIST -->
+            </optgroup>
+            <optgroup label="────── Vidéothèque ──────">
+                <!-- BEGIN VIDEO_LIST -->
+                <option value="Video/|{VIDEO_LIST.ID}">[{VIDEO_LIST.ID}] {VIDEO_LIST.NAME}</option>
+                <!-- END VIDEO_LIST -->
+            </optgroup>
+        </select>
+    </div>
+    <div class="mt-4 row">
+        <div class="col-sm-6 col-md-4">
+            <a href="/Administration/Site" class="text-decoration-none">
+                <div class="card text-center align-middle">
+                    <div class="p-4 card-gray transition">
+                        <i class="material-icons display-8 color-white">web</i>
+                        <div class="card-title color-white">Web, Articles, Vidéos</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!--
+<div class="col-sm-6 col-md-4">
+<a href="/Administration/LiveChat" class="text-decoration-none">
+<div class="card text-center align-middle">
+<div class="p-4 card-gray transition">
+<i class="material-icons display-8 color-white">support_agent</i>
+<div class="card-title color-white">LiveChat</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-sm-6 col-md-4">
+<a href="/Administration/VideoChat" class="text-decoration-none">
+<div class="card text-center align-middle">
+<div class="p-4 card-gray transition">
+<i class="material-icons display-8 color-white">voice_chat</i>
+<div class="card-title color-white">Vidéo Chat</div>
+</div>
+</div>
+</a>
+</div>
+<div class="col-sm-6 col-md-4">
+<a href="/Store" class="text-decoration-none" target="_blank">
+<div class="card text-center align-middle">
+<div class="p-4 card-gray transition">
+<i class="material-icons display-8 color-white">shopping_bag</i>
+<div class="card-title color-white">Store</div>
+</div>
+</div>
+</a>
+</div>
+-->
+        <div class="col-sm-6 col-md-4">
+            <a href="/" class="text-decoration-none" target="_blank">
+                <div class="card text-center align-middle">
+                    <div class="p-4 card-gray transition">
+                        <i class="material-icons display-8 color-white">web_asset</i>
+                        <div class="card-title color-white">Site Internet</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!--
+<div class="col-sm-6 col-md-4">
+<a href="/Account/Profil" class="text-decoration-none">
+<div class="card text-center align-middle">
+<div class="p-4 card-gray transition">
+<i class="material-icons display-8 color-white">public</i>
+<div class="card-title color-white">Espace Membre</div>
+</div>
+</div>
+</a>
+</div>
+-->
+    </div>
+</div>
+<script>
+    function webSelection() {
+        var rid = document.getElementById("web_search").value;
+        var cid = rid.split("|");
+        if (cid[0] == 'Page/' && cid[0]) {
+            window.onbeforeunload = () => { ; };
+            window.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+</script>

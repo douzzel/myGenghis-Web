@@ -1,0 +1,117 @@
+<div class="p-container">
+<!-- BEGIN ARTICLE -->
+<form method="POST" action="{URL}" enctype="multipart/form-data" class="drop-shadow">
+  <div class="btn-arianne my-0">
+    <div class="graph-sub-button btn-right bg-none">
+      <button type="submit" name="edit" title="Sauvegarder l'article" value="true" class="btn cursor-pointer btn-outline-success">
+        <i class="material-icons">save</i>
+      </button>
+    </div>
+  </div>
+  {FIL_ARIANNE}
+  <div class="card card-default mb-4">
+    <div class="card-body row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input class="w-100" type="checkbox" data-role="checkbox" name="hidden" id="hidden" {ARTICLE.HIDDEN} title="Affiche l'article sur votre site" data-caption="Publier dans le blog"/>
+          <input class="w-100" type="checkbox" data-role="checkbox" name="profil_news" id="profil_news" {ARTICLE.PROFIL_NEWS} title="Affiche l'article sur la page profil des membres" data-caption="Publier pour les membres"/>
+          <input class="w-100" type="checkbox" data-role="checkbox" name="facebook" id="facebook" {FACEBOOK} title="Publie l'article sur votre page Facebook" data-caption="Publier sur Facebook"/>
+          <input class="w-100" type="checkbox" data-role="checkbox" name="linkedin" id="linkedin" {LINKEDIN} title="Publie l'article sur votre page LinkedIn" data-caption="Publier sur LinkedIn"/>
+        </div>
+        <div class="form-group">
+          <label for="title">Titre *</label>
+          <input type="text" name="title" value="{ARTICLE.TITLE}" data-role="input" id="title" required />
+        </div>
+        <div class="form-group">
+          <label for="summary">Résumé *</label>
+          <textarea data-role="textarea" name="summary" rows="2" required style="min-height: 200px">{ARTICLE.SUMMARY}</textarea>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <!-- BEGIN IF_BLOG_LINK -->
+        <div class="col-12 text-right">
+          <a class="btn btn-link mb-2 opacity-hover" href="/Articles/{ARTICLE.ID}" target="_blank">Voir sur le blog</a>
+        </div>
+        <!-- END IF_BLOG_LINK -->
+        <!-- BEGIN IF_FACEBOOK_LINK -->
+        <div class="col-12 text-right">
+          <a class="btn btn-link mb-2 opacity-hover" style="color: #4267B2" href="https://www.facebook.com/{ARTICLE.FACEBOOK_LINK}" target="_blank">
+            Voir sur Facebook <img src="/site/images/icons/facebook.svg" class="ml-2" width="20">
+          </a>
+        </div>
+        <!-- END IF_FACEBOOK_LINK -->
+        <!-- BEGIN IF_LINKEDIN_LINK -->
+        <div class="col-12 text-right">
+          <a class="btn btn-link mb-2 opacity-hover" style="color: #0a66c2" href="https://www.linkedin.com/feed/update/{ARTICLE.LINKEDIN_LINK}" target="_blank">
+            Voir sur LinkedIn <img src="/site/images/icons/linkedin.svg" class="ml-2" width="20">
+          </a>
+        </div>
+        <!-- END IF_LINKEDIN_LINK -->
+        <div class="col-12 text-right">
+          <i>Rédigé le : {ARTICLE.DATE}</i>
+        </div>
+        <label for="image">Image * <br/><i>Dimensions recommandées : 1000 x 650</i><img src="{ARTICLE.IMAGE}" id="image_new"> </label>
+        <input type="file" name="image" id="image" data-role="file" onchange="previewImage(event, 'image_new')" accept="image/*">
+      </div>
+      <div class="form-group col-12">
+        <label for="content">Contenu</label>
+        <textarea class="form-control tinymce" id="content" name="content" rows="2">{ARTICLE.CONTENT}</textarea>
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <a href="javascript:history.back()" class="btn btn-link">Annuler</a>
+      <input type="submit" class="btn btn-theme ml-4" name="edit" value="Sauvegarder l'article" />
+    </div>
+  </div>
+</form>
+<!-- END ARTICLE -->
+
+<!-- BEGIN NEW -->
+<form method="POST" action="{URL}" enctype="multipart/form-data">
+  <div class="btn-arianne my-0">
+    <div class="graph-sub-button btn-right bg-none">
+      <button type="submit" name="new" title="Sauvegarder l'article" value="true" class="btn cursor-pointer btn-outline-success">
+        <i class="material-icons">save</i>
+      </button>
+    </div>
+  </div>
+  {FIL_ARIANNE}
+  <div class="card card-default mb-4">
+    <div class="card-body row">
+      <div class="col-md-6">
+        <div id="publish_in" class="form-group">
+          <input class="w-100" type="checkbox" data-role="checkbox" name="hidden" id="hidden" title="Affiche l'article sur votre site" data-caption="Publier dans le blog"/>
+          <input class="w-100" type="checkbox" data-role="checkbox" name="profil_news" id="profil_news" title="Affiche l'article sur la page profil des membres" data-caption="Publier pour les membres"/>
+          <input class="w-100" type="checkbox" data-role="checkbox" name="newFacebook" id="newFacebook" {FACEBOOK} title="Publie l'article sur votre page Facebook" data-caption="Publier sur Facebook"/>
+          <inp class="w-100"ut type="checkbox" data-role="checkbox" name="newLinkedin" id="newLinkedin" {LINKEDIN} title="Publie l'article sur votre page LinkedIn" data-caption="Publier sur LinkedIn"/>
+        </div>
+        <div id="title_summary">
+          <div class="form-group">
+            <label for="title">Titre *</label>
+            <input type="text" name="title" data-role="input" id="title" required />
+          </div>
+          <div class="form-group">
+            <label for="summary">Résumé *</label>
+            <textarea data-role="textarea" name="summary" rows="2" required style="min-height: 200px"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="image">Image * <br/><i>Dimensions recommandées : 1000 x 650</i><img id="image_new"> </label>
+          <input type="file" name="image" id="image" data-role="file" onchange="previewImage(event, 'image_new')" accept="image/*">
+        </div>
+      </div>
+      <div class="form-group col-12" id="content_container">
+        <label for="content">Contenu</label>
+        <textarea class="form-control tinymce" id="content" name="content" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <a href="javascript:history.back()" class="btn btn-link">Annuler</a>
+      <button type="submit" class="btn btn-theme ml-4" name="new" value="Sauvegarder l'article"><i class="material-icons vertical-align">save</i> Sauvegarder l'article</button>
+    </div>
+  </div>
+</form>
+<!-- END NEW -->
+</div>

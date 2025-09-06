@@ -1,0 +1,60 @@
+{% macro input(name,content, options = []) %}
+    {% if options.type == "hidden" %}
+        <input type="{{options.type}}" id="{{name}}" name="{{name}}" placeholder="{{content}}" value="{{options.value|raw}}" {{options.required}} {{options.disabled}}>
+    {% elseif options.type == "checkbox" %}
+        <div class="{{options.class ?:'mb-3 col-12'}}">
+            <label for="{{name}}">{{content}}</label>
+            <input type="{{options.type}}" name="{{name}}" value="{{options.value|raw}}" data-role="checkbox" id="{{name}}" {{options.required}} {{options.disabled}}>
+        </div>
+    {% else %}
+         <div class="{{options.class ?:'mb-3 col-12'}}">
+            <label for="{{name}}" class="w-100">{{content}}</label>
+            <input class="w-100" type="{{options.type ?:'text' }}" data-role="input" id="{{name}}" name="{{name}}" placeholder="{{content}}" step="any" value="{{options.value|raw}}" {{options.required}} {{options.disabled}}>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro select(name, options, param, content, indicator, style = [], selected) %}
+    <div {% if style.id is defined %} id= "{{style.id}}" {% endif %} class="{{style.class ?: 'col-12 mb-3 limited'}}">
+
+            {% if content %}
+                <label for="{{name}}" style='height: 30px'>
+                    {{content}}
+                    {% if style.add is defined %}
+                        <a id="{{style.addId}}">
+                            <i class='material-icons color-theme cursor-pointer' title='{{style.addTitle}}'>add_circle_outline</i>
+                        </a>
+                    {% endif %}
+                </label>
+            {% else %}
+                <label>{{indicator}}</label>
+            {% endif %}
+
+            <select name="{{name}}" id="{{name}}" data-role="select" data-add-empty-value="true" {{style.required}}>
+                {% for option in options %}
+                   {% if param == "nom" %}
+                        <option value="{{option.getId}}"> {{ option.getNom() }} {{ option.getPrenom() }} </option>
+                    {% elseif param == "split" %}
+                        <option value="{{option.getId}}|{{option.getNom}}|{{option.getMontant}}"> {{ option.getNom() }} </option>
+                    {% elseif param == "denomination" %}
+                        <option value="{{option.getId}}"> {{ option.getDenomination() }} </option>
+                    {% elseif param =="objet" %}
+                        <option value="{{option.getId}}"> {{ option.getObjetDuContrat() }} </option>
+                    {% elseif param == "tableau" %}
+                        <option value="{{option}}"> {{ option }} </option>
+                    {% elseif param == "user" %}
+                        <option value="{{option.getIdClient}}"> {{ option.getName|raw }} - {{ option.getPseudo|raw }} </option>
+                    {% elseif param == "groupe_user" %}
+                        <option value="{{option.getId}}"> {{ option.getNameGroup }} </option>
+                    {% elseif param == "label" %}
+                        <option value="{{option.getId}}"> {{ option.getLabel }} </option>
+                    {% elseif param == "name_module" %}
+                        <option value="{{option.getId}}"> {{ option.getNameModule }} </option>
+                    {% else %}
+                        <option value="{{option.getId}}" {{selected == option.getId ? 'selected' : ''}}>  {{ option.getName() }} </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+    </div>
+{% endmacro %}

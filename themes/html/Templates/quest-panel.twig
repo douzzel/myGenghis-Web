@@ -1,0 +1,189 @@
+{% import _self as ui %}
+
+<!--
+<div class="quest-toggle-button" title="Panneau des quêtes" onclick="buttonShowQuestMenu()">
+	<i class="material-icons vertical-align">priority_high</i>
+</div>
+-->
+<div class="quest-panel {{ location != '' or quests.getHideMenu() ? 'hidden' : ''}}">
+	<div class="quest-header">
+		<i class="material-icons vertical-align cursor-pointer" onclick="buttonHideQuestMenu()">menu_open</i>
+		<h3 class="ml-3 mb-3">Quêtes de découverte</h3>
+	</div>
+	<div class="quests-list">
+		<div class="quests-cat" id="quests-comm">
+			<div class="quests-cat-header" onclick="displayAllQuests('quests-comm')">
+				<span><i class="material-icons vertical-align">important_devices</i> Communication</span>
+				<span class="quest-count">{{quests.countQuestComm() ?? 0}}/2</span>
+			</div>
+			{{ui.quest('Site internet', 'web', quests.getQuestWeb(), 'quest_web', quests)}}
+			{{ui.quest('Articles et vidéos', 'web', quests.getQuestArticle(), 'quest_article', quests)}}
+		</div>
+	</div>
+	<div class="quest-footer">
+		<div title="Accomplissez plus de quêtes pour augmenter votre niveau">Niveau <span id="quest-level">{{quests ?
+				quests.calculateLevel() : 1}}</span></div>
+		<div id="quest-experience" data-role="progress" data-value="{{quests.calculateLevelPercent()}}"
+			title="{{quests.calculateLevelPercent()}}%"></div><br />
+		{# <input type="checkbox" data-role="checkbox" data-caption="Afficher toutes les quêtes"><br /><br /> #}
+		<a class="lz_text_link"
+			href="javascript:void(window.open('//mygenghis.graphene-bsm.com/classes/livezilla/chat.php?group=support&ptn={{NOM_USER|raw}}&pte={{EMAIL_USER|raw}}&ptc={{SITE_NAME|raw}}&ptl=FR&epc=IzJhMmIyZA__&esc=IzJhMmIyZA__','','width=400,height=600,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))"
+			alt="Live Chat" data-text-online="Aide en direct (Démarrer le chat)"
+			data-text-offline="Aide en direct (laisser un message)" data-css-online="" data-css-offline=""
+			data-online-only="0">
+			<i class="material-icons vertical-align">help</i> Assistance et base de connaissance
+		</a>
+	</div>
+</div>
+
+<script>
+	function buttonHideQuestMenu() {
+		$.ajax({
+			url: "/Administration",
+			data: { quest_update: 'hide_menu', quest_update_status: 1 },
+			dataType: "json",
+			method: "POST"
+		});
+		$('.quest-panel').hide();
+	}
+	function buttonShowQuestMenu() {
+		$.ajax({
+			url: "/Administration",
+			data: { quest_update: 'hide_menu', quest_update_status: 0 },
+			dataType: "json",
+			method: "POST"
+		});
+		$('.quest-panel').show();
+	}
+	function displayAllQuests(cat) {
+		$('#' + cat).toggleClass('display-all-quests');
+	}
+</script>
+
+<style>
+	.quest-toggle-button {
+		position: fixed;
+		right: 0;
+		top: 58px;
+		background-color: #f9f7f1;
+		z-index: 4;
+		filter: drop-shadow(0 0 3px rgba(0, 0, 0, .3));
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	@media (max-width: 575.98px) {
+		.quest-toggle-button {
+			top: unset;
+			bottom: 0;
+		}
+	}
+
+	.quest-panel {
+		position: fixed;
+		right: 0;
+		top: 48px;
+		height: calc(100vh - 48px);
+		width: 300px;
+		background-color: #f9f7f1;
+		z-index: 10;
+		filter: drop-shadow(0 0 3px rgba(0, 0, 0, .3));
+		padding: 10px;
+		border-left: solid 1px #e5e5e5;
+	}
+
+	.quest-panel .quest-header {
+		display: flex;
+	}
+
+	.quest-panel .quest-header i {
+		margin-top: 3px;
+	}
+
+	.quest-panel .quest-header i:hover {
+		opacity: 0.7;
+	}
+
+	.quest-panel .quest-footer {
+		position: absolute;
+		bottom: 10px;
+	}
+
+	.quest-panel .quests-list {
+		margin-bottom: 15px;
+		padding: 0px;
+		overflow: scroll;
+		height: calc(100vh - 80px - 125px);
+	}
+
+	.quest-panel .quests-cat>div {
+		display: flex;
+		border-bottom: solid 1px #e5e5e5;
+		background: white;
+		cursor: pointer;
+	}
+
+	.quest-panel .quests-cat>div:hover {
+		background: #eee;
+	}
+
+	.quest-panel .quests-cat-header {
+		cursor: initial;
+		justify-content: space-between;
+		margin-top: 1rem;
+	}
+
+	.quest-panel .quest-status {
+		width: 15px;
+		background-color: lightgrey;
+	}
+
+	.quest-panel .validated .icon-status,
+	.quest-panel .validated .quest-status {
+		background-color: var(--theme-color);
+	}
+
+	.quest-panel .quests-list>div span {
+		padding: 10px;
+	}
+
+	.quest-panel .quests-list .validated div span {
+		color: var(--theme-color);
+	}
+
+	.quest-panel .icon-status {
+		background-color: lightgrey;
+		border-radius: 50px;
+		height: 30px;
+		width: 29px;
+		margin-top: 6px;
+		margin-left: -5px;
+		border: 3px solid white;
+	}
+
+	.quest-panel div:not(.validated)>.icon-status {
+		font-size: 1.2rem;
+		padding: 0.1rem;
+	}
+
+	.quest-panel .quests-cat:not(.display-all-quests) .disabled,
+	.quest-panel .quests-cat:not(.display-all-quests) .validated {
+		display: none;
+	}
+
+	.quest-panel .quests-cat .disabled .icon-status {
+		display: none;
+	}
+</style>
+{% macro quest(title, icon, quest, quest_name, questList, level = 1) %}
+<div id="{{quest_name}}"
+	class="{{quest ? 'validated' : ''}} {{level > (questList ? questList.calculateLevel() : 1) ? 'disabled' : ''}}"
+	onclick="startQuest('{{quest_name}}')">
+	<div class="quest-status"></div>
+	{{quest ? '<i class="material-icons icon-status" title="Quête validée">check</i>' : '<i
+		class="material-icons icon-status" title="Quête recommandée">star_rate</i>'}}
+	<span>
+		<i class="material-icons vertical-align">{{icon}}</i> {{title}}
+	</span>
+</div>
+{% endmacro %}

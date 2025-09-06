@@ -1,0 +1,84 @@
+<!-- BEGIN HEADER -->
+<div class="section-block pt-60 pb-30 bkg-grey-ultralight color-charcoal">
+  <div class="row">
+    <div class="column width-8 offset-2 center">
+      <h1 class="weight-light text-uppercase"> {HEADER.TITLE} </h1>
+      <p>{HEADER.DESCRIPTION}</p>
+    </div>
+  </div>
+</div>
+<!-- END HEADER -->
+<!-- BEGIN VIDEO -->
+<div class="section-block hero-5 hero-5-14 clear-height show-media-column-on-mobile bkg-white color-black">
+  <div class="row">
+    <div class="column width-5 push-7">
+      <div class="hero-content split-hero-content">
+        <div class="hero-content-inner left horizon"
+          data-animate-in="preset:slideInRightShort;duration:1000ms;delay:200ms;" data-threshold="0.5">
+          <h4>{VIDEO.TITLE}</h4>
+          <p>{VIDEO.DESCRIPTION}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="media-column width-6" style="background-image: url('{VIDEO.IMAGE}');">
+    <div class="hero-content">
+      <div class="hero-content-inner center">
+        <a href="{VIDEO.VIDEO}"
+          data-caption="This is a lightbox caption for the video playing"
+          class="lightbox-link icon-play icon-circled border-white bkg-hover-theme color-white color-hover-white circled medium"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END VIDEO -->
+<section class="section-block replicable-content contact-2" id="contact">
+  <div class="row">
+    <div class="column width-4">
+      <h2 class="mb-30">Laissez-nous un message.</h2>
+      <div class="row">
+        <div class="column width-10">
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <div class="column width-8 left">
+      <div class="contact-form-container">
+		<span class="form-response"></span>
+        <form class="contact-form" action="/site/index.php" method="post">
+          <div class="row">
+            <div class="column width-6"> <input type="text" name="fname" class="form-fname form-element large"
+                placeholder="Prénom" tabindex="1" required /> </div>
+            <div class="column width-6"> <input type="text" name="lname" class="form-lname form-element large"
+                placeholder="Nom" tabindex="2" /> </div>
+            <div class="column width-6"> <input type="text" name="adr" class="form-email form-element large"
+                placeholder="Adresse" tabindex="3" required /> </div>
+            <div class="column width-6"> <input type="text" name="ville" class="form-website form-element large"
+                placeholder="Ville" tabindex="4" /> </div>
+            <div class="column width-6"> <input type="tel" name="telfixe" class="form-email form-element large"
+                placeholder="Téléphone fixe" tabindex="5" required /> </div>
+            <div class="column width-6"> <input type="tel" name="telportable" class="form-website form-element large"
+                placeholder="Téléphone portable" tabindex="6" /> </div>
+            <div class="column width-12"> <input type="email" name="email" class="form-website form-element large"
+                placeholder="Adresse mail" tabindex="7" /> </div>
+            <div class="column width-6"> <input type="text" name="honeypot" class="form-honeypot form-element large" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column width-12">
+              <div class="field-wrapper"> <textarea name="message" class="form-message form-element large"
+                  placeholder="Message" tabindex="8" required></textarea> </div>
+            </div>
+            <div class="column width-12">
+              <img id="captcha" src="/classes/securimage/securimage_show.php" alt="CAPTCHA Image" />
+              <a href="#" onclick="document.getElementById('captcha').src = '/classes/securimage/securimage_show.php?' + Math.random(); return false">[ Nouvelle image ]</a>
+              <input type="text" name="captcha_code" placeholder="* Captcha (Recopier les caractères)" class="form-captcha form-element large" size="10" maxlength="6" tabindex="9" required />
+            </div>
+            <div class="column width-12"> <input type="submit" value="Envoyer"
+                class="form-submit button medium bkg-theme bkg-hover-theme color-white color-hover-white" /> </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

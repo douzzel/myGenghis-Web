@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width,initial-scale=1.0" name="viewport" />
+    <meta name="twitter:widgets:theme" content="light" />
+    <meta property="og:title" content="{SITENAME} | {PAGENAME}" />
+    <meta property="og:image" content="{OG_IMAGE}" />
+    <meta property="og:description" content="{DESCRIPTION}" />
+    <meta property="og:type" content="{OG_TYPE}" />
+    {OG_CONTENT}
+    <meta property="og:url" content="{STATIC_URL}{URL}" />
+    <meta property="og:site_name" content="{SITENAME}" />
+    <meta name="revisit-after" content="15 days" />
+    <meta name="author" content="{SITENAME}" />
+    <meta name="description" content="{DESCRIPTION}" />
+    <title>{SITENAME} | {PAGENAME}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/themes/assets/images/logo.png?{CACHE_LOGO}" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" href="/site/css/site.min.css?h" />
+
+    <!-- BEGIN IF_LIVECHAT -->
+    <script type="text/javascript" id="053521b2915d0691712dd68a4353ebec" src="/classes/livezilla/script.php?id=053521b2915d0691712dd68a4353ebec" defer></script>
+    <!-- END IF_LIVECHAT -->
+
+    <script src="/site/js/jquery-1.12.4.min.js"></script>
+    <script src="/site/js/timber.master.min.js"></script>
+
+    <script type="text/javascript">
+      {ANALYTICS_TRACKER}
+    </script>
+
+    <script>
+      $(document).ready(function() {
+      $('.notif-close').click(function() {
+        $('.notification').remove();
+      });
+      $(".alert.d-flex.align-items-center.justify-content-between").delay(4000).slideUp(200, function() {
+        $('.notification').remove();
+      });
+      $(document).on('submit', '.AddItemsAjax', function(e) {
+        e.preventDefault();
+        $(".addItemsProcess").empty();
+        $.ajax({
+          url: $(this).attr('data-url'),
+          type: "POST",
+          data: new FormData(this),
+          dataType: "html",
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function(data) {
+              data = JSON.parse(data);
+              html = data.data ? data.data : data;
+              $(".addItemsProcess").html(html);
+              var seeCart = document.getElementsByClassName('seeCart');
+              if (seeCart.length) {
+                for (let i = 0; i < seeCart.length; i++) {
+                  const e = seeCart[i];
+                  e.text = "Voir mon panier ("+data.nbr+")";
+                  e.classList.add("active");
+                }
+              }
+              $(".alert.d-flex.align-items-center.justify-content-between").delay(2000).slideUp(200, function() {
+                  $('div.notification').remove();
+              });
+              }
+          });
+      });
+    })
+    </script>
+    <style>
+      :root {
+        {DEFAULT_FONTS}
+      }
+
+      {FONTS}
+
+      {STYLE}
+    </style>
+</head>
+
+<body class="shop home-page">
+    <!-- BEGIN DISPLAY_WEB_MENU -->
+    <aside class="side-navigation-wrapper enter-right" data-no-scrollbar data-animation="scale-in">
+        <div class="side-navigation-scroll-pane">
+            <div class="side-navigation-inner">
+                <div class="side-navigation-header">
+                    <div class="navigation-hide side-nav-hide">
+                        <a href="#">
+                            <span class="icon-cancel medium"></span>
+                        </a>
+                    </div>
+                </div>
+                <nav class="side-navigation">
+                    <ul>
+                        <!-- BEGIN IF_IS_MENU_MOBILE -->
+                        <li>
+                            <a href="/{DISPLAY_WEB_MENU.IF_IS_MENU_MOBILE.URL}">{DISPLAY_WEB_MENU.IF_IS_MENU_MOBILE.TITLE}</a>
+                        </li>
+                        <!-- END IF_IS_MENU_MOBILE -->
+                        <!-- BEGIN IF_ARTICLES -->
+                        <li>
+                          <a href="/Articles">Articles</a>
+                        </li>
+                        <!-- END IF_ARTICLES -->
+                        <!-- BEGIN IF_VIDEOS -->
+                        <li>
+                          <a href="/Videos">Vidéos</a>
+                        </li>
+                        <!-- END IF_VIDEOS -->
+                        <!-- BEGIN IF_STORE -->
+                        <li>
+                            <a href="/Store">{DISPLAY_WEB_MENU.IF_STORE.STORE_NAME}</a>
+                        </li>
+                        <!-- END IF_STORE -->
+                        <!-- BEGIN IF_CONTACT -->
+                        <li>
+                          <a href="{DISPLAY_WEB_MENU.IF_CONTACT.URL}#contact">Contact</a>
+                        </li>
+                        <!-- END IF_CONTACT -->
+                        <!-- BEGIN IF_CONNEXION -->
+                        <li>
+                          <a href="/Connexion">Connexion</a>
+                        </li>
+                        <!-- END IF_CONNEXION -->
+                        <!-- BEGIN IF_ACCOUNT -->
+                        <li>
+                          <a href="/Account/Profil">Mon espace</a>
+                        </li>
+                        <!-- END IF_ACCOUNT -->
+                        <li>
+                          <a href="tel:{PHONE}"><b>{PHONE}</b></a>
+                        </li>
+                        <!-- BEGIN IF_FLAG_FRENCH -->
+                        <li>
+                          <a href="/fr/{DISPLAY_WEB_MENU.IF_FLAG_FRENCH.NAMEPAGE}" title="Voir le site en français"><img alt="Site en français" class="flag" src="/themes/assets/images/flag/france.svg"></a>
+                        </li>
+                        <!-- END IF_FLAG_FRENCH -->
+                        <!-- BEGIN IF_FLAG_ENGLISH -->
+                        <li>
+                          <a href="/en/{DISPLAY_WEB_MENU.IF_FLAG_ENGLISH.NAMEPAGE}" title="See the website in english"><img alt="Website in english" class="flag" src="/themes/assets/images/flag/united_kingdom.svg"></a>
+                        </li>
+                        <!-- END IF_FLAG_ENGLISH -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </aside>
+    <!-- END DISPLAY_WEB_MENU -->
+
+
+    <div class="wrapper reveal-side-navigation">
+        <div class="wrapper-inner">
+            <!-- BEGIN DISPLAY_WEB_MENU -->
+            <header class="header header-fixed header-fixed-on-mobile header-transparent" data-bkg-threshold="100" style="background-color: #00000077;">
+                <div class="header-inner">
+                    <div class="row nav-bar">
+                        <div class="column width-12 nav-bar-inner">
+                            <a href="{WEB_LOGO_LINK}"><img src="/themes/assets/images/logo.png?{CACHE_LOGO}" style="height: 80px; padding: 10px" alt="Logo" /></a>
+                            <nav class="navigation nav-block secondary-navigation nav-right">
+                                <ul>
+                                    <li>
+                                        <div class="v-align-middle"></div>
+                                    </li>
+                                    <li class="aux-navigation hide">
+                                        <a href="#" class="navigation-show side-nav-show nav-icon">
+                                            <span class="icon-menu"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <nav class="navigation nav-block primary-navigation nav-right">
+                                <ul>
+                                    <!-- BEGIN IF_IS_MENU -->
+                                    <li>
+                                        <a href="/{DISPLAY_WEB_MENU.IF_IS_MENU.URL}">{DISPLAY_WEB_MENU.IF_IS_MENU.TITLE}</a>
+                                        {DISPLAY_WEB_MENU.IF_IS_MENU.SUBITEMS}
+                                    </li>
+                                    <!-- END IF_IS_MENU -->
+                                    <!-- BEGIN IF_ARTICLES -->
+                                    <li>
+                                      <a href="/Articles">Articles</a>
+                                    </li>
+                                    <!-- END IF_ARTICLES -->
+                                    <!-- BEGIN IF_VIDEOS -->
+                                    <li>
+                                      <a href="/Videos">Vidéos</a>
+                                    </li>
+                                    <!-- END IF_VIDEOS -->
+                                    <!-- BEGIN IF_STORE -->
+                                    <li>
+                                        <a href="/Store">{DISPLAY_WEB_MENU.IF_STORE.STORE_NAME}</a>
+                                    </li>
+                                    <!-- END IF_STORE -->
+                                    <!-- BEGIN IF_CONTACT -->
+                                    <li>
+                                      <a href="{DISPLAY_WEB_MENU.IF_CONTACT.URL}#contact">Contact</a>
+                                    </li>
+                                    <!-- END IF_CONTACT -->
+                                    <!-- BEGIN IF_CONNEXION -->
+                                    <li>
+                                      <a href="/Connexion">Connexion</a>
+                                    </li>
+                                    <!-- END IF_CONNEXION -->
+                                    <!-- BEGIN IF_ACCOUNT -->
+                                    <li>
+                                      <a href="/Account/Profil">Mon espace</a>
+                                    </li>
+                                    <!-- END IF_ACCOUNT -->
+                                    <li>
+                                      <a href="tel:{PHONE}"><b>{PHONE}</b></a>
+                                    </li>
+                                    <!-- BEGIN IF_FLAG_FRENCH -->
+                                    <li>
+                                      <a href="/fr/{DISPLAY_WEB_MENU.IF_FLAG_FRENCH.NAMEPAGE}" title="Voir le site en français"><img alt="Site en français" class="flag" src="/themes/assets/images/flag/france.svg"></a>
+                                    </li>
+                                    <!-- END IF_FLAG_FRENCH -->
+                                    <!-- BEGIN IF_FLAG_ENGLISH -->
+                                    <li>
+                                      <a href="/en/{DISPLAY_WEB_MENU.IF_FLAG_ENGLISH.NAMEPAGE}" title="See the website in english"><img alt="Website in english" class="flag" src="/themes/assets/images/flag/united_kingdom.svg"></a>
+                                    </li>
+                                    <!-- END IF_FLAG_ENGLISH -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- END DISPLAY_WEB_MENU -->
+            {NOTIFICATIONS}

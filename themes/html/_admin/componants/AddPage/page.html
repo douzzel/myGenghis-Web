@@ -1,0 +1,190 @@
+<div class="p-container">
+  <div class="graph-sub communication mt-0" id="listWebPages">
+    <div>
+        <div class="graph-sub-button btn-left">
+            <a class="btn btn-outline-theme border-0 rounded-0" href="/Administration/Site"><i class="material-icons vertical-align">arrow_back_ios</i>Retour</a>
+        </div>
+    </div>
+    <h1>Pages du Site</h1>
+    <div>
+      <div class="graph-sub-button btn-right">
+          <a class="btn" href="/{PAGE_URL}" target="_blank" title="Voir la page">
+            <i class='material-icons'>visibility</i>
+          </a>
+        </div>
+    </div>
+  </div>
+{FIL_ARIANNE}
+<!-- BEGIN EDIT -->
+<form method="POST" action="{URL}" enctype="multipart/form-data" data-interactive-check="true" data-role="validator">
+<div class="card card-default mb-4">
+  <div class="card-body">
+    <h4 class="text-center">Informations de la page</h4>
+    <div class="row">
+      <div class="col-7">
+        <label for="PageName">Nom <br/> <small>Il est affiché dans le menu de navigation</small></label>
+        <input type="text" name="PageName" value="{PAGENAME}" data-role="input"
+          id="PageName" required data-validate="required"/>
+        <br/>
+
+        <input type="radio" data-role="radio" name="visibility" value="visible" {VISIBILITY_TRUE} data-caption="Visible sur le site internet" class="w-100">
+        <input type="radio" data-role="radio" name="visibility" value="hidden" {VISIBILITY_FALSE} data-caption="Invisible sur le site internet">
+        <br/>
+        <br/>
+
+        <label for="url">Adresse Web (URL) <br/><small>Utilisez uniquement des lettres, des chiffres et les 2 types de tirets : _-</small></label>
+        <input type="text" name="url" value="{PAGE_URL}" data-role="input"
+            id="url" pattern="^[a-zA-Z0-9_-]*$" data-validate="required pattern=^[a-zA-Z0-9_-]*$" title="Utilisez uniquement des lettres, des chiffres et les 2 types de tirets : _-" required />
+        <br/>
+
+        <label for="description">Description <br/><small>Ce texte s'affichera sur les moteurs de recherches et lors du partage du site sur les réseaux sociaux</small></label>
+        <textarea data-role="textarea" name="description" rows="2">{DESCRIPTION}</textarea>
+        <br/>
+
+        <div class="row">
+          <div class="col-6 pl-0">
+            <label for="page_group">Page parente <br/> <small>Affiche la page sous une autre page dans le menu de navigation</small></label>
+            <select data-role="select" data-filter="false" id="page_group" name="page_group">
+              {PAGE_GROUP}
+            </select>
+          </div>
+
+          <div class="col-6 pr-0">
+            <label for="sort_order">Ordre <br/><small>Position d'affichage dans le menu de navigation du site</small></label>
+            <input data-role="input" type="number" id="sort_order" name="sort_order" value="{SORT_ORDER}" data-validate="required" data-clear-button="false" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-5">
+        <label for="titre">Titre <br/> <small>Il est affiché dans la bannière de la page</small></label>
+        <input type="text" name="titre" value="{TITRE}" data-role="input"
+          id="titre">
+        <br/>
+
+        <label for="logo"> Bannière <br/> <small>(Image de haut de page)</small> <br/> <small>Dimensions recommandées : 1366 x 450 pixels</small>
+          <img src="{IMAGE}" id="image_prev">
+          <button type="button" title="Supprimer la bannière" class="btn" onclick="deleteImage('image_prev')"><i class="material-icons">close</i></button>
+        </label>
+        <input type="file" name="logo" id="logo" data-role="file" data-button-title="<i class='material-icons'>folder</i>" data-prepend="Bannière :" onchange="previewImage(event, 'image_prev')" accept="image/*">
+      </div>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <input type="submit" class="btn btn-theme" name="editInformations" value="Sauvegarder les informations de la page" />
+  </div>
+</div>
+</form>
+<div class="pt-3 container">
+  <h4 class="text-center">Contenu de la page</h4>
+<!-- BEGIN MODULE -->
+<div class="card card-default">
+<form method="POST" action="{URL}#{EDIT.MODULE.LABEL}" enctype="multipart/form-data" id="{EDIT.MODULE.LABEL}">
+  <div class="card-header bg-dark">
+    <div class="float-right" style="margin-top: -10px">
+      <!-- BEGIN ENGLISH -->
+      <button class="btn" type="button" onclick="changeLanguage('FR', '{EDIT.MODULE.ID}')" title="Version française"><img class="flag" src="/themes/assets/images/flag/france.svg"></button>
+      <button class="btn" type="button" onclick="changeLanguage('EN', '{EDIT.MODULE.ID}')" title="Version anglaise"><img class="flag" src="/themes/assets/images/flag/united_kingdom.svg"></button>
+      <!-- END ENGLISH -->
+    </div>
+    <h6 class="color-white mb-0">Module : {EDIT.MODULE.LABEL}</h6>
+  </div>
+  <input type="hidden" name="id" value="{EDIT.MODULE.ID}">
+  <div class="card-body">
+    <div class="row">
+      <div class="flex-auto w-100">
+        <div id="L-{EDIT.MODULE.ID}-FR">
+          <label for="title-{EDIT.MODULE.ID}">Titre</label>
+          <textarea id="title-{EDIT.MODULE.ID}" name="title" placeholder="Titre" class="tinymceSimpleSmall">{EDIT.MODULE.TITLE}</textarea>
+          <br/>
+          <label for="description" class="w-100">Contenu</label>
+          <div class="tinymceClick{FULLPAGE} bg-white border p-2 cursor-pointer" data-id="{EDIT.MODULE.ID}" title="Modifier">{EDIT.MODULE.DESCRIPTION}
+            <div class="w-100" style="pointer-events: none;"><button class="btn btn-theme" type="button">Modifier le contenu</button></div>
+          </div>
+          <span class="hidden spinner-border m-4" id="spinner-{EDIT.MODULE.ID}"></span>
+          <textarea class="hidden" name="description" rows="8" id="{EDIT.MODULE.ID}">{EDIT.MODULE.DESCRIPTION_HTML}</textarea>
+        </div>
+        <!-- BEGIN ENGLISH -->
+        <div id="L-{EDIT.MODULE.ID}-EN" class="hidden">
+          <label for="title-EN-{EDIT.MODULE.ID}">Titre</label>
+          <textarea id="title-EN-{EDIT.MODULE.ID}" name="title-EN" placeholder="Title">{EDIT.MODULE.ENGLISH.TITLE}</textarea>
+          <br/>
+          <label for="description-EN" class="w-100">Contenu</label>
+          <div class="tinymceClick{FULLPAGE} bg-white border p-2 cursor-pointer" data-id="{EDIT.MODULE.ID}-EN" title="Modifier">{EDIT.MODULE.ENGLISH.DESCRIPTION}
+            <div class="w-100" style="pointer-events: none;"><button class="btn btn-theme" type="button">Modifier le contenu</button></div>
+          </div>
+          <span class="hidden spinner-border m-4" id="spinner-{EDIT.MODULE.ID}-EN"></span>
+          <textarea class="hidden" name="description-EN" rows="8" id="{EDIT.MODULE.ID}-EN">{EDIT.MODULE.ENGLISH.DESCRIPTION_HTML}</textarea>
+        </div>
+        <!-- END ENGLISH -->
+        <br/>
+        <div class="rm-empty" data-src="{EDIT.MODULE.BUTTON}">
+            <label for="button">Bouton (texte ou icone)</label>
+            <input type="text" name="button" value="{EDIT.MODULE.BUTTON}" class="form-control" id="button" required/>
+        </div>
+      </div>
+      <div class="rm-empty col-6" data-src="{EDIT.MODULE.IMAGE}">
+        <label for="{EDIT.MODULE.LABEL}imageInput">
+          <span class="d-block w-100">Image</span>
+          <img src="{EDIT.MODULE.IMAGE}" id="{EDIT.MODULE.LABEL}image" loading="lazy" style="max-height: 400px">
+          <input type="text" id="{EDIT.MODULE.LABEL}image_alt" name="image_alt" value="{EDIT.MODULE.IMAGE_ALT}" data-role="input" placeholder="Description de l'image (alt)" class="my-2">
+        </label>
+        <input type="file" id="{EDIT.MODULE.LABEL}imageInput" name="image" data-role="file"  data-button-title="<i class='material-icons'>folder</i>" data-prepend="Image :" accept="image/*" onchange="previewImage(event, '{EDIT.MODULE.LABEL}image')" data-id="{EDIT.MODULE.LABEL}image">
+      </div>
+      <div class="rm-empty col-6" data-src="{EDIT.MODULE.VIDEO}">
+        <label class="card-group">
+          <span class="w-100">Video</span>
+          <video controls preload="metadata" id="vid" src="{EDIT.MODULE.VIDEO}" poster="{EDIT.MODULE.VIDEO}" style="max-width: 100%"></video>
+        </label>
+        <input type="file" id="video" name="video" data-role="file" accept="video/*" data-button-title="<i class='material-icons'>folder</i>" data-prepend="Vidéo :">
+      </div>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <input type="submit" class="btn btn-theme
+      m-1" name="edit"
+      value="Sauvegarder le module" />
+  </div>
+</form>
+</div>
+<!-- BEGIN DELETE -->
+<form action="{URL}" method="POST" class="position-absolute" style="margin-top: -5.5rem;">
+  <button type="submit" class="btn btn-link" name="deleteElem" value="{EDIT.MODULE.ID}" title="Supprimer l'élément"><i class="material-icons">delete</i></button>
+</form>
+<!-- END DELETE -->
+<!-- BEGIN ADD -->
+<form action="{URL}" method="POST" class="col-12 row justify-content-center mb-4">
+  <button type="submit" class="btn btn-theme col-6" name="add-liste" value="true">Ajouter un nouvel élément</button>
+</form>
+<!-- END AND -->
+<!-- END MODULE -->
+<!-- END EDIT -->
+</div>
+</div>
+<script>
+$(document).ready(function() {
+  $('.rm-empty').map((i, e) => {
+    if (!$(e).data().src)
+      e.remove();
+  });
+
+});
+function deleteImage(img) {
+  $.ajax({
+    url: window.location,
+    type: "POST",
+    data: {deleteBanner: true },
+    dataType: "html",
+    success: function (data) {
+      document.getElementById(img).src = "";
+    },
+  });
+}
+
+function changeLanguage(language, id) {
+  document.getElementById('L-'+id+'-FR').style.display = 'none';
+  document.getElementById('L-'+id+'-EN').style.display = 'none';
+  document.getElementById('L-'+id+'-'+language).style.display = 'block';
+  if (language === 'EN')
+    loadTinyMceSimple('#title-EN-'+id, {height: 150});
+}
+</script>

@@ -1,0 +1,183 @@
+<div class="col-12 bg-white bg-none graph-profil">
+  <div class="w-100 bg-dark p-2 card my-2 mb-4">
+    <div>
+      <button class="btn color-white text-hover-theme" title="Filter par Messages" id="btn-messages" onclick="displayCat('messages')">
+        <span><i class="material-icons vertical-align">chat_bubble</i> Messages</span>
+      </button>
+      <button class="btn color-white text-hover-theme" title="Filter par Articles" id="btn-articles" onclick="displayCat('articles')">
+        <span><i class="material-icons vertical-align">article</i> Articles</span>
+      </button>
+      <button class="btn color-white text-hover-theme" title="Filter par Vidéos" id="btn-videos" onclick="displayCat('videos')">
+        <span><i class="material-icons vertical-align">video_library</i> Vidéos</span>
+      </button>
+      <!-- BEGIN IF_IS_ADMIN -->
+      <a href="#" data-toggle="modal" data-target="#postModal" class="btn btn-link bg-white color-black drop-shadow float-right">Créer</a>
+      <!-- END IF_IS_ADMIN -->
+    </div>
+  </div>
+  <div class="masonry-wrapper"><div class="masonry masonry-two">
+  <!-- BEGIN ARTICLES -->
+  <div class="masonry-item overflow-auto cat-{ARTICLES.TYPE}">
+    <div class="masonry-content">
+      <a {ARTICLES.LINK}>
+      {ARTICLES.MEDIA}
+      <div class="p-2">
+        <h6>{ARTICLES.TITLE}</h6>
+        <span>{ARTICLES.CONTENT}</span>
+      </div>
+      <div class="news-date">
+        <i class="ya ya-calendar"></i> {ARTICLES.DATE}
+      </div>
+      </a>
+      {ARTICLES.ADMIN}
+      <form action="/Account/Profil" method="POST">
+        <input type="hidden" name="typeNews" value="{ARTICLES.TYPE}">
+        <ul class="dropdown-menu position-fixed">
+          <li> {ARTICLES.FACEBOOK} </li>
+          <li> {ARTICLES.LINKEDIN} </li>
+          {ARTICLES.LINK_CONTENT}
+          {ARTICLES.EDIT}
+          <li> <button type="submit" name="deleteNews" value="{ARTICLES.LINK_ARTICLES}" class="btn text-hover-theme" title="Supprimer le message"><i class="material-icons mr-2">delete</i>Supprimer</button> </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <!-- END ARTICLES -->
+  </div></div>
+</div>
+
+<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="message">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark rounded-0">
+          <h5 class="modal-title color-white">Créer une publication</h5>
+          <button type="button" class="close color-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-around">
+          <a href="#" data-toggle="modal" data-target="#messageModal" class="btn btn-theme float-right" data-dismiss="modal">Message</a>
+          <a href="/Administration/Article" class="btn btn-theme float-right">Article</a>
+          <a href="/Administration/Video" class="btn btn-theme float-right">Vidéo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="message">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark rounded-0">
+          <h5 class="modal-title color-white" id="articleTitle"></h5>
+          <button type="button" class="close color-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body article-theme" id="articleContent">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form method="POST" action="{URL_ACT}" class="modal fade" id="editMessageModal" tabindex="-1" role="dialog" aria-labelledby="message" aria-hidden="true"  enctype="multipart/form-data">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header bg-dark rounded-0">
+              <h5 class="modal-title color-white">Modifier un message</h5>
+              <button type="button" class="close color-white" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <input type="hidden" name="editIdMessage" id="editIdMessage">
+                <div class="input-group">
+                  <textarea type="text" class="form-control tinymceSimple" name="editContent" id="editContent" placeholder="Votre message"></textarea>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <div class="col-4">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Annuler</button>
+              <input type="submit" name="editMessage" value="Modifier" class="btn btn-theme"></input>
+            </div>
+          </div>
+      </div>
+  </div>
+</form>
+<script>
+  function editMessage(id, message) {
+    tinyMCE.get('editContent').setContent(message);
+    $('#editIdMessage').val(id);
+  }
+</script>
+
+<form method="POST" action="{URL_ACT}" class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="message" aria-hidden="true"  enctype="multipart/form-data">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header bg-dark rounded-0">
+              <h5 class="modal-title color-white">Publier un message</h5>
+              <button type="button" class="close color-white" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="input-group">
+                  <textarea type="text" class="form-control tinymceSimple" name="message" id="message" placeholder="Votre message"></textarea>
+                </div>
+                <div class="col-12 m-2 text-right d-flex justify-content-end">
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <div class="col-4">
+              <label>Publier sur la plateforme en tant que :</label>
+              <select name="publish_as" class="form-control" required>
+                <option value="0">{SITENAME}</option>
+                <option value="{ID_MEMBRE}">{NOM} {PRENOM}</option>
+              </select>
+            </div>
+            <div class="col-4">
+              <div>
+                <input type="checkbox" name="facebook" id="publish_facebook" {FACEBOOK_CHECKBOX}>
+                <label for="publish_facebook">Publier sur Facebook</label>
+                <br/>
+                <input type="checkbox" name="linkedin" id="publish_linkedin" {LINKEDIN_CHECKBOX}>
+                <label for="publish_linkedin">Publier sur Linkedin</label>
+              </div>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Annuler</button>
+              <input type="submit" name="send" value="Publier" class="btn btn-theme"></input>
+            </div>
+          </div>
+      </div>
+  </div>
+</form>
+<script src="/themes/assets/js/masonry.js"></script>
+
+<script>
+  function displayCat(cat) {
+    if ($('#btn-'+cat).hasClass('color-theme')) {
+      $('.cat-articles').show();
+      $('.cat-videos').show();
+      $('.cat-messages').show();
+      $('#btn-articles').removeClass('color-theme');
+      $('#btn-videos').removeClass('color-theme');
+      $('#btn-messages').removeClass('color-theme');
+    } else {
+      $('.cat-articles').hide();
+      $('.cat-videos').hide();
+      $('.cat-messages').hide();
+      $('.cat-'+cat).show();
+      $('#btn-articles').removeClass('color-theme');
+      $('#btn-videos').removeClass('color-theme');
+      $('#btn-messages').removeClass('color-theme');
+      $('#btn-'+cat).addClass('color-theme');
+    }
+  }
+</script>

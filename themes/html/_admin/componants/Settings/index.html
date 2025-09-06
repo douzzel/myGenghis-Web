@@ -1,0 +1,396 @@
+<div class="p-container">
+    <div class="card">
+        <div class="card-header transparent p-0 border-0">
+            <div class="nav-tab-scroll">
+                <div class="nav nav-tabs navTabList" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-site" role="tab">myGenghis</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-modules" role="tab"><i
+                            class="material-icons vertical-align">apps</i> Modules</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-web" role="tab"><i
+                            class="material-icons vertical-align">web</i> Web</a>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-site" role="tabpanel">
+                <form method="POST" action="/Administration/Settings" class="card card-default"
+                    enctype="multipart/form-data">
+                    <h6 class="card-header bg-dark color-white">Personnalisation</h6>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 form-group pr-5">
+                                <label for="favicon" class="m-0">Favicon <i>(Icone du site)</i></label>
+                                <div class="d-flex align-items-center mb-2">
+                                    <label for="favicon">
+                                        <img id="faviconImg" src="/favicon.ico?{CACHE_FAVICON}" class="ml-1"
+                                            alt="favicon" />
+                                    </label>
+                                </div>
+                                <div class="input-group">
+                                    <input onchange="previewImage(event, 'faviconImg')" type="file" data-role="file"
+                                        id="favicon" aria-describedby="inputfavicon" name="favicon" accept="image/*">
+                                </div>
+                            </div>
+                            <div class="col-6 form-group pl-5 border-left">
+                                <div class="d-flex align-items-center mb-2">
+                                    <label for="logo" class="m-0">Logo de votre entreprise</label>
+                                </div>
+                                <div class="input-group">
+                                    <div class="w-100 d-block mt-2">
+                                        <label for="logo">
+                                            <img id="logoImg" src="/themes/assets/images/logo.png?{CACHE_LOGO}" />
+                                        </label>
+                                    </div>
+                                    <input onchange="previewImage(event, 'logoImg');" type="file" data-role="file"
+                                        name="logo" accept="image/*" id="logo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-4">
+                                <label for="fontMyGenghis">Police de votre plateforme</label>
+                                <select id="fontMyGenghis" name="fontMyGenghis" data-role="select"
+                                    data-drop-height="400" data-filter="false">
+                                    <!-- BEGIN FONT_LIST -->
+                                    <option value="{FONT_LIST.NAME}" {FONT_LIST.MYGENGHIS_SELECTED}
+                                        data-template='<span style="font-family: {FONT_LIST.NAME}">$1</span>'>
+                                        {FONT_LIST.NAME}</option>
+                                    <!-- END FONT_LIST -->
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="fontTitle">Police des titres du site</label>
+                                <select id="fontTitle" name="fontTitle" data-role="select" data-drop-height="400"
+                                    data-filter="false">
+                                    <!-- BEGIN FONT_LIST -->
+                                    <option value="{FONT_LIST.NAME}" {FONT_LIST.TITLE_SELECTED}
+                                        data-template='<span style="font-family: {FONT_LIST.NAME}">$1</span>'>
+                                        {FONT_LIST.NAME}</option>
+                                    <!-- END FONT_LIST -->
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="fontText">Police des textes du site</label>
+                                <select id="fontText" name="fontText" data-role="select" data-drop-height="400"
+                                    data-filter="false">
+                                    <!-- BEGIN FONT_LIST -->
+                                    <option value="{FONT_LIST.NAME}" {FONT_LIST.TEXT_SELECTED}
+                                        data-template='<span style="font-family: {FONT_LIST.NAME}">$1</span>'>
+                                        {FONT_LIST.NAME}</option>
+                                    <!-- END FONT_LIST -->
+                                </select>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <label for="loadFont">Ajouter une police <i>(otf, ttf, woff ou woff2)</i></label>
+                                <input type="file" data-role="file" accept="font/*" name="loadFont">
+                            </div>
+                        </div>
+                        <script>
+                            $('#fontMyGenghis').on('change', e => document.body.style.setProperty("--font-my-genghis", e.target.value));
+                        </script>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <input type="submit" name="global" value="Enregistrer" class="btn btn-theme col-2" />
+                    </div>
+                    <h6 class="card-header bg-dark color-white">Entreprise</h6>
+                    <div class="card-body row">
+                        <div class="col-12">
+                            <label for="siteName">Nom de votre entreprise</label>
+                            <input type="text" name="siteName" value="{SITE_NAME}" class="mb-3" data-role="input"
+                                id="siteName" placeholder="Nom de votre entreprise*" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="siteEmail">Email de contact</label>
+                            <input type="text" name="siteEmail" value="{SITE_EMAIL}" class="mb-3" data-role="input"
+                                id="siteEmail" placeholder="email@example.com*" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="phone">Téléphone</label>
+                            <input type="text" name="phone" value="{SITE_PHONE}" class="mb-3" data-role="input"
+                                id="phone" placeholder="06XXXXXXXX">
+                        </div>
+                        <div class="col-12">
+                            <label for="address">Adresse</label>
+                            <input type="text" name="address" value="{SITE_ADDRESS}" class="mb-3" data-role="input"
+                                id="address">
+                        </div>
+                        <div class="col-12">
+                            <label for="TvaNumber">Numéro de TVA intracommunautaire</label>
+                            <input type="text" name="TvaNumber" value="{TVA_NUMBER}" class="mb-3" data-role="input"
+                                id="TvaNumber">
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <input type="submit" name="global" value="Enregistrer" class="btn btn-theme col-2" />
+                    </div>
+                    <h6 class="card-header bg-dark color-white">Domaine et SSL</h6>
+                    <div class="card-body row">
+                        <div class="col-6">
+                            <label for="siteDomain">Nom de domaine <i>(sans http ou https)</i></label>
+                            <input type="text" name="siteDomain" value="{SITE_DOMAIN}" data-role="input" id="siteDomain"
+                                placeholder="example.com*" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="ssl_domain">http / https</label>
+                            <select name="ssl_domain" data-role="select" id="ssl_domain" data-filter="false">
+                                <option value="https" {HTTPS_ACTIVE}>Avec SSL (https)</option>
+                                <option value="http" {HTTPS_NOT_ACTIVE}>Sans SSL (http)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <input type="submit" name="global" value="Enregistrer" class="btn btn-theme col-2" />
+                    </div>
+                    <h6 class="card-header bg-dark color-white">Suivi Analytics de votre Site Web</h6>
+                    <div class="card-body row">
+                        <div class="col-12">
+                            <label for="analyticsTracking">Code de 'Tracking'</label>
+                            <input type="text" name="analyticsTracking" value="{ANALYTICS_TRACKING}" data-role="input"
+                                id="analyticsTracking" placeholder="Code de suivi analytics Matomo ou Google-Analytics">
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <input type="submit" name="analyticstracking" value="Enregistrer" class="btn btn-theme col-2" />
+                    </div>
+                    <h6 class="card-header bg-dark color-white">Liens Réseaux Sociaux</h6>
+                    <div class="card-body">
+                        <label for="facebook"><img src="/site/images/icons/facebook.svg" width="20"
+                                class="mx-2">Facebook</label>
+                        <input type="text" name="facebook" value="{FACEBOOK}" data-role="input" class="mb-3"
+                            id="facebook" placeholder="https://www.facebook.com/pagename">
+                        <label for="twitter"><img src="/site/images/icons/twitter.svg" width="20"
+                                class="mx-2">Twitter</label>
+                        <input type="text" name="twitter" value="{TWITTER}" data-role="input" class="mb-3" id="twitter"
+                            placeholder="https://twitter.com/pagename">
+                        <label for="youtube"><img src="/site/images/icons/youtube.svg" width="20"
+                                class="mx-2">Youtube</label>
+                        <input type="text" name="youtube" value="{YOUTUBE}" data-role="input" class="mb-3" id="youtube"
+                            placeholder="https://www.youtube.com/channel/pagename">
+                        <label for="linkedin"><img src="/site/images/icons/linkedin.svg" width="20"
+                                class="mx-2">Linkedin</label>
+                        <input type="text" name="linkedin" value="{LINKEDIN}" data-role="input" class="mb-3"
+                            id="linkedin" placeholder="https://www.linkedin.com/in/profilname">
+                        <label for="instagram"><img src="/site/images/icons/instagram.svg" width="20"
+                                class="mx-2">Instagram</label>
+                        <input type="text" name="instagram" value="{INSTAGRAM}" data-role="input" id="instagram"
+                            placeholder="https://www.instagram.com/profilname">
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <input type="submit" name="global" value="Enregistrer" class="btn btn-theme col-2" />
+                    </div>
+                </form>
+                <div class="card card-default mt-8 mb-0">
+                    <h6 class="card-header bg-dark color-white">Connexion des pages de réseaux sociaux</h6>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="w-100">{FACEBOOK_STATUS}</label>
+                            <div class="fb-login-button" data-max-rows="1" data-size="large"
+                                data-button-type="continue_with" data-use-continue-as="false"
+                                scope="email,pages_read_engagement,pages_manage_posts" onlogin="checkLoginState();">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <label class="w-100">{LINKEDIN_STATUS}</label>
+                            <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77sfxksyajwddk&redirect_uri={HTTP}://{SITE_DOMAIN}/Administration/Settings&state=89298737378822&scope=w_organization_social,r_organization_social,rw_organization_admin,r_basicprofile,w_member_social"
+                                class="btn color-white" style="background-color: #0073b1">Continuer avec Linkedin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-modules" role="tabpanel">
+                <form method="POST" action="/Administration/Settings" class="card card-default mb-0">
+                    <h6 class="card-header bg-dark color-white">Gestion des Modules</h6>
+                    <i class="m-2">Activer ou désactiver différentes fonctionnalités de votre site web</i>
+                    <div class="card-body pb-0">
+                        <!-- BEGIN MODULE -->
+                        <div class="form-group d-flex justify-content-between align-items-center">
+                            <label for="{MODULE.NAME}" class="mr-1 m-0 col-3"><a href="{MODULE.URL}"
+                                    target="_blank">[{MODULE.MODULETITLE}]</a>
+                                <!-- BEGIN INACTIVE -->
+                                <span class="text-danger"> (OFF) </span>
+                                <!-- END INACTIVE -->
+                                <!-- BEGIN ACTIVE -->
+                                <span class="text-success"> (ON) </span>
+                                <!-- END ACTIVE -->
+                            </label>
+                            <p class="col-7 m-0">{MODULE.MODULEDESCRIPTION}</p>
+                            <select name="{MODULE.NAME}" class="col-2 form-control" id="{MODULE.NAME}">
+                                <option value="OFF">OFF</option>
+                                <option value="ON" {MODULE.SELECTED}>ON</option>
+                            </select>
+                        </div>
+                        <hr />
+                        <!-- END MODULE -->
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <input type="submit" value="Enregistrer" class="btn btn-theme col-3" />
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="nav-web" role="tabpanel">
+                <form method="POST" action="{URL}" enctype="multipart/form-data">
+                    <div class="card card-default mb-0">
+                        <div class="card-header bg-dark rounded-0">
+                            <h5 class="card-title color-white">Paramètres site internet</h5>
+                        </div>
+                        <div class="card-body px-4">
+                            <label for="defaultPage">Page d'accueil du site</label>
+                            <select data-role="select" name="defaultPage" id="defaultPage">
+                                <!-- BEGIN IF_IS_PAGE -->
+                                <!-- BEGIN LISTE -->
+                                <option value="/{IF_IS_PAGE.LISTE.URL}" {IF_IS_PAGE.LISTE.SELECTED}>
+                                    {IF_IS_PAGE.LISTE.PAGE_NAME}
+                                </option>
+                                <!-- END LISTE -->
+                                <!-- END IF_IS_PAGE -->
+                                <!-- BEGIN PAGES -->
+                                <option value="{PAGES.URL}" {PAGES.SELECTED}>{PAGES.PAGE_NAME}
+                                </option>
+                                <!-- END PAGES -->
+                            </select>
+                            <label class="mt-4" for="web_logo_link">Lien de redirection du logo du site <i>(par défaut,
+                                    la page
+                                    d'accueil de votre site)</i></label>
+                            <input data-role="input" type="text" name="web_logo_link" id="web_logo_link"
+                                value="{WEB_LOGO_LINK}" placeholder="https://www.example.com">
+                            <input data-role="checkbox" type="checkbox" name="display_web_menu" id="display_web_menu"
+                                {DISPLAY_WEB_MENU}>
+                            <label class="mt-4 cursor-pointer" for="display_web_menu">Affiche le menu de navigation en
+                                haut du
+                                site</label><br />
+                            <input data-role="checkbox" type="checkbox" name="display_email" id="display_email"
+                                {DISPLAY_EMAIL}>
+                            <label class="mt-4 cursor-pointer" for="display_email">Affiche l'email de contact en bas de
+                                page</label><br />
+                            <input data-role="checkbox" type="checkbox" name="display_address" id="display_address"
+                                {DISPLAY_ADDRESS}>
+                            <label class="mt-4 cursor-pointer" for="display_address">Affiche l'adresse de l'entreprise
+                                en bas de
+                                page</label><br />
+                            <label class="mt-4" for="site_description">Description du site pour les moteurs de recherche
+                                et les
+                                réseaux sociaux</label>
+                            <input data-role="input" type="text" name="site_description" value="{SITE_DESCRIPTION}">
+                            <fieldset class="my-4">
+                                <legend>Présentation du <a href="/Contact" target="_blank">formulaire de contact</a>
+                                </legend>
+                                <input type="radio" data-role="radio" name="contact_mode" value="3" {CONTACT_MODE_3}
+                                    data-caption="Particulier" class="w-100">
+                                <input type="radio" data-role="radio" name="contact_mode" value="1" {CONTACT_MODE_1}
+                                    data-caption="Professionnel" class="w-100">
+                                <input type="radio" data-role="radio" name="contact_mode" value="2" {CONTACT_MODE_2}
+                                    data-caption="Particulier et professionnel" class="w-100">
+                            </fieldset>
+                            <hr />
+                            <h4>Bannières</h4>
+                            <!--
+                            <label for="image_store">Bannière du <a href="/Store" target="_blank">Store</a> <i>(1366 X
+                                        450 px)</i>
+                                <div class="col-12"> <img src="{IMG_STORE}" id="img_store" style="max-height: 150px">
+                                    <!-*- BEGIN IF_IMG_STORE -*->
+                                    <button type="button" title="Supprimer l'image" class="btn"
+                                        onclick="deleteImage('STORE', 'img_store')"><i
+                                            class="material-icons">close</i></button>
+                                    <!-*- END IF_IMG_STORE -*->
+                                </div>
+                            </label>
+                            <input data-role="file" type="file" accept="image/*" name="image_store" id="image_store"
+                                onchange="previewImage(event, 'img_store')">
+                            -->
+                            <label class="mt-4" for="image_articles">Bannière des <a href="/Articles"
+                                    target="_blank">Articles</a> <i>(1366
+                                    X 450 px)</i>
+                                <div class="col-12"> <img src="{IMG_ARTICLES}" id="img_articles"
+                                        style="max-height: 150px">
+                                    <!-- BEGIN IF_IMG_ARTICLES -->
+                                    <button type="button" title="Supprimer l'image" class="btn"
+                                        onclick="deleteImage('ARTICLES', 'img_articles')"><i
+                                            class="material-icons">close</i></button>
+                                    <!-- END IF_IMG_ARTICLES -->
+                                </div>
+                            </label>
+                            <input data-role="file" type="file" accept="image/*" name="image_articles"
+                                id="image_articles" onchange="previewImage(event, 'img_articles')">
+                            <label class="mt-4" for="image_videos">Bannière des <a hr href="/Videos"
+                                    target="_blank">Vidéos</a>
+                                <i>(1366 X
+                                    450 px)</i>
+                                <div class="col-12"> <img src="{IMG_VIDEOS}" id="img_videos" style="max-height: 150px">
+                                    <!-- BEGIN IF_IMG_VIDEOS -->
+                                    <button type="button" title="Supprimer l'image" class="btn"
+                                        onclick="deleteImage('VIDEOS', 'img_videos')"><i
+                                            class="material-icons">close</i></button>
+                                    <!-- END IF_IMG_VIDEOS -->
+                                </div>
+                            </label>
+                            <input data-role="file" type="file" accept="image/*" name="image_videos" id="image_videos"
+                                onchange="previewImage(event, 'img_videos')">
+                            <label class="mt-4" for="img_contact">Bannière du <a href="/Contact"
+                                    target="_blank">formulaire de contact</a> et des <a href="/ConditionsUtilisation"
+                                    target="_blank">conditions d'utilisation du site web</a>
+                                <i>(1366 X 450 px)</i></a>
+                                <div class="col-12"> <img src="{IMG_CONTACT}" id="img_contact"
+                                        style="max-height: 150px">
+                                    <!-- BEGIN IF_IMG_CONTACT -->
+                                    <button type="button" title="Supprimer l'image" class="btn"
+                                        onclick="deleteImage('CONTACT', 'img_contact')"><i
+                                            class="material-icons">close</i></button>
+                                    <!-- END IF_IMG_CONTACT -->
+                                </div>
+                            </label>
+                            <input data-role="file" type="file" accept="image/*" name="image_contact" id="image_contact"
+                                onchange="previewImage(event, 'img_contact')">
+                        </div>
+                        <div class="card-footer d-flex justify-content-end">
+                            <button type="submit" name="webSettings" value="true" class="btn btn-theme"> Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    function deleteImage(name, img) {
+                        $.ajax({
+                            url: window.location,
+                            type: "POST",
+                            data: { webDeleteImage: name },
+                            dataType: "html",
+                            success: function (data) {
+                                document.getElementById(img).src = "";
+                            },
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '386273839419172',
+            cookie: true,
+            xfbml: true,
+            version: 'v10.0'
+        });
+        FB.AppEvents.logPageView();
+    };
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    function checkLoginState() {
+        FB.getLoginStatus((response) => {
+            $.ajax({
+                url: "/Administration/Settings",
+                type: "POST",
+                data: { facebookToken: response.authResponse.accessToken },
+                datatype: 'html',
+                success: (data) => window.location.reload()
+            });
+        });
+    }
+</script>

@@ -1,0 +1,199 @@
+<div class="content clearfix">
+  <div class="content clearfix">
+    <div class="section-block intro-title-2" style="background-image: url('{BG_IMG}')" id="titleImage">
+        <div class="row">
+            <div class="column width-12">
+                <div class="title-container">
+                    <div class="title-container-inner">
+                        <h1 class="inline no-margin-bottom">{NAME}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <nav class="nav-store" id="nav-categorie">
+      <ul>
+          <!-- BEGIN CATEGORIE -->
+          <li class="{CATEGORIE.ACTIVE}">
+              <a href="/Categories?cat={CATEGORIE.NAME}">{CATEGORIE.NAME}</a>
+              <!-- BEGIN IF_FAM -->
+              <ul>
+                  <!-- BEGIN FAM -->
+                  <li title="{CATEGORIE.IF_FAM.FAM.NAME}">
+                        <a href="/Categories?fam={CATEGORIE.IF_FAM.FAM.ID}?fam={CATEGORIE.IF_FAM.FAM.NAME}">{CATEGORIE.IF_FAM.FAM.IMAGE}<p>{CATEGORIE.IF_FAM.FAM.NAME}</p></a>
+                        <!-- BEGIN IF_SUB_FAM -->
+                        <ul>
+                            <!-- BEGIN SUB_FAM -->
+                            <li title="{CATEGORIE.IF_FAM.FAM.IF_SUB_FAM.SUB_FAM.NAME}"><a href="/Categories?fam={CATEGORIE.IF_FAM.FAM.IF_SUB_FAM.SUB_FAM.ID}?fam={CATEGORIE.IF_FAM.FAM.IF_SUB_FAM.SUB_FAM.NAME}"><p>{CATEGORIE.IF_FAM.FAM.IF_SUB_FAM.SUB_FAM.NAME}</p></a></li>
+                            <!-- END SUB_FAM -->
+                        </ul>
+                        <!-- END IF_SUB_FAM -->
+                    </li>
+                  <!-- END FAM -->
+              </ul>
+              <!-- END IF_FAM -->
+          </li>
+          <!-- END CATEGORIE -->
+      </ul>
+  </nav>
+
+  <div class="row">
+      <nav class="nav-store">
+          <ul>
+              <!-- BEGIN FAMILIES -->
+              <li>
+                  <a href="/Categories?fam={FAMILIES.ID}?fam={FAMILIES.NAME}">{FAMILIES.NAME}</a>
+              </li>
+              <!-- END FAMILIES -->
+          </ul>
+      </nav>
+  </div>
+
+  <div  id="add-to-cart"></div>
+  <div class="section-block pb-40 pt-40">
+      <div class="row" style="font-size: 18px">
+        <a href="/Store">Store</a> <span class="px-2">></span> <a href="/Categories?cat={P_CATEGORY}"> {P_CATEGORY} </a> <span class="px-2">></span> <span> {NAME} </span>
+      </div>
+    </div>
+      <div class="row product">
+            <div class="column width-5">
+                <div class="product-images">
+                    {MEDIA}
+                </div>
+            </div>
+            <div class="column width-6 offset-1">
+                <div class="product-summary">
+                    <div class="product-title">
+                      {NAME}
+                    </div>
+                    <hr />
+                    <div class="product-price price"><ins>
+                      <span class="amount" style="font-size: large"><b>{TEXT_BEFORE}</b> {PROMO} {TEXT_AFTER}</span>
+                      {SUBSCRIPTION}<br/><br/>
+                      <!-- <span style="font-size: large">{CATEGORIE}</span> -->
+                    </ins></div>
+
+                    <div class="product-cart mt-50">
+                      <!-- BEGIN IF_STOCK -->
+                        <form action="{URL}" data-url="{URL}" class="AddItemsAjax" method="POST">
+                          <label>Quantité</label>
+                          <input type="hidden" value="{PRODUCT_ID}" name="libele" />
+                          <input type="hidden" value="{PRICE}" name="price" />
+                          <input type="hidden" name="addItems" value="ajout" />
+                          <input type="number" step="1"
+                          min="{QUANTITE_MINIMUM}"
+                          max="{QUANTITE_MAXIMUM}"
+                          name="quantities" value="{QUANTITE_MINIMUM}" title="quantities" class="form-element quantity" size="4" style="padding-right: 3px;">
+                          <button type="submit" name="panier" class="button add-to-cart-button mt-3">Ajouter au panier</button>
+                          <a class="button add-to-cart-button pull-right mt-3 seeCart {PANIER_ACTIVE}" href="/Store/Cart" target="_top">Voir mon panier ({NBR_ARTICLE})</a>
+                        </form>
+                      <!-- END IF_STOCK -->
+                      <!-- BEGIN IF_NO_STOCK -->
+                        <a class="button add-to-cart-button" href="/Contact">Contactez nous</a>
+                      <!-- END IF_NO_STOCK -->
+                    </div>
+                    <div class="addItemsProcess"></div>
+
+                    <hr>
+                    <div class="product-meta">
+                        <span class="posted-in">{CATEGORIE}</span><br>
+                        <span class="tagged-as"><b>Catégorie :</b> {P_CATEGORY}</span><br />
+                         {REFERENCE}
+                        <span class="tagged-as"> {POIDS} </span><br />
+                        <span class="tagged-as"> {LONGUEUR_BUCHE} </span><br />
+                        <span class="tagged-as"> {VOLUME} </span>
+                    </div>
+                    <br/>
+                    <hr class="hide show-on-mobile">
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN IF_DESCRIPTION -->
+        <div class="row product-related">
+            <div class="column width-12">
+                <div class="tabs product-tabs style-2">
+                    <ul class="tab-nav">
+                        <li class="active">
+                            <a href="#tabs-1-pane-1">Description</a>
+                        </li>
+                    </ul>
+                    <div class="tab-panes pt-0">
+                        <div id="tabs-1-pane-1" class="active animate">
+                            <div class="tab-content">
+                                {PRODUCT_DESCRIPTION}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a class="button add-to-cart-button pull-right seeCart {PANIER_ACTIVE}" href="/Store/Cart" target="_top">Voir mon panier ({NBR_ARTICLE})</a> -->
+                </div>
+            </div>
+        </div>
+        <!-- END IF_DESCRIPTION -->
+        <div class="row">
+            <div class="column width-12">
+                {PRODUCT_INFORMATIONS}
+            </div>
+            <!-- BEGIN IF_STOCK -->
+            <a class="button add-to-cart-button pull-right seeCart" href="#add-to-cart"><b>⬆</b> &nbsp; Ajouter au panier &nbsp; <b>⬆</b></a>
+            <!-- END IF_STOCK -->
+            <!-- BEGIN IF_NO_STOCK -->
+            <a class="button add-to-cart-button pull-right seeCart" href="/Contact">Contactez nous</a>
+            <!-- END IF_NO_STOCK -->
+        </div>
+
+        <!-- BEGIN IF_OTHER_PRODUCTS -->
+        <div class="section-block portfolio-carousel products no-padding-top no-padding-bottom bkg-grey-ultralight">
+            <div class="row products-similar">
+                <div class="column width-12">
+                    <hr>
+                    <h5 class="mb-30">Produits similaires</h5>
+                    <div class="row">
+                    <div class="column width-12">
+                      <div class="row grid content-grid-3">
+                        <!-- BEGIN OTHER_PRODUCTS -->
+                              <div class="grid-item product portrait grid-sizer design">
+                                  <!--
+                                  <div class="thumbnail product-thumbnail img-scale-in mb-0" data-hover-easing="easeInOut" data-hover-speed="700" data-hover-bkg-color="#ffffff" data-hover-bkg-opacity="0.9">
+                                  -->
+                                  <div class="tiled-product" data-tilt data-tilt-glare data-tilt-max-glare="0.3" data-tilt-scale="1.1" style="transform-style: preserve-3d; transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1); will-change: transform; box-shadow: 0 0 50px 0 rgb(51 51 51 / 30%);">
+                                    <div class="test-tiled" style="transform: translateZ(50px);">
+                                      {IF_OTHER_PRODUCTS.OTHER_PRODUCTS.STOCK}
+                                    </div>
+                                      <a class="overlay-link" href="/Produit?id={IF_OTHER_PRODUCTS.OTHER_PRODUCTS.ID}">
+                                          {IF_OTHER_PRODUCTS.OTHER_PRODUCTS.MEDIA}
+                                            <!--
+                                          <span class="overlay-info">
+                                              <span>
+                                                  <span>
+                                                      <div class="test-tiled" style="position: absolute; width: 15%; height: 10%; top: 52%; left: 50%; transform: translateZ(30px) translateX(-50%) translateY(-50%); box-shadow: 0 0 50px 0 rgb(51 51 51 / 30%); background-color: #FEFEFA; text-align: center;">
+                                                        VOIR
+                                                      </div>
+                                                  </span>
+                                              </span>
+                                          </span>
+                                            -->
+                                      </a>
+                                  </div>
+                                  <div class="product-details center">
+                                      <h3 class="product-title">
+                                          <a href="/Produit?id={IF_OTHER_PRODUCTS.OTHER_PRODUCTS.ID}">
+                                              {IF_OTHER_PRODUCTS.OTHER_PRODUCTS.NAME}
+                                          </a>
+                                      </h3>
+                                      <span class="product-price price"><ins>
+                                        <span class="amount" style="font-size: large">{IF_OTHER_PRODUCTS.OTHER_PRODUCTS.TEXT_BEFORE} {IF_OTHER_PRODUCTS.OTHER_PRODUCTS.PROMO} {IF_OTHER_PRODUCTS.OTHER_PRODUCTS.TEXT_AFTER}</span>
+                                      </ins></span>
+                                  </div>
+                              </div>
+                          <!-- END OTHER_PRODUCTS -->
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END IF_OTHER_PRODUCTS -->
+</div>

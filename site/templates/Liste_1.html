@@ -1,0 +1,55 @@
+<!-- BEGIN HEADER -->
+<div class="section-block testimonial-5 testimonials-5-about-1">
+  <div id="testimonial-slider-1" class="testimonial-slider tm-slider-container">
+    <ul class="tms-slides">
+      <li class="tms-slide" data-image>
+        <div class="tms-content-scalable">
+          <div class="row">
+            <div class="column width-8 offset-2">
+              <h4>{HEADER.TITLE}</h4>
+              <blockquote class="center large">
+                <p> {HEADER.DESCRIPTION} </p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- END HEADER -->
+<div class="section-block clearfix pt-0">
+  <div class="row">
+    <div class="column width-9 content-inner blog-regular">
+      <!-- BEGIN LISTE -->
+      <article class="post" id="{LISTE.TITLE_CLEAN}">
+        <div class="post-media">
+          <div class="thumbnail img-scale-in" data-hover-easing="easeInOut" data-hover-speed="700"
+            data-hover-bkg-color="#ffffff" data-hover-bkg-opacity="0.9">
+            <a class="overlay-link lightbox-link" data-toolbar="zoom" data-group="gallery-1" data-caption="{LISTE.TITLE}"
+              href="{LISTE.IMAGE}">
+              <img src="{LISTE.IMAGE}" alt="{LISTE.IMAGE_ALT}" />
+            </a>
+          </div>
+        </div>
+        <div class="post-content">
+          <h2 class="post-title"><a>{LISTE.TITLE}</a></h2>
+          <p> {LISTE.DESCRIPTION} </p>
+        </div>
+      </article>
+      <!-- END LISTE -->
+    </div>
+    <aside class="column width-3 sidebar right">
+      <div class="sidebar-inner">
+        <div class="widget">
+          <h3 class="widget-title">Catégories</h3>
+          <ul>
+            <!-- BEGIN LISTE -->
+            <li><a href="#{LISTE.TITLE_CLEAN}">{LISTE.TITLE}</a></li>
+            <!-- END LISTE -->
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

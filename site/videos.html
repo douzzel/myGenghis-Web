@@ -1,0 +1,81 @@
+<!-- BEGIN IF_VID_LIST -->
+<div class="content clearfix">
+  <div class="section-block intro-title-2" style="background-color: gray; background-image: url('{IMAGE}')">
+      <div class="row">
+          <div class="column width-12">
+              <div class="title-container">
+                  <div class="title-container-inner">
+                      <h1 class="inline no-margin-bottom banner-drop-shadow">
+                          {PAGENAME}
+                      </h1>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="blog-masonry grid-container mt-40 mb-40" data-layout-mode="masonry" data-grid-ratio="1.5" data-animate-resize data-animate-resize-duration="0">
+    <div class="row">
+      <div class="column width-12">
+        <div class="row grid content-grid-3 clearfix">
+          <!-- BEGIN VIDEO -->
+          <div class="grid-item grid-sizer">
+            <article class="post">
+              <div class="post-media">
+                <div class="thumbnail img-scale-in" data-hover-easing="easeInOut" data-hover-speed="700" data-hover-bkg-color="#ffffff" data-hover-bkg-opacity="0.9">
+                  <a class="overlay-link" href="/Videos/{IF_VID_LIST.VIDEO.ID}">
+                    {IF_VID_LIST.VIDEO.THUMBNAIL}
+                    <span class="overlay-info">
+                      <span>
+                        <span>
+                          Voir la vidéo
+                        </span>
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="post-content with-background">
+                <h2 class="post-title"><a href="/Videos/{IF_VID_LIST.VIDEO.ID}">{IF_VID_LIST.VIDEO.TITLE}</a></h2>
+                <div class="post-info">
+                  <span class="post-date">{IF_VID_LIST.VIDEO.DATE}</span></span>
+                </div>
+                <p>{IF_VID_LIST.VIDEO.SUMMARY}</p>
+              </div>
+            </article>
+          </div>
+          <!-- END VIDEOS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END IF_VID_LIST -->
+
+<!-- BEGIN VIDEO -->
+<div class="content clearfix">
+  <section class="section-block intro-title-2" style="background-color: gray; background-image: url('{VIDEO.IMAGE}')">
+      <div class="row">
+          <div class="column width-12">
+              <div class="title-container">
+                  <div class="title-container-inner">
+                      <h1 class="inline no-margin-bottom banner-drop-shadow">
+                        {VIDEO.TITLE}
+                      </h1>
+                      <h4 class="banner-drop-shadow text-white weight-bold">{VIDEO.DATE}</h4>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <section class="section-block">
+    <div class="row">
+      <div class="column width-12">
+        <div class="article-video">
+          {VIDEO.VIDEO}
+        </div>
+        <p>{VIDEO.SUMMARY}</p>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- END VIDEO -->

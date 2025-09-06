@@ -1,0 +1,296 @@
+<div class="p-container">
+    <div class="col-lg-12" id="wordcloud">
+        <div class="card">
+            <div class="card-body">
+                <style type="text/css">
+                    .highcharts-figure,
+                    .highcharts-data-table table {
+                        min-width: 320px;
+                        max-width: 800px;
+                        margin: 1em auto;
+                    }
+
+                    .highcharts-data-table table {
+                        font-family: Verdana, sans-serif;
+                        border-collapse: collapse;
+                        border: 1px solid #ebebeb;
+                        margin: 10px auto;
+                        text-align: center;
+                        width: 100%;
+                        max-width: 500px;
+                    }
+
+                    .highcharts-data-table caption {
+                        padding: 1em 0;
+                        font-size: 1.2em;
+                        color: #555;
+                    }
+
+                    .highcharts-data-table th {
+                        font-weight: 600;
+                        padding: 0.5em;
+                    }
+
+                    .highcharts-data-table td,
+                    .highcharts-data-table th,
+                    .highcharts-data-table caption {
+                        padding: 0.5em;
+                    }
+
+                    .highcharts-data-table thead tr,
+                    .highcharts-data-table tr:nth-child(even) {
+                        background: #f8f8f8;
+                    }
+
+                    .highcharts-data-table tr:hover {
+                        background: #f1f7ff;
+                    }
+                </style>
+                <script type="text/javascript" src="/classes/highcharts-core/code/highcharts.js" defer></script>
+                <script type="text/javascript" src="/classes/highcharts-core/code/modules/wordcloud.js" defer></script>
+                <script type="text/javascript" src="/classes/highcharts-core/code/modules/exporting.js" defer></script>
+                <script type="text/javascript" src="/classes/highcharts-core/code/modules/export-data.js"
+                    defer></script>
+                <script type="text/javascript" src="/classes/highcharts-core/code/modules/accessibility.js"
+                    defer></script>
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                    <textarea id="searchableCloud" readonly hidden>
+<!-- BEGIN WEBPAGE_LIST -->
+ {WEBPAGE_LIST.NAME},
+<!-- END WEBPAGE_LIST -->
+<!-- BEGIN BLOG_LIST -->
+{BLOG_LIST.NAME},
+<!-- END BLOG_LIST -->
+<!-- BEGIN VIDEO_LIST -->
+{VIDEO_LIST.NAME},
+<!-- END VIDEO_LIST -->
+</textarea>
+                </figure>
+                <script type="module">
+                    var wordCloud = document.getElementById('searchableCloud').value.toString().replaceAll(',', ', ');
+                    const text = wordCloud,
+                        lines = text.replace(/[():'?0-9]+/g, '').split(/[,\. ]+/g),
+                        data = lines.reduce((arr, word) => {
+                            let obj = Highcharts.find(arr, obj => obj.name === word);
+                            if (obj) {
+                                obj.weight += 1;
+                            } else {
+                                obj = {
+                                    name: word,
+                                    weight: 1
+                                };
+                                arr.push(obj);
+                            }
+                            return arr;
+                        }, []);
+                    Highcharts.chart('container', {
+                        accessibility: {
+                            screenReaderSection: {
+                                beforeChartFormat: '<h5>{chartTitle}</h5>' +
+                                    '<div>{chartSubtitle}</div>' +
+                                    '<div>{chartLongdesc}</div>' +
+                                    '<div>{viewTableButton}</div>'
+                            }
+                        },
+                        series: [{
+                            type: 'wordcloud',
+                            data,
+                            name: 'Occurrences'
+                        }],
+                        title: {
+                            text: 'Nuage de mots du centre de recherche',
+                            align: 'left'
+                        },
+                        subtitle: {
+                            text: '(références indexés selon leur présence en base de données des éléments cherchables)',
+                            align: 'left'
+                        },
+                        tooltip: {
+                            headerFormat: '<span style="font-size: 16px"><b>{point.key}</b></span><br>'
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="graph-sub">
+        <div></div>
+        <h1>Centre de Recherche</h1>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3 align-middle">
+            <h2><i class="material-icons" translate="no">search</i> Global</h2>
+        </div>
+        <div class="col-sm-9 align-middle">
+            <select data-role="select" name="global_search" id="global_search"
+                data-filter-placeholder="Recherche globale sur l'ensemble de la palteforme…"
+                onchange="globalSelection()" autocomplete="off" data-add-empty-value="true">
+                <optgroup label="────── Pages du site ──────">
+                    <!-- BEGIN WEBPAGE_LIST -->
+                    <option value="Page/|{WEBPAGE_LIST.ID}">[{WEBPAGE_LIST.ID}] {WEBPAGE_LIST.NAME}</option>
+                    <!-- END WEBPAGE_LIST -->
+                </optgroup>
+                <optgroup label="───── Articles de blog ─────">
+                    <!-- BEGIN BLOG_LIST -->
+                    <option value="Article/|{BLOG_LIST.ID}">[{BLOG_LIST.ID}] {BLOG_LIST.NAME}</option>
+                    <!-- END BLOG_LIST -->
+                </optgroup>
+                <optgroup label="────── Vidéothèque ──────">
+                    <!-- BEGIN VIDEO_LIST -->
+                    <option value="Video/|{VIDEO_LIST.ID}">[{VIDEO_LIST.ID}] {VIDEO_LIST.NAME}</option>
+                    <!-- END VIDEO_LIST -->
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-3 align-middle">
+            <h2><i class="material-icons" translate="no">web</i> Site</h2>
+        </div>
+        <div class="col-sm-9 align-middle">
+            <select data-role="select" name="web_search" id="web_search"
+                data-filter-placeholder="Rechercher une page du site web…" onchange="webSelection()" autocomplete="off"
+                data-add-empty-value="true">
+                <!-- BEGIN WEBPAGE_LIST -->
+                <option value="Page/|{WEBPAGE_LIST.ID}">[{WEBPAGE_LIST.ID}] {WEBPAGE_LIST.NAME}</option>
+                <!-- END WEBPAGE_LIST -->
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3 align-middle">
+            <h2><i class="material-icons" translate="no">web</i> Blog</h2>
+        </div>
+        <div class="col-sm-9 align-middle">
+            <select data-role="select" name="web_search" id="web_search"
+                data-filter-placeholder="Rechercher un article du blog…" onchange="webSelection()" autocomplete="off"
+                data-add-empty-value="true">
+                <!-- BEGIN BLOG_LIST -->
+                <option value="Article/|{BLOG_LIST.ID}">[{BLOG_LIST.ID}] {BLOG_LIST.NAME}</option>
+                <!-- END BLOG_LIST -->
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3 align-middle">
+            <h2><i class="material-icons" translate="no">web</i> Vidéothèque</h2>
+        </div>
+        <div class="col-sm-9 align-middle">
+            <select data-role="select" name="web_search" id="web_search"
+                data-filter-placeholder="Rechercher une vidéo de la vidéothèque…" onchange="webSelection()"
+                autocomplete="off" data-add-empty-value="true">
+                <!-- BEGIN VIDEO_LIST -->
+                <option value="Video/|{VIDEO_LIST.ID}">[{VIDEO_LIST.ID}] {VIDEO_LIST.NAME}</option>
+                <!-- END VIDEO_LIST -->
+            </select>
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col-sm-3 align-middle">
+            <h2><i class="material-icons" translate="no">mail</i> Mails</h2>
+        </div>
+        <div class="col-sm-9 align-middle">
+            <select data-role="select" name="mail_search" id="mail_search"
+                data-filter-placeholder="Rechercher un e-mail, un template d'e-mail…" onchange="mailSelection()"
+                autocomplete="off" data-add-empty-value="true">
+                <optgroup label="────── Mails Entrants ──────">
+                    <!- - BEGIN INMAIL_LIST - ->
+                    <option value="Mails?id=/|{INMAIL_LIST.ID}">[{INMAIL_LIST.NAME}] {INMAIL_LIST.TITLE}</option>
+                    <!- - END INMAIL_LIST - ->
+                </optgroup>
+                <optgroup label="────── Mails Sortants ──────">
+                    <!- - BEGIN OUTMAIL_LIST - ->
+                    <option value="Mails?id=/|{OUTMAIL_LIST.ID}">[{OUTMAIL_LIST.NAME}] {OUTMAIL_LIST.TITLE}</option>
+                    <!- - END OUTMAIL_LIST - ->
+                </optgroup>
+                <optgroup label="────── Templates Mails ──────">
+                    <!- - BEGIN TEMPLATE_LIST - ->
+                    <option value="MessagingTemplate/send/|{TEMPLATE_LIST.ID}">[{TEMPLATE_LIST.ID}] {TEMPLATE_LIST.NAME}
+                    </option>
+                    <!- - END TEMPLATE_LIST - ->
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    -->
+</div>
+<script>
+    function globalSelection() {
+        var rid = document.getElementById("global_search").value;
+        var cid = rid.split("|");
+        if ((cid[1] && !isNaN(cid[1])) || cid[0] == 'Page/') {
+            window.onbeforeunload = () => { ; };
+            if (cid[0] == 'Mails?id=') {
+                window.parent.location.href = '/Administration/' + cid[0] + cid[1] + '#Mail';
+            } else {
+                window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+            }
+        }
+    }
+    function docSelection() {
+        var rid = document.getElementById("doc_search").value;
+        var cid = rid.split("|");
+        if (cid[1] && !isNaN(cid[1])) {
+            window.onbeforeunload = () => { ; };
+            window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+    function personSelection() {
+        var rid = document.getElementById("person_search").value;
+        var cid = rid.split("|");
+        if (cid[1] && !isNaN(cid[1])) {
+            window.onbeforeunload = () => { ; };
+            window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+    function billingSelection() {
+        var rid = document.getElementById("billing_search").value;
+        var cid = rid.split("|");
+        if (cid[1] && !isNaN(cid[1])) {
+            window.onbeforeunload = () => { ; };
+            window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+    function salesSelection() {
+        var rid = document.getElementById("sales_search").value;
+        var cid = rid.split("|");
+        if (cid[1] && !isNaN(cid[1])) {
+            window.onbeforeunload = () => { ; };
+            window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+    function marketingSelection() {
+        var rid = document.getElementById("marketing_search").value;
+        var cid = rid.split("|");
+        if (cid[1] && !isNaN(cid[1])) {
+            window.onbeforeunload = () => { ; };
+            window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+    function webSelection() {
+        var rid = document.getElementById("web_search").value;
+        var cid = rid.split("|");
+        if (cid[0] == 'Page/' && cid[0]) {
+            window.onbeforeunload = () => { ; };
+            window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+        }
+    }
+    function mailSelection() {
+        var rid = document.getElementById("mail_search").value;
+        var cid = rid.split("|");
+        if (cid[1] && !isNaN(cid[1])) {
+            window.onbeforeunload = () => { ; };
+            if (cid[1] == 'Mails?id=/') {
+                window.parent.location.href = '/Administration/' + cid[0] + cid[1] + '#Mail';
+            } else {
+                window.parent.location.href = '/Administration/' + cid[0] + cid[1];
+            }
+        }
+    }
+</script>

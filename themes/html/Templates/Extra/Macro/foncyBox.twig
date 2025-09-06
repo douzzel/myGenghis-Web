@@ -1,0 +1,67 @@
+
+{% macro form(options = []) %}
+    <div id= "{{options.id}}" class="container_foncyBox d-flex justify-content-center align-items-center">
+        <div class="conteneur_form foncyBox_content" class="d-flex justify-content-center  align-items-center">
+            <button type="button" id="{{options.idClose}}" class="close color-white" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            <form method="POST"  action="{{options.url}}" enctype="multipart/form-data" class="pt-6 d-flex align-items-center flex-column container exception">
+                <div class="form-group col-lg">
+                    <label for="montant">Montant</label>
+                    <input type="number" class="form-control" id="montant" name="montant" placeholder="Montant">
+                </div>
+                <div class="form-group col-lg">
+                    <label for="date">Date</label>
+                    <input type="date" placeholder="aaaa-mm-jj" class="form-control" id="date" name="date">
+                </div>
+                <input type="hidden" class="form-control" id="date_created" name="date_created" >
+                <input type="hidden" class="form-control" id="id_contrat" name="id_contrat"  value="{{options.cId}}">
+            <button type="submit" id="btnForm" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro formGenerique(options = []) %}
+    <div id= "{{options.id}}" class="container_foncyBox d-flex justify-content-center align-items-center">
+        <div class="conteneur_form foncyBox_content" class="d-flex justify-content-center  align-items-center">
+            <button type="button" id="{{options.idClose}}" class="close color-white" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            <form method="POST"  action="{{options.url}}" enctype="multipart/form-data" class="pt-4 d-flex align-items-center flex-column container exception">
+                <h5 class="color-white mb-3">{{options.title}}</h5>
+
+               {% for input in options.inputs %}
+                    {% if input[1] == 'checkbox' %}
+                         <div class="form-check col-lg mb-3">
+                            <label for="{{input[0]}}">{{input[2]}}</label>
+                            <input type="{{input[1]}}" name="{{input[0]}}"  class="form-check-input" id="{{input[0]}}" >
+                        </div>
+                     {% elseif input[1] == 'select' %}
+                         <div class="form-check col-lg mb-3">
+                            <label for="{{input[0]}}">{{input[2]}}</label>
+                            <div id="{{input[6]}}" class="inputMessage"></div>
+                            <select name="{{input[0]}}" id="{{input[0]}}" class="form_control">
+                                 <option >-- {{ input[3] }} -- </option>
+                                  {% for option in input[4] %}
+                                    {% if input[5] == 'groupe' %}
+                                          <option class="form-control" value="{{option.getId}}"> {{ option.getNameGroup }} </option>
+                                     {% elseif input[5] == 'user' %}
+                                          <option class="form-control" value="{{option.getIdClient}}"> {{ option.getPseudo }} </option>
+                                    {% endif %}
+                                  {% endfor %}
+                            </select>
+                        </div>
+                    {% else %}
+                        <div class="form-group col-lg mb-3">
+                            <label for="{{input[0]}}">{{input[2]}}</label>
+                            {% if input[4] is defined %}
+                                <div id="{{input[4]}}" class="inputMessage">
+                                </div>
+                            {% endif %}
+                            <input type="{{input[1]}}" class="form-control" id="{{input[0]}}" name="{{input[0]}}" placeholder="{{input[3]}}" value="">
+                        </div>
+                    {% endif %}
+               {% endfor %}
+
+                <button type="submit" {% if options.idSubmit is defined %} id="{{options.idSubmit}}" {% endif %} class="btn btn-theme btn-classic mt-4">Ajouter</button>
+            </form>
+        </div>
+    </div>
+{% endmacro %}

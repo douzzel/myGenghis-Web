@@ -1,0 +1,148 @@
+<section class="section-block featured-media window-height tm-slider-parallax-container">
+  <div class="tm-slider-container full-width-slider" data-featured-slider data-parallax data-animation="slide"
+    data-speed="1000" data-scale-under="960" data-auto-advance data-auto-advance-interval="4000">
+    <ul class="tms-slides">
+      <!-- BEGIN CARROUSEL1 -->
+      <li class="tms-slide" data-image data-as-bkg-image data-force-fit data-overlay-bkg-color="#000000"
+        data-overlay-bkg-opacity="0.3" data-animation="scaleOut">
+        <div class="tms-content">
+          <div class="tms-content-inner left v-align-middle">
+            <div class="row">
+              <div class="column width-6 offset-3">
+                <div class="tms-caption" data-animate-in="preset:slideInUpLong;duration:10ms;" data-no-scale>
+                  <h1 class="title-large color-white lspacing-small mb-10 text-uppercase">
+                    <strong>{CARROUSEL1.TITLE}</strong>
+                  </h1>
+                  <h3 class="color-white text-uppercase no-margin-bottom"> {CARROUSEL1.DESCRIPTION} </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="{CARROUSEL1.IMAGE}" alt="{CARROUSEL1.IMAGE_ALT}" />
+      </li>
+      <!-- END CARROUSEL1 -->
+      <!-- BEGIN CARROUSEL2 -->
+      <li class="tms-slide" data-image data-as-bkg-image data-force-fit data-overlay-bkg-color="#000000"
+        data-overlay-bkg-opacity="0.3" data-animation="slideLeftRight" autoplay="true">
+        <div class="tms-content">
+          <div class="tms-content-inner left v-align-middle">
+            <div class="row">
+              <div class="column width-6 offset-3">
+                <div class="tms-caption" data-animate-in="preset:slideInUpLong;duration:1000ms;" data-no-scale>
+                  <h1 class="title-large color-white lspacing-small mb-10 text-uppercase">
+                    <strong>{CARROUSEL2.TITLE}</strong>
+                  </h1>
+                  <h3 class="color-white text-uppercase no-margin-bottom"> {CARROUSEL2.DESCRIPTION} </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="{CARROUSEL2.IMAGE}" alt="{CARROUSEL2.IMAGE_ALT}" />
+      </li>
+      <!-- END CARROUSEL2 -->
+    </ul>
+  </div>
+</section>
+<!-- BEGIN PART1 -->
+<section class="section-block replicable-content bkg-grey-ultralight pt-40">
+  <div class="row">
+    <div class="column width-6 left">
+      <div class="thumbnail no-margin-bottom" data-hover-easing="easeInOut" data-hover-speed="500"
+        data-hover-bkg-color="#ffffff" data-hover-bkg-opacity="0.9">
+        <img src="{PART1.IMAGE}" alt="{PART1.IMAGE_ALT}" />
+      </div>
+    </div>
+    <div class="column width-6">
+      <h2 class="mb-30">{PART1.TITLE}</h2>
+      <p>{PART1.DESCRIPTION}</p>
+    </div>
+  </div>
+</section>
+<!-- END PART1 -->
+<!-- BEGIN DESCRIPTION -->
+<section class="section-block replicable-content bkg-grey-ultralight pt-40 pb-0">
+  <div class="row">
+    <div class="column width-12 text-center">
+      <img src="{DESCRIPTION.IMAGE}" alt="{DESCRIPTION.IMAGE_ALT}" width="60">
+      <h2 class="mt-20 mb-20">{DESCRIPTION.TITLE}</h2>
+      <h4>{DESCRIPTION.DESCRIPTION}</h4>
+    </div>
+  </div>
+</section>
+<!-- END DESCRIPTION -->
+<section class="section-block replicable-content bkg-grey-ultralight pt-10">
+  <div class="flex no-wrap justify-content-around">
+  <!-- BEGIN LIEN -->
+    <a href="{LIEN.TITLE}" class="card text-center w-20 pt-3">
+      <div class="card-img-top">
+        <img src="{LIEN.IMAGE}" alt="{LIEN.IMAGE_ALT}">
+      </div>
+      <div class="card-body">
+        <h3>{LIEN.TITLE}</h3>
+        <p>{LIEN.DESCRIPTION}</p>
+      </div>
+    </a>
+  <!-- END LIEN -->
+  </div>
+</section>
+<!-- BEGIN BAR -->
+<section  class="section-block p-0" style="background-image: url('{BAR.IMAGE}'); background-size: cover; background-position-y: 65%;" alt="{BAR.IMAGE_ALT}" role="img">
+  <div class="row">
+    <h2 class="pt-60 pb-40 color-white banner-drop-shadow"><b>{BAR.TITLE}</b></h2>
+  </div>
+</section>
+<!-- END BAR -->
+<!-- BEGIN IF_CONTACT_FORM -->
+<section class="section-block replicable-content contact-2" id="contact">
+  <div class="row">
+    <div class="column width-12 text-center">
+      <!-- BEGIN CONTACT -->
+      <h2 class="mb-30">{CONTACT.TITLE}</h2>
+      <div>
+        <p>{CONTACT.DESCRIPTION}</p>
+      </div>
+      <!-- END CONTACT -->
+    </div>
+    <div class="column offset-2 width-8">
+      <div class="contact-form-container">
+		<span class="form-response"></span>
+        <form class="contact-form" action="/site/index.php" method="post">
+          <div class="row">
+            <div class="column width-6"> <input type="text" name="fname" class="form-fname form-element large"
+                placeholder="Prénom" tabindex="1" required /> </div>
+            <div class="column width-6"> <input type="text" name="lname" class="form-lname form-element large"
+                placeholder="Nom" tabindex="2" /> </div>
+            <div class="column width-6"> <input type="text" name="adr" class="form-email form-element large"
+                placeholder="Adresse" tabindex="3" required /> </div>
+            <div class="column width-6"> <input type="text" name="ville" class="form-website form-element large"
+                placeholder="Ville" tabindex="4" /> </div>
+            <div class="column width-6"> <input type="tel" name="telfixe" class="form-email form-element large"
+                placeholder="Téléphone fixe" tabindex="5" required /> </div>
+            <div class="column width-6"> <input type="tel" name="telportable" class="form-website form-element large"
+                placeholder="Téléphone portable" tabindex="6" /> </div>
+            <div class="column width-12"> <input type="email" name="email" class="form-website form-element large"
+                placeholder="Adresse mail" tabindex="7" /> </div>
+            <div class="column width-6"> <input type="text" name="honeypot" class="form-honeypot form-element large" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column width-12">
+              <div class="field-wrapper"> <textarea name="message" class="form-message form-element large"
+                  placeholder="Message" tabindex="8" required></textarea> </div>
+            </div>
+            <div class="column width-12">
+              <img id="captcha" src="/classes/securimage/securimage_show.php" alt="CAPTCHA Image" />
+              <a href="#" onclick="document.getElementById('captcha').src = '/classes/securimage/securimage_show.php?' + Math.random(); return false">[ Nouvelle image ]</a>
+              <input type="text" name="captcha_code" placeholder="* Captcha (Recopier les caractères)" class="form-captcha form-element large" size="10" maxlength="6" tabindex="9" required />
+            </div>
+            <div class="column width-12"> <input type="submit" value="Envoyer"
+                class="form-submit button medium bkg-navy color-white color-hover-white w-100" /> </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END IF_CONTACT_FORM -->

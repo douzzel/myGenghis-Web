@@ -1,0 +1,42 @@
+{% macro btnActions() %}
+    <div class="actions-buttons actions-buttons-title">
+        <div class="menu">
+            <div class="arrow-left-top"> </div>
+            <div class="arrow actions p-0">
+                <a class="btn btn-outline-theme border-0 rounded-0" href="#">Retour</a>
+            </div>
+            <div class="arrow-right-top"> </div>
+        </div>
+        <div>
+            <div class="arrow-left-top"> </div>
+            <div class="arrow arrow-big">Nouveau</div>
+            <div class="arrow-right-top"> </div>
+        </div>
+        <div class="menu">
+            <div class="arrow-left-top"> </div>
+            <div class="arrow actions p-0"><input type="submit" name="db_save_estim" class="btn btn-outline-success border-0 rounded-0" onclick="saveDataPost(event)" value="Enregistrer" /></div>
+            <div class="arrow-right-top"> </div>
+        </div>
+    </div>
+{% endmacro %}
+{% macro btnTriangle(id, item) %}
+    <div class='w-100 d-flex justify-content-center'>
+        <a id='{{id}}' class="triangle_btn">
+           {{item}}
+        </a>
+    </div>
+{% endmacro %}
+{% macro btnOnOff(item1, item2) %}
+    <div class="conteneur_btn_top d-flex">
+        <div id="item1" class ="btn_top on">
+           
+                {{item1}}
+        </div>
+        <div  id="item2" class="btn_top ">
+            <span>
+                {{item2}}
+            </span>
+        </div>
+    </div>
+   
+{% endmacro %}

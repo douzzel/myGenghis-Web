@@ -1,0 +1,128 @@
+RewriteEngine On
+
+#Stop crawlers/spiders/robots from indexing the platform/site
+# Header set X-Robots-Tag "noindex, nofollow"
+# RewriteCond %{HTTP_USER_AGENT} ^.*(Googlebot|Bingbot|Baiduspider).*$ [NC]
+# RewriteRule .* - [F,L]
+
+AddCharset UTF-8 .html .css .php .txt .js
+
+#Pas d'accès aux pages sans extension
+Options -MultiViews
+
+#Pas d'affichage de la liste des fichiers
+Options -Indexes
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+#Eviter les injections pour faire des include distants
+RewriteCond %{QUERY_STRING} =http://
+RewriteRule .* - [F,L]
+RewriteCond %{QUERY_STRING} =https://
+RewriteRule .* - [F,L]
+
+#Faille de debugging TRACE ET TRACK du rapport nessus
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+RewriteRule .* - [F]
+
+RewriteRule ^assets/js/([a-zA-Z0-9_\-.]+)\.js(/?)$ themes/js.php?file=$1
+RewriteRule ^assets/css/([a-zA-Z0-9_\-.]+)\.css(/?)$ themes/css.php?file=$1
+
+RewriteRule ^Video/(.*)(/?)$ themes/assets/video/$1
+
+#############################################################
+####################### URL REWRITING #######################
+#############################################################
+
+ErrorDocument 404 /index.php?page=erreurs/404
+RewriteRule ^404 /index.php?page=erreurs/404
+
+#Messagerie
+RewriteRule ^Contact(/?)$ index.php?page=messagerie/index&Page=Contact
+#RewriteRule ^Messagerie(/?)$ index.php?page=messagerie/index
+#RewriteRule ^Messagerie/([a-zA-Z0-9_\-]+)/([0-9]+)(/?)$ index.php?page=messagerie/index&Act=$1&id=$2
+
+#Account
+RewriteRule ^Connexion(/?)$ index.php?page=account/componants/connexion
+RewriteRule ^connexion(/?)$ index.php?page=account/componants/connexion
+RewriteRule ^Deconnexion(/?)$ index.php?page=account/componants/deconnexion
+#RewriteRule ^Inscription(/?)$ index.php?page=account/componants/inscription
+RewriteRule ^Pass(/?)$ index.php?page=account/componants/pass_perdu
+RewriteRule ^Pass/RestorePassword-(.*)(/?)$ index.php?page=account/componants/pass_perdu&RestorePassword=$1
+RewriteRule ^Account(/?)$ index.php?page=account/index
+RewriteRule ^Account/([0-9a-zA-Z\_]+)(/?)$ index.php?page=account/index&Page=$1
+RewriteRule ^Account/([0-9a-zA-Z\_]+)/dl/([0-9]+)(/?)$ index.php?page=account/index&Page=$1&id=$2&name=dl
+RewriteRule ^Account/([0-9a-zA-Z\_]+)/Download/([0-9]+)(/?)$ index.php?page=account/index&Page=$1&id=$2&name=Download
+RewriteRule ^Account/([0-9a-zA-Z\_]+)/View/([0-9]+)(/?)$ index.php?page=account/index&Page=$1&id=$2
+RewriteRule ^Account/([0-9a-zA-Z\_]+)/ID-([0-9]+)(/?)$ index.php?page=account/index&Page=$1&Member=$2
+RewriteRule ^Profil/(.*)(/?)$ index.php?page=account/index&Page=Profil&Pseudo=$1
+
+#Administration
+RewriteRule ^Administration(/?)$ index.php?page=admin/index
+RewriteRule ^Administration/([0-9a-zA-Z\_]+)(/?)$ index.php?page=admin/index&Action=$1
+RewriteRule ^Administration/([0-9a-zA-Z\_]+)/([0-9a-zA-Z\_@.-]+)(/?)$ index.php?page=admin/index&Action=$1&act=$2
+RewriteRule ^Administration/Contacts/TI/([0-9]+)(/?)$ index.php?page=admin/index&Action=Contacts&act=TI-$1
+RewriteRule ^Administration/Contacts/([0-9a-zA-Z\_\s-]+)(/?)$ index.php?page=admin/index&Action=Contacts&act=$1
+RewriteRule ^Administration/([0-9a-zA-Z\_]+)/([0-9a-zA-Z\_]+)/([0-9a-zA-Z\_]+)(/?)$ index.php?page=admin/index&Action=$1&act=$2&name=$3
+RewriteRule ^Administration/([0-9a-zA-Z\_]+)-page-([0-9]+)(/?)$ index.php?page=admin/index&Action=$1&numpage=$2
+
+#Store
+#RewriteRule ^Store/([0-9a-zA-Z\_]+)(/?)$ index.php?page=store/index&action=$1
+#RewriteRule ^Store/([0-9a-zA-Z\_]+)-([0-9]+)(/?)$ index.php?page=store/index&action=$1&id=$2
+
+#Forum
+#RewriteRule ^Forum(/?)$ index.php?page=account/index&Page=Forum
+#RewriteRule ^Forum/([0-9a-zA-Z\_]+)(/?)$ index.php?page=account/index&Page=Forum&action=$1
+#RewriteRule ^Forum/([0-9a-zA-Z\_]+)-getID-([0-9]+)(/?)$ index.php?page=account/index&Page=Forum&action=$1&getid=$2
+#---
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)(/?)$ index.php?page=account/index&Page=Section&id=$2
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)-page-([0-9]+)(/?)$ index.php?page=account/index&Page=Section&id=$2&numpage=$3
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)/Nouveau(/?)$ index.php?page=account/index&Page=Nouveau&id=$2
+#---
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)/sujet\-([0-9a-zA-Z\_]+)\-([0-9]+)(/?)$ index.php?page=account/index&Page=Sujet&id_forum=$2&id=$4
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)/sujet\-([0-9a-zA-Z\_]+)\-([0-9]+)-page-([0-9]+)(/?)$ index.php?page=account/index&Page=Sujet&id_forum=$2&id=$4&numpage=$5
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)/sujet\-([0-9a-zA-Z\_]+)\-([0-9]+)/modifier\-reponse\-([0-9]+)(/?)$ index.php?page=account/index&Page=Modifier&id=$5&id_s=$4
+#RewriteRule ^Forum/section\-([0-9a-zA-Z\_]+)\-([0-9]+)/sujet\-([0-9a-zA-Z\_]+)\-([0-9]+)\-page\-([0-9]+)/modifier\-reponse\-([0-9]+)(/?)$ index.php?page=account/index&Page=Modifier&id=$6&id_s=$4
+
+#Site
+#RewriteRule ^Bonjour(/?)$ site/landingPage/index.php
+RewriteRule ^ConditionsUtilisation(/?)$ site/index.php?doc=CGU
+RewriteRule ^ConditionsVente(/?)$ site/index.php?doc=CGV
+RewriteRule ^Contact(/?)$ site/index.php?module=CONTACT
+#RewriteRule ^Store(/?)$ site/store.php
+#RewriteRule ^Categories(/?)$ site/store-category.php
+#RewriteRule ^Produit(/?)$ site/produit.php
+RewriteRule ^Articles(/?)$ site/articles.php
+RewriteRule ^Articles/([0-9a-zA-Z\_]+)(/?)$ site/articles.php?article=$1
+RewriteRule ^Articles/([0-9a-zA-Z\_]+)/([0-9a-zA-Z\_]+)(/?)$ site/articles.php?article=$1&data=$2
+RewriteRule ^Videos(/?)$ site/videos.php
+RewriteRule ^Videos/([0-9a-zA-Z\_]+)(/?)$ site/videos.php?video=$1
+
+#Docs
+#RewriteRule ^Doc/([0-9a-zA-Z\_]+)(/?)$ pages/documents/index.php?weblink=$1
+#Drive
+RewriteRule ^uploads/Drive/([0-9]+)/([^/]*)(/?)$ pages/documents/index.php?folder=$1&file=$2
+
+#PageBuilder
+RewriteRule ^fr/([a-zA-Z0-9_\-]+)(/?)$ site/index.php?page=$1&language=fr
+RewriteRule ^en/([a-zA-Z0-9_\-]+)(/?)$ site/index.php?page=$1&language=en
+RewriteRule ^([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)(/?)$ index.php?page=UserPageBuild/index&name=$1&pageName=$2
+RewriteRule ^([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)(/?)$ index.php?page=UserPageBuild/index&name=$1&pageName=$2&Act=$3
+
+#UserCustomPages
+RewriteRule ^([a-zA-Z0-9_\-]+)(/?)$ site/index.php?page=$1
+
+#<IfModule mod_rewrite.c>
+#  RewriteEngine on
+#  RewriteRule ^\.well-known/host-meta /classes/nextcloud/public.php?service=host-meta [QSA,L]
+#  RewriteRule ^\.well-known/host-meta\.json /classes/nextcloud/public.php?service=host-meta-json [QSA,L]
+##  RewriteRule ^\.well-known/webfinger /classes/nextcloud/public.php?service=webfinger [QSA,L]
+#  RewriteRule ^\.well-known/webfinger /clases/nextcloud/index.php/.well-known/webfinger [R=301,L]
+#  RewriteRule ^\.well-known/nodeinfo /classes/nextcloud/index.php/.well-known/nodeinfo [R=301,L]
+#  RewriteRule ^\.well-known/carddav /classes/nextcloud/remote.php/dav/ [R=301,L]
+#  RewriteRule ^\.well-known/caldav /classes/nextcloud/remote.php/dav/ [R=301,L]
+#  RewriteRule ^\.well-known/carddav /classes/baikal/html/dav.php [R=308,L]
+#  RewriteRule ^\.well-known/caldav /classes/baikal/html/dav.php [R=308,L]
+#</IfModule>
+php_value date.timezone Europe/Paris

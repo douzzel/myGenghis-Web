@@ -1,0 +1,26 @@
+<div class="col-12 bg-white drop-shadow">
+    <section class="py-lg-5">
+        <!-- BEGIN HISTORIQUE -->
+        <div class="container">
+            <!-- BEGIN CAT_DATE -->
+            <div class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="ya ya-calendar mr-2 ml-1 mb-1"></i> {HISTORIQUE.CAT_DATE.DATE}
+                </div>
+                <!-- BEGIN LISTE -->
+                <div class="card shadow-none mb-2">
+                    <div class="card-body py-2">
+                        <div class="d-inline-block" style="width: 130px">
+                            <span class="d-inline-block badge {HISTORIQUE.CAT_DATE.LISTE.TYPE_PUCE}"
+                                style="padding: 5px 8px;">{HISTORIQUE.CAT_DATE.LISTE.TEXT_PUCE}</span>
+                        </div>
+                        {HISTORIQUE.CAT_DATE.LISTE.DESCRIPTION}
+                    </div>
+                </div>
+                <!-- END LISTE -->
+            </div>
+            <!-- END CAT_DATE -->
+        </div>
+        <!-- END HISTORIQUE -->
+    </section>
+</div>

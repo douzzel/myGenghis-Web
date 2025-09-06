@@ -1,0 +1,70 @@
+<nav class="graph_menu drop-shadow">
+    <ul id="graph_open_ul">
+        <li>
+            <a id="graph_menu_open" title="Menu" onclick="openMenu()"><i class="material-icons">menu</i></a>
+        </li>
+    </ul>
+    <ul id="graph_menu_ul">
+        <!--
+        {% if 'Dashboard'|verifyRights %}
+        <li class="{{ u or p ? '' : 'current-menu-item' }}">
+            <a id="graph_menu_dashboard" href="/Administration#nav-plateforme" title="Dashboard">
+                <i class="material-icons">home</i>
+            </a>
+            <ul>
+                <li><a href="/Administration#nav-culture"><i class="material-icons">museum</i> Stats</a></li>
+                <li><a href="/Administration#nav-sport"><i class="material-icons">emoji_events</i> Historique</a></li>
+            </ul>
+        </li>
+        {% endif %}
+        -->
+        <li
+            class="{{ u in ['Site', 'OnePage', 'Page', 'Article', 'Video', 'ReseauxSociaux', 'LiveChat', 'ChatBot', 'VideoChat'] ? 'current-menu-item' : '' }}">
+            <a id="graph_menu_communication" title="Communication" href="/Administration/Communication"><i
+                    class="material-icons">important_devices</i></a>
+            <ul>
+                {% if 'Web'|verifyRights or 'Articles & Vidéos'|verifyRights %}
+                <li id="graph_menu_site" class="{{u == 'Site' ? 'current-menu-item': ''}}"><a
+                        href="/Administration/Site" title="Gestion de votre site internet, articles et vidéos"><i
+                            class="material-icons">web</i> Web, Articles, Vidéos</a></li>
+                {% endif %}
+            </ul>
+        </li>
+        <li>
+            <a title="Accès Rapide" href="/Administration/AccesRapide"><i class="material-icons">pages</i></a>
+            <ul>
+                <!--
+                <li><a href="https://www.realisaprint.com/" target="_blank"><i class="material-icons">launch</i>
+                        Print</a></li>
+                -->
+                <li><a href="https://matomo.graphene-bsm.com" target="_blank"><i class="material-icons">launch</i>
+                        Matomo</a></li>
+                <li><a href="https://radar.cloudflare.com/" target="_blank"><i class="material-icons">launch</i>
+                        Cloudflare Radar</a></li>
+                <li><a href="https://www.pexels.com/" target="_blank"><i class="material-icons">launch</i> Pexels</a>
+                </li>
+                <li><a href="https://pixabay.com/" target="_blank"><i class="material-icons">launch</i> Pixabay</a></li>
+                <li><a href="https://www.colorion.co/" target="_blank"><i class="material-icons">launch</i> Colorion</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            {% if 'Produits'|verifyRights or 'Devis'|verifyRights or 'Facture'|verifyRights or 'Contacts'|verifyRights
+            or 'Documents Professionnel'|verifyRights or 'Mail'|verifyRights or 'Produits'|verifyRights %}
+            <a title="Action Rapide" href="/Administration/ActionRapide"><i
+                    class="material-icons">add_circle_outline</i></a>
+            <ul>
+                {% if 'Messages'|verifyRights %}
+                <li>
+                    <a href="/Administration#modalPost"><i class="material-icons">post_add</i> Créer une Publication</a>
+                    <ul>
+                        <a href="/Administration/Article"> Blog</a>
+                        <a href="/Administration/Video"> Vidéothèque</a>
+                        </u>
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </li>
+    </ul>
+</nav>

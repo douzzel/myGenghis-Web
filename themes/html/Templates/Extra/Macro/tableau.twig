@@ -1,0 +1,23 @@
+{% macro tableau(titles, options =[]) %}
+    <table id="{{options.tableId}}" class="table border bg-white mt-2">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                {% for title in titles %}
+                    <th>
+                        {{title}}
+                    </th>
+                {% endfor %}
+
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr class="text-center">
+                <td colspan="10" >
+                    <a id="{{options.id}}"class="text-hover-theme cursor-pointer" >
+                        AJOUTER &nbsp; <i class="ya ya-plus"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endmacro %}

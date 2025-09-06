@@ -1,0 +1,208 @@
+{% if IF_IS_ADMIN %}
+{{TOP_MENU|raw}}
+{{ACTION_MENU|raw}}
+{{QUEST_PANEL|raw}}
+<nav class="graph_menu graph_menu_right">
+    <ul>
+        <li>
+            <a title="Mode plein écran" onclick="openFullscreen()" class="cursor-pointer">
+                <i class="material-icons" id="fullscreenIcon">fullscreen</i>
+            </a>
+        </li>
+        <!--
+        <li>
+            <a href="/Administration/Recherche" title="Recherche"><i class="material-icons">search</i></a>
+        </li>
+        <li>
+            <a href="javascript:void(window.open('https://www.partyviberadio.com/player-https/embed/pop.html','','width=400,height=120,left=0,top=0'))"
+                alt="Web Radio" title="Web Radio">
+                <i class="material-icons">radio</i>
+            </a>
+        </li>
+        -->
+        <li class="{{page == 'History' ? 'current-menu-item': ''}} btn-avatar">
+            <a title="Profil">
+                <img class="avatar avatar-xxs rounded-circle mr-xl-2" src="{{IF_IS_CONNECTE.AVATAR}}"
+                    alt="Avatar du compte {{IF_IS_CONNECTE.PSEUDO|raw}}" />
+                <span class="d-none d-lg-inline-block">{{IF_IS_CONNECTE.PSEUDO|raw}}</span>
+            </a>
+            <ul class="drop-shadow">
+                {% if 'Paramètres Graphene'|verifyRights %}
+                <li class="{{action == 'Settings' ? 'current-menu-item': ''}}" title="Paramètres de la plateforme"
+                    id="graph_menu_settings">
+                    <a class="text-danger" href="/Administration/Settings">
+                        <i class="material-icons text-danger">admin_panel_settings
+                        </i>
+                        Paramètres de votre Site Web</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                {% endif %}
+                <li class="{{action == 'Settings' ? 'current-menu-item': ''}}" title="Paramètres du compte">
+                    <a href="/Administration/accountSettings">
+                        <i class="material-icons">manage_accounts</i>
+                        Mon compte</a>
+                </li>
+                <li class="{{page == 'History' ? 'current-menu-item': ''}}" title="Historique d'actions">
+                    <!--<a href="/Account/History">-->
+                    <a href="/Administration/History">
+                        <i class="material-icons">history</i>
+                        Historique</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li title="Outil Bloc-Notes">
+                    <a href="/Administration/BlocNotes" data-toggle="modal" data-target="#blocnotes"
+                        onclick="loadBlocNotes()">
+                        <i class="material-icons">sticky_note_2</i>
+                        Bloc-notes</a>
+                </li>
+                <li title="Outil Calculatrice">
+                    <a href="/Administration/Calculator" data-toggle="modal" data-target="#calculator"
+                        onclick="loadCalculator()">
+                        <i class="material-icons">calculate</i>
+                        Calculatrice</a>
+                </li>
+                <li title="Pierre-papier-ciseaux">
+                    <a href="/Administration/RPS" data-toggle="modal" data-target="#rps" onclick="loadRPS()">
+                        <i class="material-icons">bubble_chart</i>
+                        Pierre-papier-ciseaux</a>
+                </li>
+                <!--
+                {% if IF_IS_ADMIN %}
+                <!-*-
+                {% if IF_IS_NOT_MYGENGHIS %}
+                <div class="dropdown-divider"></div>
+                <li title="Espace myGenghis">
+                    <a href="https://mygenghis.graphene-bsm.com/Account/Profil" target="_blank"><img
+                            src="/themes/assets/images/logo_mygenghisx32.png" width="22" height="22">
+                        Espace myGenghis</a>
+                </li>
+                {% endif %}
+                -*->
+                <div class="dropdown-divider"></div>
+                <li title="Editeur OpenCode">
+                    <a class="text-warning" href="/Administration/OpenCode">
+                        <i class="material-icons text-warning">code</i>
+                        OpenCode</a>
+                </li>
+                {% endif %}
+                -->
+                <div class="dropdown-divider"></div>
+                <li title="Se déconnecter de la plateforme">
+                    <a href="/Deconnexion">
+                        <i class="material-icons">logout</i>
+                        Déconnexion</a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown" title="Notifications">
+            <a class="nav-link dropdown-toggle-none color-white" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" onclick="viewNotification();" name="viewNotification">
+                <i class="material-icons">notification_important</i>
+                {{NOTIFICATIONS_NUMBER ? ('<span class="notificationNumber" id="notificationNumber">' ~
+                    NOTIFICATIONS_NUMBER ~ '</span>')|raw : ''}}
+            </a>
+            <div id="notification-dropdown" class="dropdown-menu dropdown-menu-right rounded-0 py-0 m-0 drop-shadow">
+                <div class="pb-5 d-flex notification-max-height">
+                    <div class="notication-menu">
+                        <div id="deleteNotification">
+                            {{NOTIFICATION_MENU|raw}}
+                        </div>
+                    </div>
+                    {{NOTIFICATION_DELETE ? ('<div class="notification-delete drop-shadow">' ~ NOTIFICATION_DELETE ~ '
+                    </div>')|raw : ''}}
+                </div>
+            </div>
+        </li>
+        <li class="nav-item" title="Quêtes de découverte">
+            <a class="nav-link color-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                onclick="buttonShowQuestMenu()">
+                <i class="material-icons">menu_open</i>
+            </a>
+        </li>
+        <li class="nav-item" title="Assistance, Guides d'utilisation">
+            <a class="lz_text_link nav-link color-white"
+                href="javascript:void(window.open('//mygenghis.graphene-bsm.com/classes/livezilla/chat.php?group=support&ptn={{NOM_USER}}&pte={{EMAIL_USER}}&ptc={{SITE_NAME}}&ptl=FR&epc=IzJhMmIyZA__&esc=IzJhMmIyZA__','','width=400,height=600,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))"
+                alt="Live Chat" data-text-online="Aide en direct (Démarrer le chat)"
+                data-text-offline="Aide en direct (laisser un message)" data-css-online="" data-css-offline=""
+                data-online-only="0">
+                <i class="material-icons">help</i>
+            </a>
+        </li>
+        <script type="text/javascript">
+            var lz_data = { overwrite: false, 111: '{{ NOM_USER }}', 112: '{{ EMAIL_USER }}', 113: '{{ SITE_NAME }}', 114: '', 116: '', header: '', language: 'fr', website: '{{ STATIC_URL }}', textlink: true };
+        </script>
+    </ul>
+</nav>
+{% endif %}
+
+{% if IF_IS_CONNECTE %}
+<div class="modal" id="search" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <iframe id="iframeSearch" data-src="/Administration/Recherche" width="100%" height="640px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="blocnotes" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <iframe id="iframeBlocNotes" data-src="/classes/writty/index.html" width="100%" height="670px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="calculator" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <iframe id="iframeCalculator" data-src="/classes/calculator/index.html" width="100%"
+                    height="450px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="rps" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <iframe id="iframeRPS" data-src="/classes/Rock-Paper-Scissors/index.html" width="100%"
+                    height="450px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="urlshortener" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <iframe id="iframeUrlShortener" data-src="/Administration/UrlShortener" width="100%"
+                    height="450px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<section class="py-0 row">
+    <div id="body-nudge" class="w-100">
+        <!-- overlay -*->
+        <div
+            style="position: fixed; display: block; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.8); z-index: 99; cursor: pointer;">
+            <div
+                style="position: absolute; top: 50%; left: 50%; font-size: 50px; color: whitesmoke; transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%);">
+                <p style="text-align: center;">Vos accès à plateforme<br />ont étés suspendus pour<br /><i>défaut de
+                        réglement
+                        de facture</i><br /><br /><small><i>Veuillez prendre contact
+                            avec<br /></small>Graphene-BSM<small><br />afin de régulariser votre situation</i></small>
+                </p>
+            </div>
+        </div>
+        <!-*- end overlay -->
+        {{PAGES|raw}}
+        {{ACTION_MENU|raw}}
+        {{JS_DISABLE_FORM|raw}}
+    </div>
+</section>

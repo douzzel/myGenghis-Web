@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width,initial-scale=1.0" name="viewport" />
+    <meta name="twitter:widgets:theme" content="light" />
+    <meta property="og:title" content="{SITENAME}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/../themes/assets/images/logo.png" />
+    <meta property="og:description" content="{DESCRIPTION}"
+    />
+    <meta description="{DESCRIPTION}"
+    />
+    <title>{SITENAME} | {PAGENAME}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/../themes/assets/images/logo.png" />
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700%7CLato:300,400,700" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="/site/css/core.min.css" />
+    <link rel="stylesheet" href="/site/css/skin-architecture.css" />
+
+    <script type="text/javascript" id="053521b2915d0691712dd68a4353ebec" src="/classes/livezilla/script.php?id=053521b2915d0691712dd68a4353ebec" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDm9D4gBb6eV99I1IkXrXXKohOm6YYc1n8"></script>
+    <script src="/site/js/timber.master.min.js"></script>
+
+    <script type="text/javascript">
+      {ANALYTICS_TRACKER}
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.notif-close').click(function() {
+                $('.notification').remove();
+            });
+            $(".alert.d-flex.align-items-center.justify-content-between").delay(4000).slideUp(200, function() {
+                $('.notification').remove();
+            });
+            $(document).on('submit', '.AddItemsAjax', function(e) {
+                e.preventDefault();
+                $(".addItemsProcess").empty();
+                $.ajax({
+                    url: $(this).attr('data-url'),
+                    type: "POST",
+                    data: new FormData(this),
+                    dataType: "html",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        $(".addItemsProcess").html(JSON.parse(data));
+                        $(".alert.d-flex.align-items-center.justify-content-between").delay(2000).slideUp(200, function() {
+                            $('div.notification').remove();
+                        });
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+
+<body class="shop home-page">
+    <aside class="side-navigation-wrapper enter-right" data-no-scrollbar data-animation="scale-in">
+        <div class="side-navigation-scroll-pane">
+            <div class="side-navigation-inner">
+                <div class="side-navigation-header">
+                    <div class="navigation-hide side-nav-hide">
+                        <a href="#">
+                            <span class="icon-cancel medium"></span>
+                        </a>
+                    </div>
+                </div>
+                <nav class="side-navigation">
+                    <ul>
+                        <li>
+                            <a href="Accueil" class="">Accueil</a>
+                        </li>
+                        <!-- BEGIN IF_IS_MENU -->
+                        <li>
+                            <a href="{IF_IS_MENU.URL}">{IF_IS_MENU.TITLE}</a>
+                        </li>
+                        <!-- END MENU -->
+                        <li>
+                            <a href="Contact">Store</a>
+                        </li>
+                        <li>
+                            <a href="tel:{PHONE}"><b>{PHONE}</b></a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="side-navigation-footer">
+                    <ul class="social-list list-horizontal">
+                        <li>
+                            <a href="{FACEBOOK}" class="nav-icon color-hover-red">
+                                <span class="icon-facebook-with-circle medium"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Contact" rel="noopener" class="nav-icon color-hover-red">
+                                <span class="icon-message medium"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:{EMAIL}" class="nav-icon color-hover-red">
+                                <span class="icon-mail medium"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright no-margin-bottom">&copy; 2020 {SITENAME}.</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="wrapper reveal-side-navigation">
+        <div class="wrapper-inner">
+            <header class="header header-fixed header-fixed-on-mobile header-transparent" data-bkg-threshold="100" style="background-color: #00000077;">
+                <div class="header-inner">
+                    <div class="row nav-bar">
+                        <div class="column width-12 nav-bar-inner">
+                            <div class="logo">
+                              <div class="logo-inner">
+                                <a href="Accueil"><img src="/../themes/assets/images/logo.png" alt="Logo" /></a>
+                                <a href="Accueil"><img src="/../themes/assets/images/logo.png" alt="Logo" /></a>
+                              </div>
+                            </div>
+                            <nav class="navigation nav-block secondary-navigation nav-right">
+                                <ul>
+                                    <li>
+                                        <div class="v-align-middle"></div>
+                                    </li>
+                                    <li class="aux-navigation hide">
+                                        <a href="#" class="navigation-show side-nav-show nav-icon">
+                                            <span class="icon-menu"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <nav class="navigation nav-block primary-navigation nav-right">
+                                <ul>
+                                    <!-- BEGIN IF_IS_MENU -->
+                                    <li>
+                                        <a href="{IF_IS_MENU.URL}">{IF_IS_MENU.TITLE}</a>
+                                    </li>
+                                    <!-- END IF_IS_MENU -->
+                                    <li>
+                                        <!-- <a href="store">Store</a> -->
+                                        <a href="Contact">Store</a>
+                                    </li>
+                                    <li>
+                                        <a href="tel:{PHONE}"><b>{PHONE}</b></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            {NOTIFICATIONS}

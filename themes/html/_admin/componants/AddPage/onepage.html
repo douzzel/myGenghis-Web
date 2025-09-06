@@ -1,0 +1,115 @@
+<div class="actions-buttons pb-5">
+  <div></div>
+  <div>
+    <div class="arrow-left"> </div>
+    <div class="arrow arrow-big"><img class="logo" src="/themes/assets/images/logo_graphene.png">OnePage</div>
+    <div class="arrow-right"> </div>
+  </div>
+  <div></div>
+</div>
+<div class="p-2 d-flex justify-content-end">
+  <a class="btn btn-theme mr-1" href="/site/landingPage" target="_blank"><i class='material-icons'>visibility</i> Voir la page</a>
+  <!-- BEGIN VIEW -->
+  <a class="btn btn-theme"
+    href="/Administration/OnePage/edit"><i class="material-icons">edit</i> Editer</a>
+  <!-- END VIEW -->
+  <!-- BEGIN EDIT -->
+  <a href="/Administration/Site" class="btn btn-outline-danger border-2
+    rounded-0"><i class="ya ya-bold-left"></i> Retour</a>
+  <!-- END EDIT -->
+</div>
+
+<div class="pt-3 container">
+  <!-- BEGIN VIEW -->
+  <iframe src="/site/landingPage/" width="100%" height="800px"></iframe>
+  <!-- END VIEW -->
+  <!-- BEGIN EDIT -->
+  <form method="POST" action="/Administration/OnePage/edit" enctype="multipart/form-data">
+    <div class="card card-default mb-4">
+      <h6 class="card-header bg-dark color-white">Paramètres</h6>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <div class="form-group">
+              <label for="titre">Titre *</label>
+              <input type="text" name="titre" value="{TITRE}" class="form-control"
+                id="titre" required />
+            </div>
+            <div class="form-group">
+              <label for="description">Description *</label>
+              <textarea class="form-control" name="description"
+                rows="2" required>{DESCRIPTION}</textarea>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="logo"> Logo * <img src="{LOGO}" id="logo_prev"> </label>
+              <input type="file" name="logo" id="logo" class="form-control" onchange="previewImage(event, 'logo_prev')" accept="image/*">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-end">
+        <a href="javascript:history.back()" class="btn btn-outline-danger
+          border-2
+          rounded-0 m-1">Annuler</a>
+        <input type="submit" class="btn btn-theme
+          m-1"
+          value="Sauvegarder" />
+      </div>
+    </div>
+  </form>
+    <!-- BEGIN MODULE -->
+  <div class="card card-default">
+    <form method="POST" action="/Administration/OnePage/edit" enctype="multipart/form-data">
+      <h6 class="card-header bg-dark color-white">{EDIT.MODULE.LABEL}</h6>
+      <input type="hidden" name="id" value="{EDIT.MODULE.ID}">
+      <div class="card-body">
+        <div class="row">
+          <div class="flex-auto">
+            <div class="form-group">
+                <label for="title">Titre *</label>
+                <input type="text" id="title" name="title" class="form-control" value="{EDIT.MODULE.TITLE}">
+            </div>
+            <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea class="form-control tinymceSimple" name="description"
+                  rows="8" required >{EDIT.MODULE.DESCRIPTION}</textarea>
+            </div>
+            <div class="form-group  rm-empty" data-src="{EDIT.MODULE.BUTTON}">
+                <label for="button">Bouton *</label>
+                <input type="text" name="button" value="{EDIT.MODULE.BUTTON}" class="form-control" id="button" required/>
+            </div>
+          </div>
+          <div class="form-group rm-empty col-4" data-src="{EDIT.MODULE.IMAGE}">
+            <label for="image"> Image * <img src="{EDIT.MODULE.IMAGE}" id="{EDIT.MODULE.LABEL}image"> </label>
+            <input type="file" id="image" name="image" class="form-control imgInp" accept="image/*" onchange="previewImage(event, '{EDIT.MODULE.LABEL}image')" data-id="{EDIT.MODULE.LABEL}image">
+          </div>
+          <div class="form-group rm-empty col-4" data-src="{EDIT.MODULE.VIDEO}">
+            <label for="video" class="card-group"> Video * <video controls id="vid" src="{EDIT.MODULE.VIDEO}"></video> </label>
+            <input type="file" id="video" name="video" class="form-control" accept="video/*">
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-end">
+        <a href="javascript:history.back()" class="btn btn-outline-danger
+          border-2
+          rounded-0 m-1">Annuler</a>
+        <input type="submit" class="btn btn-theme
+          m-1"
+          value="Sauvegarder" />
+      </div>
+    </form>
+  </div>
+  <!-- END MODULE -->
+  <!-- END EDIT -->
+</div>
+<script>
+    $(document).ready(function() {
+      $('.rm-empty').map((i, e) => {
+        if (!$(e).data().src)
+          e.remove();
+      });
+
+    });
+</script>

@@ -1,0 +1,31 @@
+{% block content %}
+	<title>{{document.getTitle()}}</title>
+	<h2><center>{{document.getTitle()}}</center></h2>
+	<iframe id="doc_frame" height="100%" width="100%" sandbox="allow-scripts allow-same-origin" data-alloy-tabstop="true" tabindex="-1" height="100%" width="100%" srcdoc="<!DOCTYPE html> <html> <head><base href='/Administration/Documents/Edit/'><link type='text/css' rel='stylesheet' href='/themes/assets/js/tinymce/skins/ui/oxide/content.min.css'><link type='text/css' rel='stylesheet' href='/themes/assets/js/tinymce/skins/content/default/content.min.css'></head> <body id='tinymce' class='mce-content-body '>{{ CONTENT }}<script> </script> </body> </html> "></iframe>
+	{% if attachments %}
+	<div>
+		<b>Pièces jointes : </b>
+		{% for key, value in attachments %}
+			<a href="/{{key}}" download="{{key}}" class="text-primary mr-2" > {{value}}</a>
+		{% endfor %}
+	</div>
+	{% endif %}
+	<script>
+		document.getElementById('doc_frame').addEventListener( "load", function(e) {
+		setTimeout(iResize, 50);
+		var iSource = document.getElementById('doc_frame').src;
+		document.getElementById('doc_frame').src = '';
+		document.getElementById('doc_frame').src = iSource;
+		});
+		function iResize() {
+			document.getElementById('doc_frame').style.height =
+			(document.getElementById('doc_frame').contentWindow.document.body.offsetHeight + 100) + 'px';
+		}
+		window.addEventListener("resize", iResize);
+	</script>
+	<style>
+		iframe {
+			border: none;
+		}
+	</style>
+{% endblock %}
